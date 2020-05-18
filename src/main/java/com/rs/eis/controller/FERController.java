@@ -37,7 +37,6 @@ public class FERController {
 	@Autowired
 	ValidationUtil validationUtil;
 
-
 	@PostMapping("/qualification")
 	public QualificationResponse employeeQualification(@Valid @RequestBody QualificationVO qualificationVO) {
 
@@ -48,6 +47,7 @@ public class FERController {
 			return ferService.InsertQualification(qualificationVO);
 		}
 	}
+	
 
 	@GetMapping("/qualification/{id}")
 	public GetQualificationResponse getQualificationById(@PathVariable("id") int id) {
