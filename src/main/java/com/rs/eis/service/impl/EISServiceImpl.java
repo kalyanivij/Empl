@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.rs.eis.model.Employee;
+import com.rs.eis.model.Employer;
 import com.rs.eis.model.Trainings;
+import com.rs.eis.repository.EmployeeRepository;
+import com.rs.eis.repository.EmployerRepository;
 import com.rs.eis.repository.TrainingsRepository;
 import com.rs.eis.response.DeleteTrainingsResponse;
 import com.rs.eis.response.EditTrainingsResponse;
@@ -19,7 +23,15 @@ import com.rs.eis.util.DateUtil;
 
 @Service
 public class EISServiceImpl implements EISService {
-
+	
+	@Autowired
+	EISService eisService;
+	@Autowired
+	EmployeeRepository employeeRepository;
+	
+	@Autowired
+	EmployerRepository employerRepository;
+	
 	@Autowired
 	TrainingsRepository trainingsRepository;
 
@@ -27,7 +39,6 @@ public class EISServiceImpl implements EISService {
 	public TrainingsResponse saveTraining(Trainings trainings) {
 		TrainingsResponse response = new TrainingsResponse();
 		Optional<Employee> emp = employeeRepository.findById(trainings.getEmployee().getId());
-		Optional<Employer> empr =employerRepository.findById(trainings.getEmployer().getId());
 		if (emp.isPresent()) {
 
 			trainings.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
@@ -37,7 +48,19 @@ public class EISServiceImpl implements EISService {
 
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
+		}else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as Id is not present in the table");
 		}
+
+		return response;
+	}
+	
+	@Override
+	public TrainingsResponse saveTrainings(Trainings trainings) {
+		TrainingsResponse response = new TrainingsResponse();
+		Optional<Employer> empr =employerRepository.findById(trainings.getEmployer().getId());
 		if (empr.isPresent()) {
 
 			trainings.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
@@ -47,7 +70,7 @@ public class EISServiceImpl implements EISService {
 
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
-		} else {
+		}else {
 			response.setStatusCode("001");
 			response.setStatus(HttpStatus.PRECONDITION_FAILED);
 			response.setErrorMessage("Invalid Input as Id is not present in the table");
@@ -120,7 +143,7 @@ public class EISServiceImpl implements EISService {
 	@Override
 	public GetTrainingsResponse getTrainings(int employeeid) {
 		GetTrainingsResponse response = new GetTrainingsResponse();
-		List<Trainings> trainings = trainingsRepository.findByemployeeid(employeeid);
+		List<Trainings> trainings = trainingsRepository.findByemployee(employeeid);
 		if (!trainings.isEmpty()) {
 			response.setTrainings(trainings);
 			response.setStatusCode("000");
@@ -136,7 +159,7 @@ public class EISServiceImpl implements EISService {
 	@Override
 	public GetTrainingsResponse getTrainingsByEmployerId(int employerid) {
 		GetTrainingsResponse response = new GetTrainingsResponse();
-		List<Trainings> trainings = trainingsRepository.findByemployerid(employerid);
+		List<Trainings> trainings = trainingsRepository.findByemployer(employerid);
 		if (!trainings.isEmpty()) {
 			response.setTrainings(trainings);
 			response.setStatusCode("000");
@@ -149,6 +172,8 @@ public class EISServiceImpl implements EISService {
 
 		return response;
 	}
+
+	
 
 	
 }

@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rs.eis.model.Trainings;
+import com.rs.eis.repository.EmployeeRepository;
+import com.rs.eis.repository.EmployerRepository;
 import com.rs.eis.repository.TrainingsRepository;
 import com.rs.eis.response.DeleteTrainingsResponse;
 import com.rs.eis.response.EditTrainingsResponse;
 import com.rs.eis.response.GetTrainingResponse;
 import com.rs.eis.response.GetTrainingsResponse;
+import com.rs.eis.response.TrainingsResponse;
 import com.rs.eis.service.EISService;
 import com.rs.eis.validation.ValidationUtil;
 
@@ -34,6 +37,12 @@ public class EISController {
 	EISService eisService;
 	
 	@Autowired
+	EmployeeRepository employeeRepository;
+	
+	@Autowired
+	EmployerRepository employerRepository;
+	
+	@Autowired
 	ValidationUtil validationUtil;
 
 	@Autowired
@@ -43,9 +52,13 @@ public class EISController {
 	
 	private int trainingId;
 	
-	@PostMapping("/trainings")
-	public Trainings saveTrainings(@Valid @RequestBody Trainings trainings) {
+	@PostMapping("/training")
+	public TrainingsResponse saveTraining(@Valid @RequestBody Trainings trainings) {
 		return eisService.saveTraining(trainings);
+	}
+	@PostMapping("/trainings")
+	public TrainingsResponse saveTrainings(@Valid @RequestBody Trainings trainings) {
+		return eisService.saveTrainings(trainings);
 	}
 	
 	@PutMapping("/trainings/{id}")
@@ -70,7 +83,7 @@ public class EISController {
 			return eisService.getTrainingsById(trainingId);
 		}
 	}
-	@GetMapping("/expenses/{employeeId}")
+	@GetMapping("/training/{employeeId}")
 	public GetTrainingsResponse getTrainings(@PathVariable("employeeId") int employeeid) {
 		Set<String> errorMessages = validationUtil.validateGetTrainingsRequest(employeeid);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
@@ -79,7 +92,7 @@ public class EISController {
 			return eisService.getTrainings(employeeid);
 		}
 	}
-	@GetMapping("/expenses/{employerId}")
+	@GetMapping("/trainings/{employerId}")
 	public GetTrainingsResponse getTrainingsByEmployerId(@PathVariable("employerId") int employerid) {
 		Set<String> errorMessages = validationUtil.validateGetTrainingsRequest(employerid);
 		if (!CollectionUtils.isEmpty(errorMessages)) {

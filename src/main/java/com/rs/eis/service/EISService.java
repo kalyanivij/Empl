@@ -11,6 +11,8 @@ public interface EISService {
 	
 	TrainingsResponse saveTraining(Trainings trainings);
 	
+	TrainingsResponse saveTrainings(Trainings trainings);
+	
 	EditTrainingsResponse editTraining(Trainings trainings);
 	
 	DeleteTrainingsResponse deleteTraining(int trainingId);

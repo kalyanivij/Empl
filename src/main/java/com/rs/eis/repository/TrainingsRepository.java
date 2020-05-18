@@ -10,8 +10,8 @@ import com.rs.eis.model.Trainings;
 @Repository
 public interface TrainingsRepository extends JpaRepository<Trainings, Integer> {
 
-	List<Trainings> findByemployeeid(int employeeid);
+	List<Trainings> findByemployee(int employeeid);
 
-	List<Trainings> findByemployerid(int employerid);
+	List<Trainings> findByemployer(int employerid);
 
 }
