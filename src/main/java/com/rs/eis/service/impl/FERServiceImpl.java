@@ -29,7 +29,7 @@ public class FERServiceImpl implements FERService {
 
 		Optional<Qualification> qualificationObj = qualificationRepository.findById(qualificationVO.getId());
 
-		if (!qualificationObj.equals(null)) {
+		if (!qualificationObj.isPresent()) {
 
 			Qualification qualification = FERUtil.loadQualificationVOToQualification(qualificationVO);
 
