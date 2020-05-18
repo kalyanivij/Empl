@@ -174,7 +174,7 @@ public class FERController {
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new GetTransportationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return ferService.getransportationById(id);
+			return ferService.getTransportationById(id);
 		}
 
 	}
@@ -206,11 +206,11 @@ public class FERController {
 
 	}
 
-	@DeleteMapping("/pf/{Id}")
-	public DeleteTransportationResponse deletePfById(@PathVariable(value = "Id") int Id) {
+	@DeleteMapping("/pf/{id}")
+	public DeletePfResponse deletePfById(@PathVariable(value = "Id") int Id) {
 		Set<String> errorMessages = validationUtil.validateDeleteExpenseRequest(Id);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
-			return new DeleteTransportationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+			return new DeletePfResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
 			return ferService.DeletePf(Id);
 		}

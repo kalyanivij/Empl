@@ -23,6 +23,7 @@ import com.rs.fer.request.UserVO;
 import com.rs.fer.response.AddExpenseResponse;
 import com.rs.fer.response.AddPfResponse;
 import com.rs.fer.response.DeleteExpenseResponse;
+import com.rs.fer.response.DeletePfResponse;
 import com.rs.fer.response.DeleteTransportationResponse;
 import com.rs.fer.response.EditExpenseResponse;
 import com.rs.fer.response.ExpenseReportResponse;
@@ -52,6 +53,7 @@ public class FERServiceImpl implements FERService {
 	TransportationRepository transportationRepository;
 	@Autowired
 	PfRepository pfRepository;
+	private Expense transportation;
 
 	public RegistrationResponse registration(RegistrationVO registrationVO) {
 
@@ -307,7 +309,7 @@ public class FERServiceImpl implements FERService {
 
 		if (transportationObj.isPresent()) {
 
-			transportation.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
+			transportation.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
 			transportation = transportationRepository.save(transportation);
 
 			response.setTransportation(transportation);
@@ -324,15 +326,15 @@ public class FERServiceImpl implements FERService {
 	}
 
 	@Override
-	public PfResponse pfResponse(Pf pf) {
+	public AddPfResponse addPfResponse(@Valid Pf pf) {
 
-		PfResponse response = new PfResponse();
+		AddPfResponse response = new AddPfResponse();
 
 		Optional<Pf> pfObj = pfRepository.findById(pf.getId());
 
 		if (pfObj.isPresent()) {
 
-			pf.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
+			pf.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
 			pf = pfRepository.save(pf);
 
 			response.setPf(pf);
@@ -349,40 +351,83 @@ public class FERServiceImpl implements FERService {
 	}
 
 	@Override
+	public DeleteTransportationResponse DeleteTransportation(int Id) {
+
+		DeleteTransportationResponse response = new DeleteTransportationResponse();
+		Optional<Transportation> transportationObj = transportationRepository.findById(Id);
+		if (transportationObj.isPresent()) {
+			Transportation transportation = transportationObj.get();
+			transportationRepository.delete(transportation);
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as suffixId is not present in expense table");
+		}
+
+		return response;
+
+	}
+
+	@Override
+	public DeletePfResponse DeletePf(int id) {
+		DeletePfResponse response = new DeletePfResponse();
+		Optional<Pf> pfObj = pfRepository.findById(id);
+		if (pfObj.isPresent()) {
+			Pf pf = pfObj.get();
+			pfRepository.delete(pf);
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as suffixId is not present in expense table");
+		}
+
+		return response;
+	}
+
+	@Override
 	public GetTransportationResponse getTransportationById(int id) {
 
-		return null;
-	}
+		GetTransportationResponse response = new GetTransportationResponse();
 
-	@Override
-	public GetTransportationResponse getransportationById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		Optional<Transportation> transportationObj = transportationRepository.findById(id);
 
-	@Override
-	public DeleteTransportationResponse DeleteTransportation(int expenseId) {
+		if (transportationObj.isPresent()) {
 
-		;
+			response.setTransportation(transportationObj.get());
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as transportationId is not present in transportation table");
+		}
 
-		return null;
-	}
-
-	@Override
-	public AddPfResponse addPfResponse(@Valid Pf pf) {
-		// TODO Auto-generated method stub
-		return null;
+		return response;
 	}
 
 	@Override
 	public GetPfResponse getpfById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public DeleteTransportationResponse DeletePf(int id) {
-		return null;
-	}
+		GetPfResponse response = new GetPfResponse();
 
+		Optional<Pf> pfObj = pfRepository.findById(id);
+
+		if (pfObj.isPresent()) {
+
+			response.setPf(pfObj.get());
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as transportationId is not present in transportation table");
+		}
+
+		return response;
+
+	}
 }

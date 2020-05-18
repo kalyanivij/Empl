@@ -10,6 +10,7 @@ import com.rs.fer.request.UserVO;
 import com.rs.fer.response.AddExpenseResponse;
 import com.rs.fer.response.AddPfResponse;
 import com.rs.fer.response.DeleteExpenseResponse;
+import com.rs.fer.response.DeletePfResponse;
 import com.rs.fer.response.DeleteTransportationResponse;
 import com.rs.fer.response.EditExpenseResponse;
 import com.rs.fer.response.ExpenseReportResponse;
@@ -48,20 +49,16 @@ public interface FERService {
 
 	UpdateUserResponse updateUser(UserVO userVO);
 
-	PfResponse pfResponse(Pf pf);
-
 	AddTransportationResponse addTransportationResponse(@Valid Transportation transportation);
-
-	GetTransportationResponse getTransportationById(int id);
-
-	GetTransportationResponse getransportationById(int id);
-
-	DeleteTransportationResponse DeleteTransportation(int expenseId);
 
 	AddPfResponse addPfResponse(@Valid Pf pf);
 
+	GetTransportationResponse getTransportationById(int id);
+
 	GetPfResponse getpfById(int id);
 
-	DeleteTransportationResponse DeletePf(int id);
+	DeletePfResponse DeletePf(int id);
+
+	DeleteTransportationResponse DeleteTransportation(int expenseId);
 
 }

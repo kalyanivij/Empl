@@ -1,15 +1,13 @@
 package com.rs.fer.response;
 
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.http.HttpStatus;
 
-import com.rs.fer.model.Expense;
+import com.rs.fer.model.Transportation;
 
-public class GetTransportationResponse extends AbstractResponse{
-	
-	
+public class GetTransportationResponse extends AbstractResponse {
+
 	public GetTransportationResponse() {
 
 	}
@@ -19,10 +17,15 @@ public class GetTransportationResponse extends AbstractResponse{
 		super.setStatusCode(statusCode);
 		super.setErrorMessages(errorMessages);
 	}
-	
-	
-	
 
-	
+	private Transportation transportation;
+
+	public Transportation getTransportation() {
+		return transportation;
+	}
+
+	public void setTransportation(Transportation transportation) {
+		this.transportation = transportation;
+	}
 
 }

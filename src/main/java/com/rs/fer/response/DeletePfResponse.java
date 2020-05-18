@@ -23,4 +23,7 @@ public class DeletePfResponse extends AbstractResponse {
 		super.setStatusCode(statusCode);
 		super.setErrorMessages(errorMessages);
 	}
+
+	public DeletePfResponse() {
+	}
 }

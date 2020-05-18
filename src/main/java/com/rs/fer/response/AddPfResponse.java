@@ -13,6 +13,6 @@ public class AddPfResponse extends AbstractResponse {
 	public void setPf(Pf pf) {
 		this.pf = pf;
 	}
-	
+
 	
 }
