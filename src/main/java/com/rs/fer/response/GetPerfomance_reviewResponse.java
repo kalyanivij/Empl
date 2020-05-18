@@ -18,6 +18,8 @@ public class GetPerfomance_reviewResponse extends AbstractResponse {
 		super.setErrorMessages(errorMessages);
 	}
 	
+	//perfomance_review
+	
 	private Perfomance_Review perfomance_review;
 
 	public Perfomance_Review getPerfomance_review() {

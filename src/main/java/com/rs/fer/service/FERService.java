@@ -45,8 +45,6 @@ public interface FERService {
 
 	GetPerfomance_reviewResponse perfomance_reviewReport(int employeeid);
 
-	//DeleteEmp_awardsResponse deletePerfomance_review(int employeeid);
-
 	AddPerfomance_reviewResponse addPerfomance_review(Perfomance_Review perfomance_review);
 
 	

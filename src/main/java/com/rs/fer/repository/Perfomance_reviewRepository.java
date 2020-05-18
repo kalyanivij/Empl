@@ -11,10 +11,6 @@ import com.rs.fer.model.User;
 @Repository
 public interface Perfomance_reviewRepository extends JpaRepository<Perfomance_Review, Integer>{
 	
-	// Find employee by (int employeeid)
-	
-	
 	List<Perfomance_Review> findByemployeeid(int employeeid);
 	
-
 }

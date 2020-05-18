@@ -1,7 +1,6 @@
 package com.rs.fer.response;
 
 import com.rs.fer.model.Perfomance_Review;
-import com.rs.fer.model.Expense;
 
 public class AddPerfomance_reviewResponse extends AbstractResponse {
 

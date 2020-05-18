@@ -22,7 +22,6 @@ public class Perfomance_Review {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 	private int id;
-	//private String name;
 	private String date;
 	private int employeeid;
 	private int reviewid;
@@ -33,10 +32,9 @@ public class Perfomance_Review {
 
 	}
 
-	public Perfomance_Review(int id, String date, String name, int employeeid, int awardsid) {
+	public Perfomance_Review(int id, String date, int employeeid, int reviewid) {
 
 		this.id = id;
-		 //this.name = name;
 		this.date = date;
 		this.employeeid = employeeid;
 		this.reviewid = reviewid;
