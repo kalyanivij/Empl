@@ -53,6 +53,8 @@ public class EISController {
 
 	@Autowired
 	RelationRepository relationRepository;
+	
+	
 
 	private int expenseId;
 
@@ -159,4 +161,37 @@ public class EISController {
 
 		return ferService.addrelationresponse(relation);
 	}
+	
+@GetMapping("/relation/{relationid}")
+public GetRelationResponse getRelationById(@PathVariable("relationid") int relationid) {
+	Set<String> errorMessages = validationUtil.validateRelationRequest(relationid);
+	if (!CollectionUtils.isEmpty(errorMessages)) {
+		return new GetRelationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+	} else {
+		return ferService.getrelationById(relationid);
+	}
 }
+
+@DeleteMapping("/relation/{relationId}")
+public DeleteRelationResponse deleteRelation(@PathVariable(value = "relationId") int relationId) {
+	Set<String> errorMessages = validationUtil.validateDeleteRelationRequest(expenseId);
+	if (!CollectionUtils.isEmpty(errorMessages)) {
+		return new DeleteRelationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+	} else {
+	return ferService.deleteRelation(relationId);
+	}
+}
+}
+
+
+
+
+	
+	
+	
+	
+	
+	
+
+
+

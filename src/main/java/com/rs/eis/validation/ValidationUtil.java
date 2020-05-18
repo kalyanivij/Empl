@@ -27,4 +27,6 @@ public interface ValidationUtil {
 	
 	Set<String> validateRelationRequest(int relationid);
 
+	Set<String> validateDeleteRelationRequest(int expenseId);
+
 }

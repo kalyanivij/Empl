@@ -29,6 +29,8 @@ import com.rs.eis.response.UpdateUserResponse;
 import com.rs.eis.service.FERService;
 import com.rs.eis.util.DateUtil;
 import com.rs.eis.util.FERUtil;
+import com.rs.eis.controller.DeleteRelationResponse;
+import com.rs.eis.controller.GetRelationResponse;
 import com.rs.eis.model.Expense;
 import com.rs.eis.model.Relation;
 import com.rs.eis.model.User;
@@ -312,10 +314,56 @@ public class FERServiceImpl implements FERService {
 		return response;
 	}
 
+	
+	@Override
+	public GetRelationResponse getrelationById(int relationid) {
+		GetRelationResponse response = new GetRelationResponse();
+		Optional<Relation> relationObj = relationRepository.findById(relationid);
+		if (relationObj.isPresent()) {
+			response.setRelation(relationObj.get());
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("No User Found for the given userid");
+		}
+		return response;
+	}
+
 	@Override
 	public GetUserResponse getrelation(int relationid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public GetRelationResponse getrelationresponse(int relationid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DeleteRelationResponse deleteRelation(int relationId) {
+		DeleteRelationResponse response = new DeleteRelationResponse();
+
+		Optional<Relation> expenseObj = relationRepository.findById(relationId);
+
+		if (relationObj.isPresent()) {
+			Relation relation = relationObj.get();
+			relationRepository.delete(relation);
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as expenseId is not present in expense table");
+		}
+
+		return response;
+
+	}
 }
+	
+	
+	

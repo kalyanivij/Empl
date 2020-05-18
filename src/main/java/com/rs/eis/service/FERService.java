@@ -17,6 +17,8 @@ import com.rs.eis.response.LoginResponse;
 import com.rs.eis.response.RegistrationResponse;
 import com.rs.eis.response.ResetPasswordResponse;
 import com.rs.eis.response.UpdateUserResponse;
+import com.rs.eis.controller.DeleteRelationResponse;
+import com.rs.eis.controller.GetRelationResponse;
 import com.rs.eis.model.Expense;
 import com.rs.eis.model.Relation;
 
@@ -45,7 +47,13 @@ public interface FERService {
 	
 	GetUserResponse getrelation(int relationid);
 
-	AddRelationResponse addrelationresponse(@Valid Relation relation);
+	AddRelationResponse addrelationresponse(Relation relation);
+	
+	GetRelationResponse getrelationresponse(int relationid);
+
+	GetRelationResponse getrelationById(int relationid);
+
+	DeleteRelationResponse deleteRelation(int relationId);
 
 	
 }
