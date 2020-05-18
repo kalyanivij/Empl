@@ -1,4 +1,4 @@
-package com.rs.eis;
+package com.rs.eis.fer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

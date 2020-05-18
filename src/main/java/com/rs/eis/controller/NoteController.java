@@ -1,12 +1,13 @@
 package com.rs.eis.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.rs.eis.exception.ResourceNotFoundException;
-import com.rs.eis.model.Note;
 import com.rs.eis.repository.NoteRepository;
+import com.rs.eis.model.Note;
 
 import javax.validation.Valid;
 import java.util.List;

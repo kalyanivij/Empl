@@ -1,6 +1,7 @@
 package com.rs.eis.service.impl;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import com.rs.eis.model.Expense;
-import com.rs.eis.model.Relation;
-import com.rs.eis.model.User;
 import com.rs.eis.repository.ExpenseRepository;
 import com.rs.eis.repository.RelationRepository;
 import com.rs.eis.repository.UserRepository;
@@ -31,6 +29,9 @@ import com.rs.eis.response.UpdateUserResponse;
 import com.rs.eis.service.FERService;
 import com.rs.eis.util.DateUtil;
 import com.rs.eis.util.FERUtil;
+import com.rs.eis.model.Expense;
+import com.rs.eis.model.Relation;
+import com.rs.eis.model.User;
 
 @Service
 public class FERServiceImpl implements FERService {

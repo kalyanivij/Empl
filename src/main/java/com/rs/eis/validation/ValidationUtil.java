@@ -2,10 +2,11 @@ package com.rs.eis.validation;
 
 import java.util.Set;
 
-import com.rs.eis.model.Relation;
+
 import com.rs.eis.request.RegistrationVO;
 import com.rs.eis.request.UserVO;
 import com.rs.eis.response.AddRelationResponse;
+import com.rs.eis.model.Relation;
 
 public interface ValidationUtil {
 	Set<String> validateRegistrationRequest(RegistrationVO registrationVO);

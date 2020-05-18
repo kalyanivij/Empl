@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rs.eis.model.Expense;
-import com.rs.eis.model.Relation;
 import com.rs.eis.repository.ExpenseRepository;
 import com.rs.eis.repository.RelationRepository;
 import com.rs.eis.request.RegistrationVO;
@@ -38,10 +36,12 @@ import com.rs.eis.response.ResetPasswordResponse;
 import com.rs.eis.response.UpdateUserResponse;
 import com.rs.eis.service.FERService;
 import com.rs.eis.validation.ValidationUtil;
+import com.rs.eis.model.Expense;
+import com.rs.eis.model.Relation;
 
 @RestController
 @RequestMapping("/api")
-public class FERController {
+public class EISController {
 	@Autowired
 	FERService ferService;
 

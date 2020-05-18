@@ -2,8 +2,7 @@ package com.rs.eis.service;
 
 import javax.validation.Valid;
 
-import com.rs.eis.model.Expense;
-import com.rs.eis.model.Relation;
+
 import com.rs.eis.request.RegistrationVO;
 import com.rs.eis.request.UserVO;
 import com.rs.eis.response.AddExpenseResponse;
@@ -18,15 +17,17 @@ import com.rs.eis.response.LoginResponse;
 import com.rs.eis.response.RegistrationResponse;
 import com.rs.eis.response.ResetPasswordResponse;
 import com.rs.eis.response.UpdateUserResponse;
+import com.rs.eis.model.Expense;
+import com.rs.eis.model.Relation;
 
 public interface FERService {
 	RegistrationResponse registration(RegistrationVO registrationVO);
 
 	LoginResponse login(String userName, String password);
 
-	AddExpenseResponse addExpense(Expense expense);
+	AddExpenseResponse addExpense(com.rs.eis.model.Expense expense);
 
-	EditExpenseResponse editExpense(Expense expense);
+	EditExpenseResponse editExpense(com.rs.eis.model.Expense expense);
 
 	GetExpenseResponse getExpenseById(int id);
 

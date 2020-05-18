@@ -1,14 +1,15 @@
 package com.rs.eis.validation.impl;
 
 import java.util.HashSet;
+
 import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import com.rs.eis.model.Relation;
 import com.rs.eis.request.RegistrationVO;
 import com.rs.eis.request.UserVO;
 import com.rs.eis.validation.ValidationUtil;
+import com.rs.eis.model.Relation;
 
 @Component
 public class ValidationUtilImpl implements ValidationUtil {

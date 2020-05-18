@@ -1,8 +1,9 @@
 package com.rs.eis.util;
 
-import com.rs.eis.model.User;
 import com.rs.eis.request.RegistrationVO;
+
 import com.rs.eis.request.UserVO;
+import com.rs.eis.model.User;
 
 public class FERUtil {
 
