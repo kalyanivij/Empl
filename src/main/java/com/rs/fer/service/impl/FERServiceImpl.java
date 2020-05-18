@@ -324,19 +324,20 @@ public class FERServiceImpl implements FERService {
 
 	}
 
-	// @Override
 	/*
+	 * @Override
+	 * 
 	 * public TechnologyResponse addtechnology(Technology technology) {
 	 * TechnologyResponse response = new TechnologyResponse();
 	 * 
-	 * Optional<Technology> techObj = userRepository.findById(techObj.get());
+	 * Optional<Technology> techObj = TechnologyRepository.findById(techObj.get());
 	 * 
 	 * if (techObj.isPresent()) {
 	 * 
-	 * //techObj.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss")); techObj
-	 * = expenseRepository.save(techObj);
+	 * techObj.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss")); techObj =
+	 * TechnologyRepository.save(techObj);
 	 * 
-	 * //response.setTechnology(techObj);
+	 * response.setTechnology(techObj);
 	 * 
 	 * response.setStatusCode("000"); response.setStatus(HttpStatus.OK); } else {
 	 * response.setStatusCode("001");
@@ -345,7 +346,6 @@ public class FERServiceImpl implements FERService {
 	 * 
 	 * return response; }
 	 */
-
 	/*
 	 * @Override public TechnologyResponse deletetechnology(Technology technology) {
 	 * // TODO Auto-generated method stub return null; }
