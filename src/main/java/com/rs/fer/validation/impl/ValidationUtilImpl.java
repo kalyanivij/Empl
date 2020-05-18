@@ -121,5 +121,29 @@ public class ValidationUtilImpl implements ValidationUtil {
 		return errorMessages;
 
 	}
+	
+	@Override
+	public Set<String> validatePerfomance_reviewReportRequest(int employeeid) {
+		Set<String> errorMessages = new HashSet<String>();
+
+		addError(errorMessages, employeeid, "Please enter employeeid");
+		
+		return errorMessages;
+	}
+
+	@Override
+	public Set<String> validateDeletePerfomance_reviewRequest(int employeeid) {
+		return validateDeletePerfomance_reviewRequest(employeeid);
+	}
+
+	@Override
+	public Set<String> validateGetPerfomance_reviewRequest(int emp_awards) {
+		Set<String> errorMessages = new HashSet<String>();
+
+		addError(errorMessages, emp_awards, "Please enter valid emp_id");
+
+		return errorMessages;
+
+	}
 
 }
