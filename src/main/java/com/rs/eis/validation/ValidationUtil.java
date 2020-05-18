@@ -1,9 +1,9 @@
-package com.rs.fer.validation;
+package com.rs.eis.validation;
 
 import java.util.Set;
 
-import com.rs.fer.request.RegistrationVO;
-import com.rs.fer.request.UserVO;
+import com.rs.eis.request.RegistrationVO;
+import com.rs.eis.request.UserVO;
 
 public interface ValidationUtil {
 	Set<String> validateRegistrationRequest(RegistrationVO registrationVO);
@@ -21,4 +21,18 @@ public interface ValidationUtil {
 	Set<String> validateGetUserRequest(int userId);
 	
 	Set<String> validateUpdateUserRequest(UserVO userVO);
+	
+	Set<String> validateInsuranceReportRequest(int employeeid);
+	
+	Set<String> validateDeleteInsuranceRequest(int employeeid);
+	
+	Set<String> validateGetInsuranceRequest(int employeeid);
+
+	Set<String> validateGetFamilyRequest(int employeeid);
+
+	Set<String> validateFamilyReportRequest(int employeeid);
+
+	Set<String> validateDeleteFamilyRequest(int employeeid);
+
+
 }

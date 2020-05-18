@@ -1,13 +1,13 @@
-package com.rs.fer.validation.impl;
+package com.rs.eis.validation.impl;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import com.rs.fer.request.RegistrationVO;
-import com.rs.fer.request.UserVO;
-import com.rs.fer.validation.ValidationUtil;
+import com.rs.eis.request.RegistrationVO;
+import com.rs.eis.request.UserVO;
+import com.rs.eis.validation.ValidationUtil;
 
 @Component
 public class ValidationUtilImpl implements ValidationUtil {
@@ -120,6 +120,47 @@ public class ValidationUtilImpl implements ValidationUtil {
 
 		return errorMessages;
 
+	}
+
+	@Override
+	public Set<String> validateGetInsuranceRequest(int employeeid) {
+		Set<String> errorMessages = new HashSet<String>();
+		addError(errorMessages, employeeid, "Please enter employeeid");
+		return errorMessages;
+	}
+
+	@Override
+	public Set<String> validateDeleteInsuranceRequest(int employeeid) {
+		
+		return validateDeleteInsuranceRequest(employeeid);
+	}
+
+
+	@Override
+	public Set<String> validateInsuranceReportRequest(int employeeid) {
+		Set<String> errorMessages = new HashSet<String>();
+		addError(errorMessages, employeeid, "Please enter employeeid");
+		return errorMessages;
+	}
+
+	@Override
+	public Set<String> validateGetFamilyRequest(int employeeid) {
+		Set<String> errorMessages = new HashSet<String>();
+		addError(errorMessages, employeeid, "Please enter employeeid");
+		return errorMessages;
+	}
+
+	@Override
+	public Set<String> validateFamilyReportRequest(int employeeid) {
+		Set<String> errorMessages = new HashSet<String>();
+		addError(errorMessages, employeeid, "Please enter employeeid");
+		return errorMessages;
+	}
+
+	@Override
+	public Set<String> validateDeleteFamilyRequest(int employeeid) {
+
+		return validateDeleteInsuranceRequest(employeeid);
 	}
 
 }
