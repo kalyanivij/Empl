@@ -9,8 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.rs.fer.model.Expense;
+import com.rs.fer.model.Experience;
+import com.rs.fer.model.Technology;
 import com.rs.fer.model.User;
 import com.rs.fer.repository.ExpenseRepository;
+import com.rs.fer.repository.ExperienceRepository;
+import com.rs.fer.repository.TechnologyRepository;
 import com.rs.fer.repository.UserRepository;
 import com.rs.fer.request.RegistrationVO;
 import com.rs.fer.request.UserVO;
@@ -18,12 +22,14 @@ import com.rs.fer.response.AddExpenseResponse;
 import com.rs.fer.response.DeleteExpenseResponse;
 import com.rs.fer.response.EditExpenseResponse;
 import com.rs.fer.response.ExpenseReportResponse;
+import com.rs.fer.response.ExperienceResponse;
 import com.rs.fer.response.GetExpenseResponse;
 import com.rs.fer.response.GetExpensesResponse;
 import com.rs.fer.response.GetUserResponse;
 import com.rs.fer.response.LoginResponse;
 import com.rs.fer.response.RegistrationResponse;
 import com.rs.fer.response.ResetPasswordResponse;
+import com.rs.fer.response.TechnologyResponse;
 import com.rs.fer.response.UpdateUserResponse;
 import com.rs.fer.service.FERService;
 import com.rs.fer.util.DateUtil;
@@ -179,7 +185,7 @@ public class FERServiceImpl implements FERService {
 	@Override
 	public ExpenseReportResponse expenseReport(int userid, String type, String fromDate, String toDate) {
 		ExpenseReportResponse response = new ExpenseReportResponse();
-		//Expense exp = new Expense();
+		// Expense exp = new Expense();
 		List<Expense> expenses = expenseRepository.findByUserIdAndTypeAndDateBetween(userid, type, fromDate, toDate);
 		if (!expenses.isEmpty()) {
 
@@ -281,5 +287,68 @@ public class FERServiceImpl implements FERService {
 
 		return response;
 	}
+
+	@Override
+	public ExperienceResponse getexperience(int employeeid) {
+		ExperienceResponse response = new ExperienceResponse();
+		Optional<Experience> expObj = ExperienceRepository.findById(employeeid);
+		if (expObj.isPresent()) {
+			response.setExperience(expObj.get());
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Not valid...");
+		}
+
+		return response;
+
+	}
+
+	@Override
+	public TechnologyResponse gettechnology(int id) {
+		TechnologyResponse response = new TechnologyResponse();
+		Optional<Technology> techObj = TechnologyRepository.findById(id);
+		if (techObj.isPresent()) {
+			response.setTechnology(techObj.get());
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("No technology available on that id...");
+		}
+
+		return response;
+
+	}
+
+	// @Override
+	/*
+	 * public TechnologyResponse addtechnology(Technology technology) {
+	 * TechnologyResponse response = new TechnologyResponse();
+	 * 
+	 * Optional<Technology> techObj = userRepository.findById(techObj.get());
+	 * 
+	 * if (techObj.isPresent()) {
+	 * 
+	 * //techObj.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss")); techObj
+	 * = expenseRepository.save(techObj);
+	 * 
+	 * //response.setTechnology(techObj);
+	 * 
+	 * response.setStatusCode("000"); response.setStatus(HttpStatus.OK); } else {
+	 * response.setStatusCode("001");
+	 * response.setStatus(HttpStatus.PRECONDITION_FAILED); response.
+	 * setErrorMessage("Invalid Input as userId is not present in user table"); }
+	 * 
+	 * return response; }
+	 */
+
+	/*
+	 * @Override public TechnologyResponse deletetechnology(Technology technology) {
+	 * // TODO Auto-generated method stub return null; }
+	 */
 
 }

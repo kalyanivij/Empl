@@ -25,12 +25,14 @@ import com.rs.fer.response.AddExpenseResponse;
 import com.rs.fer.response.DeleteExpenseResponse;
 import com.rs.fer.response.EditExpenseResponse;
 import com.rs.fer.response.ExpenseReportResponse;
+import com.rs.fer.response.ExperienceResponse;
 import com.rs.fer.response.GetExpenseResponse;
 import com.rs.fer.response.GetExpensesResponse;
 import com.rs.fer.response.GetUserResponse;
 import com.rs.fer.response.LoginResponse;
 import com.rs.fer.response.RegistrationResponse;
 import com.rs.fer.response.ResetPasswordResponse;
+import com.rs.fer.response.TechnologyResponse;
 import com.rs.fer.response.UpdateUserResponse;
 import com.rs.fer.service.FERService;
 import com.rs.fer.validation.ValidationUtil;
@@ -147,6 +149,22 @@ public class FERController {
 			return ferService.updateUser(userVO);
 		}
 	}
-
-	
+	@GetMapping("/{employeeid}/experience")
+	public ExperienceResponse getexperience(@PathVariable("employeeid") int employeeid){
+		Set<String> errorMessages = validationUtil.validateExperienceRequest(employeeid);
+		if (!CollectionUtils.isEmpty(errorMessages)) {
+			return new ExperienceResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+		} else {
+			return ferService.getexperience(employeeid);
+		}
+	}
+	@GetMapping("/{id}/technology")
+	public TechnologyResponse gettechnology(@PathVariable("id") int id){
+		Set<String> errorMessages = validationUtil.validateTechnologyRequest(id);
+		if (!CollectionUtils.isEmpty(errorMessages)) {
+			return new TechnologyResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+		} else {
+			return ferService.gettechnology(id);
+		}
+	}
 }

@@ -21,4 +21,10 @@ public interface ValidationUtil {
 	Set<String> validateGetUserRequest(int userId);
 	
 	Set<String> validateUpdateUserRequest(UserVO userVO);
+
+
+
+	Set<String> validateExperienceRequest(int employeeid);
+
+	Set<String> validateTechnologyRequest(int id);
 }
