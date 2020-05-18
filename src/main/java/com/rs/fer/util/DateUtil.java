@@ -1,4 +1,4 @@
-package com.rs.eis.util;
+package com.rs.fer.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
