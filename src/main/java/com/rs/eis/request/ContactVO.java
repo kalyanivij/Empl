@@ -1,26 +1,33 @@
 package com.rs.eis.request;
 
 public class ContactVO {
-	private String email;
 
-	private String mobile;
+	private String countryCode;
+	private String value;
+	private String type;
 
-	public String getEmail() {
-		return email;
+	public String getCountryCode() {
+		return countryCode;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
 	}
 
-	public String getMobile() {
-		return mobile;
+	public String getValue() {
+		return value;
 	}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
+	public void setValue(String value) {
+		this.value = value;
 	}
 
+	public String getType() {
+		return type;
+	}
 
-	
+	public void setType(String type) {
+		this.type = type;
+	}
+
 }

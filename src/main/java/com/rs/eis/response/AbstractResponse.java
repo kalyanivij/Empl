@@ -5,37 +5,29 @@ import java.util.Set;
 import org.springframework.http.HttpStatus;
 
 public class AbstractResponse {
-
-	private HttpStatus Status;
-
-	private String StatusCode;
-
+	
+	private HttpStatus status;
+	
+	private String statusCode;
+	
 	private String errorMessage;
-
-	Set<String> errorMassages;
-
-	public Set<String> getErrorMassages() {
-		return errorMassages;
-	}
-
-	public void setErrorMassages(Set<String> errorMassages) {
-		this.errorMassages = errorMassages;
-	}
+	
+	private Set<String> errorMessages;
 
 	public HttpStatus getStatus() {
-		return Status;
+		return status;
 	}
 
 	public void setStatus(HttpStatus status) {
-		Status = status;
+		this.status = status;
 	}
 
 	public String getStatusCode() {
-		return StatusCode;
+		return statusCode;
 	}
 
 	public void setStatusCode(String statusCode) {
-		StatusCode = statusCode;
+		this.statusCode = statusCode;
 	}
 
 	public String getErrorMessage() {
@@ -46,4 +38,12 @@ public class AbstractResponse {
 		this.errorMessage = errorMessage;
 	}
 
+	public Set<String> getErrorMessages() {
+		return errorMessages;
+	}
+
+	public void setErrorMessages(Set<String> errorMessages) {
+		this.errorMessages = errorMessages;
+	}
+	
 }
