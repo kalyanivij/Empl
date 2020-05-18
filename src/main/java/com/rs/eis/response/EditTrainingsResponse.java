@@ -1,0 +1,19 @@
+package com.rs.eis.response;
+
+import com.rs.eis.model.Trainings;
+import com.rs.fer.response.AbstractResponse;
+
+public class EditTrainingsResponse extends AbstractResponse {
+	private Trainings trainings;
+
+	public Trainings getTrainings() {
+		return trainings;
+	}
+
+	public void setTrainings(Trainings trainings) {
+		this.trainings = trainings;
+	}
+	
+	
+
+}
