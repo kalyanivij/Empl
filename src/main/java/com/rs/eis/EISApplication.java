@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing
-public class FERApplication {
+public class EISApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FERApplication.class, args);
+		SpringApplication.run(EISApplication.class, args);
 	}
 	
 }
