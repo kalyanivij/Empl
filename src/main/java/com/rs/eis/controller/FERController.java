@@ -48,7 +48,6 @@ public class FERController {
 		}
 	}
 	
-
 	@GetMapping("/qualification/{id}")
 	public GetQualificationResponse getQualificationById(@PathVariable("id") int id) {
 		Set<String> errorMessages = validationUtil.validateGetQualificatuonRequest(id);
