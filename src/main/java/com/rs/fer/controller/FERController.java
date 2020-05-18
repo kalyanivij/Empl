@@ -18,15 +18,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rs.fer.model.Expense;
+import com.rs.fer.model.Pf;
+import com.rs.fer.model.Transportation;
 import com.rs.fer.repository.ExpenseRepository;
+import com.rs.fer.repository.PfRepository;
+import com.rs.fer.repository.TransportationRepository;
 import com.rs.fer.request.RegistrationVO;
 import com.rs.fer.request.UserVO;
 import com.rs.fer.response.AddExpenseResponse;
+import com.rs.fer.response.AddPfResponse;
+import com.rs.fer.response.AddTransportationResponse;
 import com.rs.fer.response.DeleteExpenseResponse;
+import com.rs.fer.response.DeletePfResponse;
+import com.rs.fer.response.DeleteTransportationResponse;
 import com.rs.fer.response.EditExpenseResponse;
 import com.rs.fer.response.ExpenseReportResponse;
 import com.rs.fer.response.GetExpenseResponse;
 import com.rs.fer.response.GetExpensesResponse;
+import com.rs.fer.response.GetPfResponse;
+import com.rs.fer.response.GetTransportationResponse;
 import com.rs.fer.response.GetUserResponse;
 import com.rs.fer.response.LoginResponse;
 import com.rs.fer.response.RegistrationResponse;
@@ -34,7 +44,6 @@ import com.rs.fer.response.ResetPasswordResponse;
 import com.rs.fer.response.UpdateUserResponse;
 import com.rs.fer.service.FERService;
 import com.rs.fer.validation.ValidationUtil;
-
 
 @RestController
 @RequestMapping("/api")
@@ -47,6 +56,12 @@ public class FERController {
 
 	@Autowired
 	ExpenseRepository expenseRepository;
+
+	@Autowired
+	TransportationRepository transportationRepository;
+
+	@Autowired
+	PfRepository pfRepository;
 
 	private int expenseId;
 
@@ -137,7 +152,7 @@ public class FERController {
 			return ferService.getUser(id);
 		}
 	}
-	
+
 	@PutMapping("/user")
 	public UpdateUserResponse update(@RequestBody UserVO userVO) {
 		Set<String> errorMessages = validationUtil.validateUpdateUserRequest(userVO);
@@ -148,5 +163,57 @@ public class FERController {
 		}
 	}
 
-	
+	@PostMapping("/transportation")
+	public AddTransportationResponse addtransportation(@Valid @RequestBody Transportation transportation) {
+		return ferService.addTransportationResponse(transportation);
+	}
+
+	@GetMapping("/transportation/{id}")
+	public GetTransportationResponse getTransportationById(@PathVariable("id") int id) {
+		Set<String> errorMessages = validationUtil.validateGetTransportationRequest(id);
+		if (!CollectionUtils.isEmpty(errorMessages)) {
+			return new GetTransportationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+		} else {
+			return ferService.getransportationById(id);
+		}
+
+	}
+
+	@DeleteMapping("/transportation/{Id}")
+	public DeleteTransportationResponse deleteTransportationById(@PathVariable(value = "Id") int Id) {
+		Set<String> errorMessages = validationUtil.validateDeleteExpenseRequest(expenseId);
+		if (!CollectionUtils.isEmpty(errorMessages)) {
+			return new DeleteTransportationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+		} else {
+			return ferService.DeleteTransportation(Id);
+		}
+	}
+
+	@PostMapping("/pf")
+	public AddPfResponse addPf(@Valid @RequestBody Pf pf) {
+		return ferService.addPfResponse(pf);
+	}
+
+	@GetMapping("/pf/{id}")
+	public GetPfResponse getPfById(@PathVariable("id") int id) {
+		Set<String> errorMessages = validationUtil.validateGetPfRequest(id);
+
+		if (!CollectionUtils.isEmpty(errorMessages)) {
+			return new GetPfResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+		} else {
+			return ferService.getpfById(id);
+		}
+
+	}
+
+	@DeleteMapping("/pf/{Id}")
+	public DeleteTransportationResponse deletePfById(@PathVariable(value = "Id") int Id) {
+		Set<String> errorMessages = validationUtil.validateDeleteExpenseRequest(Id);
+		if (!CollectionUtils.isEmpty(errorMessages)) {
+			return new DeleteTransportationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+		} else {
+			return ferService.DeletePf(Id);
+		}
+	}
+
 }

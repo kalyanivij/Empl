@@ -122,4 +122,22 @@ public class ValidationUtilImpl implements ValidationUtil {
 
 	}
 
+	@Override
+	public Set<String> validateGetTransportationRequest(int Id) {
+		Set<String> errorMessages = new HashSet<String>();
+
+		addError(errorMessages, Id, "Please enter valid Id");
+
+		return errorMessages;
+	}
+
+	@Override
+	public Set<String> validateGetPfRequest(int Id) {
+		Set<String> errorMessages = new HashSet<String>();
+
+		addError(errorMessages, Id, "Please enter valid Id");
+
+		return errorMessages;
+	}
+
 }

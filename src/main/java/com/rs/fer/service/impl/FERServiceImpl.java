@@ -3,27 +3,39 @@ package com.rs.fer.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.rs.fer.model.Expense;
+import com.rs.fer.model.Pf;
+import com.rs.fer.model.Transportation;
 import com.rs.fer.model.User;
 import com.rs.fer.repository.ExpenseRepository;
+import com.rs.fer.repository.PfRepository;
+import com.rs.fer.repository.TransportationRepository;
 import com.rs.fer.repository.UserRepository;
 import com.rs.fer.request.RegistrationVO;
 import com.rs.fer.request.UserVO;
 import com.rs.fer.response.AddExpenseResponse;
+import com.rs.fer.response.AddPfResponse;
 import com.rs.fer.response.DeleteExpenseResponse;
+import com.rs.fer.response.DeleteTransportationResponse;
 import com.rs.fer.response.EditExpenseResponse;
 import com.rs.fer.response.ExpenseReportResponse;
 import com.rs.fer.response.GetExpenseResponse;
 import com.rs.fer.response.GetExpensesResponse;
+import com.rs.fer.response.GetPfResponse;
+import com.rs.fer.response.GetTransportationResponse;
 import com.rs.fer.response.GetUserResponse;
 import com.rs.fer.response.LoginResponse;
+import com.rs.fer.response.PfResponse;
 import com.rs.fer.response.RegistrationResponse;
 import com.rs.fer.response.ResetPasswordResponse;
+import com.rs.fer.response.AddTransportationResponse;
 import com.rs.fer.response.UpdateUserResponse;
 import com.rs.fer.service.FERService;
 import com.rs.fer.util.DateUtil;
@@ -36,6 +48,10 @@ public class FERServiceImpl implements FERService {
 	UserRepository userRepository;
 	@Autowired
 	ExpenseRepository expenseRepository;
+	@Autowired
+	TransportationRepository transportationRepository;
+	@Autowired
+	PfRepository pfRepository;
 
 	public RegistrationResponse registration(RegistrationVO registrationVO) {
 
@@ -179,7 +195,7 @@ public class FERServiceImpl implements FERService {
 	@Override
 	public ExpenseReportResponse expenseReport(int userid, String type, String fromDate, String toDate) {
 		ExpenseReportResponse response = new ExpenseReportResponse();
-		//Expense exp = new Expense();
+		// Expense exp = new Expense();
 		List<Expense> expenses = expenseRepository.findByUserIdAndTypeAndDateBetween(userid, type, fromDate, toDate);
 		if (!expenses.isEmpty()) {
 
@@ -280,6 +296,93 @@ public class FERServiceImpl implements FERService {
 		}
 
 		return response;
+	}
+
+	@Override
+	public AddTransportationResponse addTransportationResponse(Transportation transportation) {
+
+		AddTransportationResponse response = new AddTransportationResponse();
+
+		Optional<Transportation> transportationObj = transportationRepository.findById(transportation.getId());
+
+		if (transportationObj.isPresent()) {
+
+			transportation.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
+			transportation = transportationRepository.save(transportation);
+
+			response.setTransportation(transportation);
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as transportationId is not present in transportation table");
+		}
+
+		return response;
+
+	}
+
+	@Override
+	public PfResponse pfResponse(Pf pf) {
+
+		PfResponse response = new PfResponse();
+
+		Optional<Pf> pfObj = pfRepository.findById(pf.getId());
+
+		if (pfObj.isPresent()) {
+
+			pf.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
+			pf = pfRepository.save(pf);
+
+			response.setPf(pf);
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as transportationId is not present in transportation table");
+		}
+
+		return response;
+
+	}
+
+	@Override
+	public GetTransportationResponse getTransportationById(int id) {
+
+		return null;
+	}
+
+	@Override
+	public GetTransportationResponse getransportationById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DeleteTransportationResponse DeleteTransportation(int expenseId) {
+
+		;
+
+		return null;
+	}
+
+	@Override
+	public AddPfResponse addPfResponse(@Valid Pf pf) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GetPfResponse getpfById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DeleteTransportationResponse DeletePf(int id) {
+		return null;
 	}
 
 }
