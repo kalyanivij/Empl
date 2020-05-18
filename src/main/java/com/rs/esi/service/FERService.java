@@ -39,7 +39,6 @@ public interface FERService {
 
 	GetUserResponse getUser(int userid);
 	
-	UpdateUserResponse updateUser(UserVO userVO);
 	
 	GetPerfomance_reviewResponse getPerfomance_reviewByemployeeid(int reviewid);
 

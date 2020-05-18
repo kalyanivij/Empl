@@ -108,28 +108,7 @@ public class FERServiceImpl implements FERService {
 		return response;
 	}
 
-	@Override
-	public UpdateUserResponse updateUser(UserVO userVO) {
-
-		UpdateUserResponse response = new UpdateUserResponse();
-		Optional<User> userObj = userRepository.findById(userVO.getUserId());
-		if (userObj.isPresent()) {
-			User userdb = userObj.get();
-			userdb = FERUtil.loadUpdateUserVOToUser(userVO, userdb);
-			userdb = userRepository.save(userdb);
-
-			response.setUser(userdb);
-			response.setStatusCode("000");
-			response.setStatus(HttpStatus.OK);
-		} else {
-			response.setStatusCode("001");
-			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("No User Found for the given userid");
-		}
-
-		return response;
-	}
-
+	
 	
 	@Override
 	public GetPerfomance_reviewResponse getPerfomance_reviewByemployeeid(int reviewid) {

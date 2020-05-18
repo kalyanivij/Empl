@@ -35,8 +35,11 @@ public class Perfomance_Review {
 	public Perfomance_Review(int id, String date, int employeeid, int reviewid) {
 
 		this.id = id;
+		
 		this.date = date;
+		
 		this.employeeid = employeeid;
+		
 		this.reviewid = reviewid;
 	}
 

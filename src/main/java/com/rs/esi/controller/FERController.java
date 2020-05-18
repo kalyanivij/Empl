@@ -56,12 +56,7 @@ public class FERController {
 		}
 	}
 
-	@PostMapping("/login")
-	public LoginResponse login(@RequestParam String userName, @RequestParam String password) {
-		return ferService.login(userName, password);
-	}
-
-	
+		
 	
 	   @PostMapping("/perfomance_review") public AddPerfomance_reviewResponse
 	   addEmp_awards(@Valid @RequestBody Perfomance_Review perfomance_review) { return
