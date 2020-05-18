@@ -143,7 +143,7 @@ public class EISServiceImpl implements EISService {
 	@Override
 	public GetTrainingsResponse getTrainings(int employeeid) {
 		GetTrainingsResponse response = new GetTrainingsResponse();
-		List<Trainings> trainings = trainingsRepository.findByemployee(employeeid);
+		List<Trainings> trainings = trainingsRepository.findByEmployeeid(employeeid);
 		if (!trainings.isEmpty()) {
 			response.setTrainings(trainings);
 			response.setStatusCode("000");
@@ -157,9 +157,9 @@ public class EISServiceImpl implements EISService {
 		return response;
 	}
 	@Override
-	public GetTrainingsResponse getTrainingsByEmployerId(int employerid) {
+	public GetTrainingsResponse getTraining(int employerid) {
 		GetTrainingsResponse response = new GetTrainingsResponse();
-		List<Trainings> trainings = trainingsRepository.findByemployer(employerid);
+		List<Trainings> trainings = trainingsRepository.findByEmployerid(employerid);
 		if (!trainings.isEmpty()) {
 			response.setTrainings(trainings);
 			response.setStatusCode("000");

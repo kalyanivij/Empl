@@ -92,13 +92,13 @@ public class EISController {
 			return eisService.getTrainings(employeeid);
 		}
 	}
-	@GetMapping("/trainings/{employerId}")
-	public GetTrainingsResponse getTrainingsByEmployerId(@PathVariable("employerId") int employerid) {
+	@GetMapping("/trainingemployer/{employerId}")
+	public GetTrainingsResponse getTraining(@PathVariable("employerId") int employerid) {
 		Set<String> errorMessages = validationUtil.validateGetTrainingsRequest(employerid);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new GetTrainingsResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return eisService.getTrainings(employerid);
+			return eisService.getTraining(employerid);
 		}
 	}
 

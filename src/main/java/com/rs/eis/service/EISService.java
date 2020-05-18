@@ -21,6 +21,6 @@ public interface EISService {
 	
 	GetTrainingsResponse getTrainings(int employeeid);
 	
-	GetTrainingsResponse getTrainingsByEmployerId(int employerid);
+	GetTrainingsResponse getTraining(int employerid);
 	
 }
