@@ -10,6 +10,7 @@ import com.rs.eis.response.GetEmployeeResponse;
 public interface EmployeeService {
 	AddEmployeeResponse addEmployee(AddEmployeeVO addEmployeeVO);
 
+	
 	EditEmployeeResponse editEmployee(Employee employee);
 
 	GetEmployeeResponse getEmployeeById(int id);
