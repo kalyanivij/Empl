@@ -27,7 +27,9 @@ public class Emp_awards {
 	private int employeeid;
 	private int awardsid;
 	private Date created;
-	private Date updated;
+	//private Date updated;
+	
+	
 
 	public Emp_awards() {
 
