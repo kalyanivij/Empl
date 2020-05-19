@@ -59,12 +59,12 @@ public class FERController {
 		
 	
 	   @PostMapping("/perfomance_review") public AddPerfomance_reviewResponse
-	   addEmp_awards(@Valid @RequestBody Perfomance_Review perfomance_review) { return
+	   addPerfomance_review(@Valid @RequestBody Perfomance_Review perfomance_review) { return
 	   ferService.addPerfomance_review(perfomance_review); }
 	  
 
 	@GetMapping("/perfomance_review/{employeeid}")
-	public GetPerfomance_reviewResponse getEmp_awards(@PathVariable("perfomance_reviewid") int perfomance_review) {
+	public GetPerfomance_reviewResponse getPerfomance_review(@PathVariable("perfomance_reviewid") int perfomance_review) {
 		Set<String> errorMessages = validationUtil.validateGetPerfomance_reviewRequest(perfomance_review);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new GetPerfomance_reviewResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
@@ -74,7 +74,7 @@ public class FERController {
 	}
 
 	@GetMapping("/{employeeid}/perfomance_review/report")
-	public GetPerfomance_reviewResponse emp_awardsReport(@PathVariable("employeeid") int employeeid) {
+	public GetPerfomance_reviewResponse perfomance_reviewReport(@PathVariable("employeeid") int employeeid) {
 		Set<String> errorMessages = validationUtil.validatePerfomance_reviewReportRequest(employeeid);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new GetPerfomance_reviewResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
