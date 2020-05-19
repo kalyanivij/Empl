@@ -19,18 +19,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rs.eis.model.Trainings;
 import com.rs.eis.repository.EmployeeRepository;
 import com.rs.eis.repository.EmployerRepository;
-import com.rs.eis.repository.TrainingsRepository;
+import com.rs.eis.repository.TrainingsEmployeeRepository;
+import com.rs.eis.repository.TrainingsEmployerRepository;
+import com.rs.eis.response.AddEmployeeTrainingsResponse;
+import com.rs.eis.response.AddEmployerTrainingsResponse;
 import com.rs.eis.response.DeleteTrainingsResponse;
 import com.rs.eis.response.EditTrainingsResponse;
 import com.rs.eis.response.GetTrainingResponse;
 import com.rs.eis.response.GetTrainingsResponse;
-import com.rs.eis.response.TrainingsResponse;
 import com.rs.eis.service.EISService;
 import com.rs.eis.validation.ValidationUtil;
 
 
 @RestController
-@RequestMapping("/eis")
+@RequestMapping("/empl")
 public class EISController {
 	
 	@Autowired
@@ -46,19 +48,21 @@ public class EISController {
 	ValidationUtil validationUtil;
 
 	@Autowired
-	TrainingsRepository trainigsRepository;
+	TrainingsEmployeeRepository trainigempRepository;
+	@Autowired
+	TrainingsEmployerRepository trainigemprRepository;
 
 	
 	
 	private int trainingId;
 	
 	@PostMapping("/training")
-	public TrainingsResponse saveTraining(@Valid @RequestBody Trainings trainings) {
-		return eisService.saveTraining(trainings);
+	public AddEmployeeTrainingsResponse saveTrainingEmployee(@Valid @RequestBody Trainings trainings) {
+		return eisService.saveTrainingEmployee(trainings);
 	}
 	@PostMapping("/trainings")
-	public TrainingsResponse saveTrainings(@Valid @RequestBody Trainings trainings) {
-		return eisService.saveTrainings(trainings);
+	public AddEmployerTrainingsResponse saveTrainingEmployer(@Valid @RequestBody Trainings trainings) {
+		return eisService.saveTrainingEmployer(trainings);
 	}
 	
 	@PutMapping("/trainings/{id}")
@@ -83,22 +87,22 @@ public class EISController {
 			return eisService.getTrainingsById(trainingId);
 		}
 	}
-	@GetMapping("/training/{employeeId}")
-	public GetTrainingsResponse getTrainings(@PathVariable("employeeId") int employeeid) {
-		Set<String> errorMessages = validationUtil.validateGetTrainingsRequest(employeeid);
+	@GetMapping("/trainingemp/{employeeId}")
+	public GetTrainingsResponse getTrainings(@PathVariable("employeeId") int employeeId) {
+		Set<String> errorMessages = validationUtil.validateGetTrainingsRequest(employeeId);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new GetTrainingsResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return eisService.getTrainings(employeeid);
+			return eisService.getTrainings(employeeId);
 		}
 	}
 	@GetMapping("/trainingemployer/{employerId}")
-	public GetTrainingsResponse getTraining(@PathVariable("employerId") int employerid) {
-		Set<String> errorMessages = validationUtil.validateGetTrainingsRequest(employerid);
+	public GetTrainingsResponse getTraining(@PathVariable("employerId") int employerId) {
+		Set<String> errorMessages = validationUtil.validateGetTrainingsRequest(employerId);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new GetTrainingsResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return eisService.getTraining(employerid);
+			return eisService.getTraining(employerId);
 		}
 	}
 

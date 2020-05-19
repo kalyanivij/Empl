@@ -5,7 +5,6 @@ import java.util.Set;
 import org.springframework.http.HttpStatus;
 
 import com.rs.eis.model.Trainings;
-import com.rs.fer.response.AbstractResponse;
 
 public class DeleteTrainingsResponse extends AbstractResponse {
 

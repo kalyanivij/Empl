@@ -12,12 +12,15 @@ import com.rs.eis.model.Employer;
 import com.rs.eis.model.Trainings;
 import com.rs.eis.repository.EmployeeRepository;
 import com.rs.eis.repository.EmployerRepository;
+import com.rs.eis.repository.TrainingsEmployeeRepository;
+import com.rs.eis.repository.TrainingsEmployerRepository;
 import com.rs.eis.repository.TrainingsRepository;
 import com.rs.eis.response.DeleteTrainingsResponse;
 import com.rs.eis.response.EditTrainingsResponse;
 import com.rs.eis.response.GetTrainingResponse;
 import com.rs.eis.response.GetTrainingsResponse;
-import com.rs.eis.response.TrainingsResponse;
+import com.rs.eis.response.AddEmployeeTrainingsResponse;
+import com.rs.eis.response.AddEmployerTrainingsResponse;
 import com.rs.eis.service.EISService;
 import com.rs.fer.util.DateUtil;
 
@@ -34,15 +37,21 @@ public class EISServiceImpl implements EISService {
 	
 	@Autowired
 	TrainingsRepository trainingsRepository;
+	
+	@Autowired
+	TrainingsEmployeeRepository trainingempRepository;
+	
+	@Autowired
+	TrainingsEmployerRepository trainingemprRepository;
 
 	@Override
-	public TrainingsResponse saveTraining(Trainings trainings) {
-		TrainingsResponse response = new TrainingsResponse();
-		Optional<Employee> emp = employeeRepository.findById(trainings.getEmployee().getId());
+	public AddEmployeeTrainingsResponse saveTrainingEmployee(Trainings trainings) {
+		AddEmployeeTrainingsResponse response = new AddEmployeeTrainingsResponse();
+		Optional<Employee> emp = employeeRepository.findById(trainings.getEmployeeId());
 		if (emp.isPresent()) {
 
 			trainings.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
-			trainings = trainingsRepository.save(trainings);
+			trainings =trainingsRepository.save(trainings) ;
 
 			response.setTrainings(trainings);
 
@@ -58,9 +67,9 @@ public class EISServiceImpl implements EISService {
 	}
 	
 	@Override
-	public TrainingsResponse saveTrainings(Trainings trainings) {
-		TrainingsResponse response = new TrainingsResponse();
-		Optional<Employer> empr =employerRepository.findById(trainings.getEmployer().getId());
+	public AddEmployerTrainingsResponse saveTrainingEmployer(Trainings trainings) {
+		AddEmployerTrainingsResponse response = new AddEmployerTrainingsResponse();
+		Optional<Employer> empr =employerRepository.findById(trainings.getEmployerId());
 		if (empr.isPresent()) {
 
 			trainings.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
@@ -141,9 +150,9 @@ public class EISServiceImpl implements EISService {
 	}
 	
 	@Override
-	public GetTrainingsResponse getTrainings(int employeeid) {
+	public GetTrainingsResponse getTrainings(int employeeId) {
 		GetTrainingsResponse response = new GetTrainingsResponse();
-		List<Trainings> trainings = trainingsRepository.findByEmployee(employeeid);
+		List<Trainings> trainings = trainingempRepository.findByEmployeeId(employeeId);
 		if (!trainings.isEmpty()) {
 			response.setTrainings(trainings);
 			response.setStatusCode("000");
@@ -157,9 +166,9 @@ public class EISServiceImpl implements EISService {
 		return response;
 	}
 	@Override
-	public GetTrainingsResponse getTraining(int employerid) {
+	public GetTrainingsResponse getTraining(int employerId) {
 		GetTrainingsResponse response = new GetTrainingsResponse();
-		List<Trainings> trainings = trainingsRepository.findByEmployee(employerid);
+		List<Trainings> trainings = trainingemprRepository.findByEmployerId(employerId);
 		if (!trainings.isEmpty()) {
 			response.setTrainings(trainings);
 			response.setStatusCode("000");

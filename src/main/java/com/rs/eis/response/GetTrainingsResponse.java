@@ -6,9 +6,9 @@ import java.util.Set;
 import org.springframework.http.HttpStatus;
 
 import com.rs.eis.model.Trainings;
-import com.rs.fer.response.AbstractResponse;
 
 public class GetTrainingsResponse extends AbstractResponse {
+	private List<Trainings> trainings;
 
 	public GetTrainingsResponse() {
 
@@ -28,7 +28,7 @@ public class GetTrainingsResponse extends AbstractResponse {
 		this.trainings = trainings;
 	}
 
-	private List<Trainings> trainings;
+
 
 	
 

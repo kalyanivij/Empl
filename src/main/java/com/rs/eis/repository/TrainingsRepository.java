@@ -10,8 +10,5 @@ import com.rs.eis.model.Trainings;
 @Repository
 public interface TrainingsRepository extends JpaRepository<Trainings,Integer> {
 
-	List<Trainings> findByEmployee(int employeeid);
-
-	List<Trainings> findByEmployer(int employerid);
 
 }
