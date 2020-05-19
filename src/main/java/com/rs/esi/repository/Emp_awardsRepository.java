@@ -15,7 +15,15 @@ public interface Emp_awardsRepository extends JpaRepository<Emp_awards, Integer>
 	
 	
 	List<Emp_awards> findByemployeeid(int employeeid);
-	
+
+	/*
+	 * List<Emp_awards> findByemployeeid(int awardsid, String date, String created,
+	 * String updated);
+	 */
+	/*
+	 * List<Emp_awards> findByawardsidAndType(int awardsid, String date, String
+	 * created, String updated);
+	 */	
 
 	
 

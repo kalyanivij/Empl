@@ -6,6 +6,7 @@ import com.rs.esi.request.RegistrationVO;
 import com.rs.esi.request.UserVO;
 import com.rs.esi.response.AddEmp_awardsResponse;
 import com.rs.esi.response.DeleteEmp_awardsResponse;
+import com.rs.esi.response.Emp_awardsReportResponse;
 import com.rs.esi.response.GetEmp_awardsResponse;
 import com.rs.esi.response.GetUserResponse;
 import com.rs.esi.response.LoginResponse;
@@ -42,10 +43,12 @@ public interface FERService {
 
 	GetEmp_awardsResponse getEmp_awardsByemployeeid(int employeeid);
 
-	GetEmp_awardsResponse emp_awardsReport(int employeeid);
-
-	DeleteEmp_awardsResponse deleteEmp_awards(int employeeid);
-
 	AddEmp_awardsResponse addEmp_awards(Emp_awards emp_awards);
+
+	/*
+	 * Emp_awardsReportResponse emp_awardsReport(int awardsid, String Date, String
+	 * created, String updated);
+	 */
+	DeleteEmp_awardsResponse deleteEmp_awards(int awardsid);
 
 }

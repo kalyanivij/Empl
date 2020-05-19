@@ -34,7 +34,6 @@ import com.rs.esi.response.UpdateUserResponse;
 import com.rs.esi.service.FERService;
 import com.rs.esi.validation.ValidationUtil;
 
-
 @RestController
 @RequestMapping("/api")
 public class FERController {
@@ -46,10 +45,9 @@ public class FERController {
 
 	@Autowired
 	ExpenseRepository expenseRepository;
-	
+
 	@Autowired
 	Emp_awardsRepository emp_awardsRepository;
-
 
 	private int expenseId;
 
@@ -135,13 +133,14 @@ public class FERController {
 	 * 
 	 * 
 	 * 
-	 */	
+	 */
+
+	@PostMapping("/emp_awards")
 	
 	
-	   @PostMapping("/emp_awards") public AddEmp_awardsResponse
-	   addEmp_awards(@Valid @RequestBody Emp_awards emp_awards) { return
-	   ferService.addEmp_awards(emp_awards); }
-	  
+	public AddEmp_awardsResponse addEmp_awards(@Valid @RequestBody Emp_awards emp_awards) {
+		return ferService.addEmp_awards(emp_awards);
+	}
 
 	@GetMapping("/emp_awards/{emp_awardsid}")
 	public GetEmp_awardsResponse getEmp_awards(@PathVariable("emp_awardsid") int emp_awardsid) {
@@ -153,26 +152,22 @@ public class FERController {
 		}
 	}
 
-	@GetMapping("/{employeeid}/emp_awards/report")
-	public GetEmp_awardsResponse emp_awardsReport(@PathVariable("employeeid") int employeeid) {
-		Set<String> errorMessages = validationUtil.validateEmp_awardsReportRequest(employeeid);
-		if (!CollectionUtils.isEmpty(errorMessages)) {
-			return new GetEmp_awardsResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
-		} else {
-			return ferService.emp_awardsReport(employeeid);
-		}
-	}
-
-	@DeleteMapping("/emp_awards/{emp_awardsid}")
-	public DeleteEmp_awardsResponse deleteEmp_awards(@PathVariable( "emp_awardsid") int emp_awardsid) {
-		Set<String> errorMessages = validationUtil.validateDeleteEpm_awardsRequest(emp_awardsid);
+	/*
+	 * @GetMapping("/{employeeid}/emp_awards/report") public Emp_awardsResponse
+	 * emp_awardsReport(@PathVariable("employeeid") int emp_awardsid) { Set<String>
+	 * errorMessages = validationUtil.validateEmp_awardsReportRequest(emp_awardsid);
+	 * if (!CollectionUtils.isEmpty(errorMessages)) { return new
+	 * GetEmp_awardsResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+	 * } else { return ferService.emp_awardsReport(emp_awardsid); } }
+	 */
+	@DeleteMapping("/emp_awards/{employeeid}")
+	public DeleteEmp_awardsResponse deleteEmp_awards(@PathVariable("employeeid") int employeeid) {
+		Set<String> errorMessages = validationUtil.validateDeleteEpm_awardsRequest(employeeid);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new DeleteEmp_awardsResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return ferService.deleteEmp_awards(emp_awardsid);
+			return ferService.deleteEmp_awards(employeeid);
 		}
 	}
 
-
-	
 }

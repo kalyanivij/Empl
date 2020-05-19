@@ -12,27 +12,27 @@ import com.rs.esi.model.Emp_awards;
 import com.rs.esi.repository.Emp_awardsRepository;
 import com.rs.esi.repository.ExpenseRepository;
 import com.rs.esi.repository.UserRepository;
-import com.rs.fer.model.Expense;
-import com.rs.fer.model.User;
-mport com.rs.fer.repository.UserRepository;
-import com.rs.fer.request.RegistrationVO;
-import com.rs.fer.request.UserVO;
-import com.rs.fer.response.AddEmp_awardsResponse;
-/*import com.rs.fer.response.AddExpenseResponse;
-*/import com.rs.fer.response.DeleteEmp_awardsResponse;
-import com.rs.fer.response.Emp_awardsReportResponse;
+import com.rs.esi.model.Expense;
+import com.rs.esi.model.User;
+import com.rs.esi.repository.UserRepository;
+import com.rs.esi.request.RegistrationVO;
+import com.rs.esi.request.UserVO;
+import com.rs.esi.response.AddEmp_awardsResponse;
+/*import com.rs.esi.response.AddExpenseResponse;
+*/import com.rs.esi.response.DeleteEmp_awardsResponse;
+import com.rs.esi.response.Emp_awardsReportResponse;
 /*import com.rs.fer.response.DeleteExpenseResponse;
 import com.rs.fer.response.EditExpenseResponse;
 import com.rs.fer.response.ExpenseReportResponse;
-*/import com.rs.fer.response.GetEmp_awardsResponse;
+*/import com.rs.esi.response.GetEmp_awardsResponse;
 /*import com.rs.fer.response.GetExpenseResponse;
 import com.rs.fer.response.GetExpensesResponse;
-*/import com.rs.fer.response.GetUserResponse;
-import com.rs.fer.response.LoginResponse;
-import com.rs.fer.response.RegistrationResponse;
-import com.rs.fer.response.ResetPasswordResponse;
-import com.rs.fer.response.UpdateUserResponse;
-import com.rs.fer.service.FERService;
+*/import com.rs.esi.response.GetUserResponse;
+import com.rs.esi.response.LoginResponse;
+import com.rs.esi.response.RegistrationResponse;
+import com.rs.esi.response.ResetPasswordResponse;
+import com.rs.esi.response.UpdateUserResponse;
+import com.rs.esi.service.FERService;
 import com.rs.fer.util.DateUtil;
 import com.rs.fer.util.FERUtil;
 
@@ -300,24 +300,26 @@ public class FERServiceImpl implements FERService {
 
 	}
 
-	@Override
-	public GetEmp_awardsResponse emp_awardsReport(int awardsid) {
-				 String fromDate, String toDate) {Emp_awardsReportResponse response = new
-						 Emp_awardsReportResponse(); 
-				 emp_awards = expenseRepository.findByUserIdAndTypeAndDateBetween(name, date, employeeid, awardsid); if (!emp_awards.isEmpty()) {
-				  
-				  response.setEmp_awards(emp_awards); response.setStatusCode("000");
-				  response.setStatus(HttpStatus.OK);
-				  
-				  } else { response.setStatusCode("001");
-				  response.setStatus(HttpStatus.PRECONDITION_FAILED);
-				  response.setErrorMessage("No expenses found for the given input.."); }
-				  
-				  return response; }
+	//@Override
+	//public Emp_awardsReportResponse emp_awardsReport(int awardsid, String Date, String created, String updated) {
+		Emp_awardsReportResponse response = new Emp_awardsReportResponse();
+		// Expense exp = new Expense();
+		/*
+		 * List<Emp_awards> emp_awards = emp_awardsRepository.findByemployeeid(awardsid,
+		 * Date, created, updated); if (!emp_awards.isEmpty()) {
+		 * 
+		 * response.setEmp_awards(emp_awards); response.setStatusCode("000");
+		 * response.setStatus(HttpStatus.OK);
+		 * 
+		 * } else { response.setStatusCode("001");
+		 * response.setStatus(HttpStatus.PRECONDITION_FAILED);
+		 * response.setErrorMessage("No emp_awards found for the given input.."); }
+		 */
+	//	return response;
+	//}
 
 	@Override
 	public DeleteEmp_awardsResponse deleteEmp_awards(int employeeid) {
-		// TODO Auto-generated method stub
 		DeleteEmp_awardsResponse response = new DeleteEmp_awardsResponse();
 
 		Optional<Emp_awards> emp_awardsObj = emp_awardsRepository.findById(employeeid);
