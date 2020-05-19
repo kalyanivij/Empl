@@ -8,4 +8,5 @@ import com.rs.eis.model.Experience;
 @Repository
 public interface ExperienceRepository extends JpaRepository<Experience, Integer> {
 
+	
 }
