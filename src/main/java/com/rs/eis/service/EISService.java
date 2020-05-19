@@ -1,6 +1,5 @@
 package com.rs.eis.service;
 
-import javax.validation.Valid;
 
 import com.rs.eis.model.Trainings;
 import com.rs.eis.response.AddEmployeeTrainingsResponse;
@@ -12,14 +11,14 @@ import com.rs.eis.response.GetTrainingsResponse;
 import com.rs.eis.response.TrainingsResponse;
 
 public interface EISService {
-AddEmployeeTrainingsResponse saveTrainingEmployee(Trainings trainings);
+	AddEmployeeTrainingsResponse saveTrainingEmployee(Trainings trainings);
 	
 	AddEmployerTrainingsResponse saveTrainingEmployer(Trainings trainings);
 	
 	EditTrainingsResponse editTraining(Trainings trainings);
-	
+
 	DeleteTrainingsResponse deleteTraining(int trainingId);
-	
+
 	GetTrainingResponse getTrainingsById(int trainingId);
 	
 	GetTrainingsResponse getTrainings(int employeeId);

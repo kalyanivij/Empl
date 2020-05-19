@@ -7,34 +7,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.rs.eis.model.Contact;
+import com.rs.eis.model.Emp_awards;
 import com.rs.eis.model.Employee;
 import com.rs.eis.model.Employer;
 import com.rs.eis.model.Trainings;
+import com.rs.eis.repository.ContactRepository;
 import com.rs.eis.repository.EmployeeRepository;
 import com.rs.eis.repository.EmployerRepository;
 import com.rs.eis.repository.TrainingsEmployeeRepository;
 import com.rs.eis.repository.TrainingsEmployerRepository;
 import com.rs.eis.repository.TrainingsRepository;
-import com.rs.eis.response.DeleteTrainingsResponse;
-import com.rs.eis.response.EditTrainingsResponse;
-import com.rs.eis.response.GetTrainingResponse;
-import com.rs.eis.response.GetTrainingsResponse;
+import com.rs.eis.response.AddEmp_awardsResponse;
 import com.rs.eis.response.AddEmployeeTrainingsResponse;
 import com.rs.eis.response.AddEmployerTrainingsResponse;
+import com.rs.eis.response.ContactResponse;
+import com.rs.eis.response.DeleteContactResponse;
+import com.rs.eis.response.DeleteEmp_awardsResponse;
+import com.rs.eis.response.DeleteTrainingsResponse;
+import com.rs.eis.response.EditContactResponse;
+import com.rs.eis.response.EditTrainingsResponse;
+import com.rs.eis.response.GetContactResponse;
+import com.rs.eis.response.GetContactsResponse;
+import com.rs.eis.response.GetEmp_awardsResponse;
+import com.rs.eis.response.GetTrainingResponse;
+import com.rs.eis.response.GetTrainingsResponse;
+import com.rs.eis.response.TrainingsResponse;
 import com.rs.eis.service.EISService;
-import com.rs.fer.util.DateUtil;
+import com.rs.eis.util.DateUtil;
 
 @Service
 public class EISServiceImpl implements EISService {
-	
+
 	@Autowired
 	EISService eisService;
 	@Autowired
 	EmployeeRepository employeeRepository;
-	
+
 	@Autowired
 	EmployerRepository employerRepository;
-	
+
 	@Autowired
 	TrainingsRepository trainingsRepository;
 	
@@ -43,6 +55,9 @@ public class EISServiceImpl implements EISService {
 	
 	@Autowired
 	TrainingsEmployerRepository trainingemprRepository;
+
+	@Autowired
+	ContactRepository contactRepository;
 
 	@Override
 	public AddEmployeeTrainingsResponse saveTrainingEmployee(Trainings trainings) {
@@ -57,7 +72,7 @@ public class EISServiceImpl implements EISService {
 
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
-		}else {
+		} else {
 			response.setStatusCode("001");
 			response.setStatus(HttpStatus.PRECONDITION_FAILED);
 			response.setErrorMessage("Invalid Input as Id is not present in the table");
@@ -65,7 +80,7 @@ public class EISServiceImpl implements EISService {
 
 		return response;
 	}
-	
+
 	@Override
 	public AddEmployerTrainingsResponse saveTrainingEmployer(Trainings trainings) {
 		AddEmployerTrainingsResponse response = new AddEmployerTrainingsResponse();
@@ -79,7 +94,7 @@ public class EISServiceImpl implements EISService {
 
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
-		}else {
+		} else {
 			response.setStatusCode("001");
 			response.setStatus(HttpStatus.PRECONDITION_FAILED);
 			response.setErrorMessage("Invalid Input as Id is not present in the table");
@@ -148,7 +163,7 @@ public class EISServiceImpl implements EISService {
 
 		return response;
 	}
-	
+
 	@Override
 	public GetTrainingsResponse getTrainings(int employeeId) {
 		GetTrainingsResponse response = new GetTrainingsResponse();
@@ -165,6 +180,7 @@ public class EISServiceImpl implements EISService {
 
 		return response;
 	}
+
 	@Override
 	public GetTrainingsResponse getTraining(int employerId) {
 		GetTrainingsResponse response = new GetTrainingsResponse();
@@ -182,7 +198,6 @@ public class EISServiceImpl implements EISService {
 		return response;
 	}
 
-	
 
-	
+
 }

@@ -45,5 +45,4 @@ public class AbstractResponse {
 	public void setErrorMessages(Set<String> errorMessages) {
 		this.errorMessages = errorMessages;
 	}
-	
 }
