@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rs.eis.model.Family;
@@ -22,22 +24,28 @@ import com.rs.eis.response.AddFamilyResponse;
 import com.rs.eis.response.AddInsuranceResponse;
 import com.rs.eis.response.DeleteFamilyResponse;
 import com.rs.eis.response.DeleteInsuranceResponse;
+import com.rs.eis.response.EditFamilyResponse;
+import com.rs.eis.response.EditInsuranceResponse;
 import com.rs.eis.response.GetFamilyResponse;
 import com.rs.eis.response.GetInsuranceResponse;
-import com.rs.eis.service.FERService;
+import com.rs.eis.service.EISService;
 import com.rs.eis.validation.ValidationUtil;
 
 @RestController
 @RequestMapping("/api")
-public class FERController {
+public class EISController {
 	@Autowired
-	FERService ferService;
+	EISService eisService;
 
 	@Autowired
 	ValidationUtil validationUtil;
 
 	@Autowired
 	InsuranceRepository inuranceRepository;
+
+	private Insurance insurance;
+
+	private Family family;
 
 	/*
 	 * @PostMapping("/register") public RegistrationResponse
@@ -59,20 +67,27 @@ public class FERController {
 	 * ferService.familyResponse(employeeid); }
 	 */
 
-	/*
-	 * @PutMapping("/insurance/{employeeid}") public EditExpenseResponse
-	 * editExpense(@PathVariable("id") int Id, @RequestParam int employeeid) {
-	 * return ferService.editExpense(expense); }
-	 */
+	
 	@PostMapping("/insurence")
 	public AddInsuranceResponse addinsurance(@Valid @RequestBody Insurance insuranse) {
-		return ferService.addInsurance(insuranse);
+		return eisService.addInsurance(insuranse);
 	}
 
 	@PostMapping("/family")
 	public AddFamilyResponse addfamily(@Valid @RequestBody Family family) {
-		return ferService.addfamily(family);
+		return eisService.addFamily(family);
 	}
+	
+	  @PutMapping("/insurance/{employeeid}") 
+	  public EditInsuranceResponse
+	  editInsurance(@PathVariable("id") int Id, @RequestParam int employeeid) {
+	  return eisService.editInsurance(insurance); 
+	  }
+	  @PutMapping("/family/{employeeid}") 
+	  public EditFamilyResponse
+	  editFamily(@PathVariable("id") int Id, @RequestParam int employeeid) {
+	  return eisService.editFamily(family); 
+	  }
 
 	@GetMapping("/Insuranceid")
 	public GetInsuranceResponse getInsurence(@PathVariable("insuranceid") int employeeid) {
@@ -80,7 +95,7 @@ public class FERController {
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new GetInsuranceResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return ferService.getInsuranceByemployeeid(employeeid);
+			return eisService.getInsuranceByemployeeid(employeeid);
 		}
 	}
 
@@ -90,7 +105,7 @@ public class FERController {
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new GetFamilyResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return ferService.getFamilyByemployeeid(employeeid);
+			return eisService.getFamilyByemployeeid(employeeid);
 		}
 	}
 
@@ -100,7 +115,7 @@ public class FERController {
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new GetInsuranceResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return ferService.insuranceReport(employeeid);
+			return eisService.insuranceReport(employeeid);
 		}
 	}
 
@@ -110,7 +125,7 @@ public class FERController {
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new GetFamilyResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return ferService.familyReport(employeeid);
+			return eisService.familyReport(employeeid);
 		}
 	}
 
@@ -121,7 +136,7 @@ public class FERController {
 			return new DeleteInsuranceResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
 
-			return ferService.deleteinsurance(employeeid);
+			return eisService.deleteinsurance(employeeid);
 		}
 	}
 
@@ -132,7 +147,7 @@ public class FERController {
 			return new DeleteFamilyResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
 
-			return ferService.deleteFamily(employeeid);
+			return eisService.deleteFamily(employeeid);
 		}
 	}
 

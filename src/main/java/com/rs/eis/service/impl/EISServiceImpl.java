@@ -2,11 +2,11 @@ package com.rs.eis.service.impl;
 
 import java.util.Optional;
 
-import org.hibernate.type.descriptor.sql.JdbcTypeFamilyInformation.Family;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.rs.eis.model.Family;
 import com.rs.eis.model.Insurance;
 import com.rs.eis.repository.FamilyRepository;
 import com.rs.eis.repository.InsuranceRepository;
@@ -15,16 +15,18 @@ import com.rs.eis.response.AddFamilyResponse;
 import com.rs.eis.response.AddInsuranceResponse;
 import com.rs.eis.response.DeleteFamilyResponse;
 import com.rs.eis.response.DeleteInsuranceResponse;
+import com.rs.eis.response.EditFamilyResponse;
+import com.rs.eis.response.EditInsuranceResponse;
 import com.rs.eis.response.GetFamilyResponse;
 import com.rs.eis.response.GetInsuranceResponse;
 import com.rs.eis.response.LoginResponse;
 import com.rs.eis.response.ResetPasswordResponse;
 import com.rs.eis.response.UpdateUserResponse;
-import com.rs.eis.service.FERService;
+import com.rs.eis.service.EISService;
 import com.rs.eis.util.DateUtil;
 
 @Service
-public class FERServiceImpl implements FERService {
+public class EISServiceImpl implements EISService {
 
 	@Autowired
 	InsuranceRepository insuranceRepository;
@@ -225,9 +227,9 @@ public class FERServiceImpl implements FERService {
 		  
 		  if (insuranceObj.isPresent()) {
 		  
-			/*
-			 * insurance.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
-			 */		  insurance =insuranceRepository.save(insurance);
+			
+			  insurance.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
+			 		  insurance =insuranceRepository.save(insurance);
 		  
 		  response.setInsurance(insurance);
 		  
@@ -240,9 +242,8 @@ public class FERServiceImpl implements FERService {
 		  return response;
 	}
 	@Override
-	public AddFamilyResponse addfamily(Family family) {
+	public AddFamilyResponse addFamily(Family family) {
 		AddFamilyResponse response = new AddFamilyResponse();
-		  
 		  Optional<Family> familyObj = familyRepository.findById(family.getRelationid());
 		  
 		  if (familyObj.isPresent()) {
@@ -257,11 +258,11 @@ public class FERServiceImpl implements FERService {
 		  response.setStatusCode("001");
 		  response.setStatus(HttpStatus.PRECONDITION_FAILED);
 		  response.setErrorMessage("Invalid Input as employeeId is not present in user table"); }
-		  
+	
 		  return response;
 	}
 	
-
+	
 	@Override
 	public GetInsuranceResponse getInsuranceByemployeeid(int employeeid) {
 		GetInsuranceResponse response = new GetInsuranceResponse();
@@ -289,7 +290,7 @@ public class FERServiceImpl implements FERService {
 
 		if (familyObj.isPresent()) {
 
-			response.setFamily(familyObj);
+			response.setFamily(familyObj.get());
 
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
@@ -315,6 +316,45 @@ public class FERServiceImpl implements FERService {
 	}
 	
 	@Override
+	public EditInsuranceResponse editInsurance(Insurance insurance) {
+		EditInsuranceResponse response =new EditInsuranceResponse();
+		Optional<Insurance> insuranceObj = insuranceRepository.findById(insurance.getInsuranceid());
+		if (insuranceObj.isPresent()) {
+			  
+			  insurance.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
+			  insurance =insuranceRepository.save(insurance);
+			  
+			  response.setInsurance(insurance);
+			  
+			  response.setStatusCode("000"); response.setStatus(HttpStatus.OK);
+			  } else {
+			  response.setStatusCode("001");
+			  response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			  response.setErrorMessage("Invalid Input as employeeId is not present in Insurance table"); }
+			  
+			  return response;
+		}
+	@Override
+	public EditFamilyResponse editFamily(Family family) {
+		EditFamilyResponse response =new EditFamilyResponse();
+		Optional<Family> familyObj = familyRepository.findById(family.getRelationid());
+		if (familyObj.isPresent()) {
+			  
+			  family.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
+			  family =familyRepository.save(family);
+			  
+			  response.setFamily(family);
+			  
+			  response.setStatusCode("000"); response.setStatus(HttpStatus.OK);
+			  } else {
+			  response.setStatusCode("001");
+			  response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			  response.setErrorMessage("Invalid Input as employeeId is not present in Insurance table");
+			  }
+			  
+			  return response;
+		}
+	@Override
 	public DeleteInsuranceResponse deleteinsurance(int employeeid) {
 		DeleteInsuranceResponse response = new DeleteInsuranceResponse();
 		Optional<Insurance> insuranceObj = insuranceRepository.findById(employeeid);
@@ -332,14 +372,14 @@ public class FERServiceImpl implements FERService {
 
 		return response;
 	}
-
+	
 	@Override
 	public DeleteFamilyResponse deleteFamily(int employeeid) {
 		DeleteFamilyResponse response = new DeleteFamilyResponse();
 		Optional<Family> familyObj = familyRepository.findById(employeeid);
 		if (familyObj.isPresent()) {
 
-			Family family = familyObj.get();
+			com.rs.eis.model.Family family = familyObj.get();
 			familyRepository.delete(family);
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
@@ -351,6 +391,7 @@ public class FERServiceImpl implements FERService {
 
 		return response;
 	}
+	
 	
 	/*
 	 * @Override
@@ -393,29 +434,7 @@ public class FERServiceImpl implements FERService {
 	 * Auto-generated method stub return null; }
 	 */
 
-	@Override
-	public LoginResponse login(String userName, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ResetPasswordResponse resetPassword(int userid, String currentPassword, String newPassword) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public UpdateUserResponse updateUser(UserVO userVO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
 	
-
-
 	/*
 	 * @Override public DeleteInsuranceResponse deleteInsurance(int employeeid) { //
 	 * TODO Auto-generated method stub return null; }
@@ -427,31 +446,4 @@ public class FERServiceImpl implements FERService {
 	
 	
 	
-	
-	@Override
-	public AddFamilyResponse addfamily(com.rs.eis.model.Family family) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-
-	
-
-	
-
-	
-	
-
-	
-
-
-
-	
-
-
-
-
-
-
-}
+	}	

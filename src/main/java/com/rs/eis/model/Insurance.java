@@ -89,6 +89,8 @@ public class Insurance {
 	public void setCreated(Date currentDate) {
 		
 	}
-
+	public void setUpdated(Date currentDate) {
+		
+	}
 	
 }

@@ -25,6 +25,7 @@ public class Family {
 	private String lastname;
 	private int relationid;
 	private int employeeid;
+
 	public Family(int id, String firstname, String middlename, String lastname, int relationid, int employeeid) {
 
 		this.id = id;
@@ -34,46 +35,61 @@ public class Family {
 		this.relationid = relationid;
 		this.employeeid = employeeid;
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getFirstname() {
 		return firstname;
 	}
+
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
+
 	public String getMiddlename() {
 		return middlename;
 	}
+
 	public void setMiddlename(String middlename) {
 		this.middlename = middlename;
 	}
+
 	public String getLastname() {
 		return lastname;
 	}
+
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+
 	public int getRelationid() {
 		return relationid;
 	}
+
 	public void setRelationid(int relationid) {
 		this.relationid = relationid;
 	}
+
 	public int getEmployeeid() {
 		return employeeid;
 	}
+
 	public void setEmployeeid(int employeeid) {
 		this.employeeid = employeeid;
 	}
-	public void setCreated(Date currentDate) {
-		
-	}
-	
 
-	
+	public void setCreated(Date currentDate) {
+
+	}
+
+	public void setUpdated(Date currentDate) {
+
+	}
+
 }

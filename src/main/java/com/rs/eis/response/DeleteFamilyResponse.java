@@ -18,16 +18,17 @@ public class DeleteFamilyResponse extends AbstractResponse {
 		super.setErrorMessages(errorMessages);
 	}
 
-	private Family  getFamily;
+	private Family  Family;
 
-	public Family getGetFamily() {
-		return getFamily;
+	public Family getFamily() {
+		return Family;
 	}
 
-	public void setGetFamily(Family getFamily) {
-		this.getFamily = getFamily;
+	public void setFamily(Family family) {
+		Family = family;
 	}
 
+	
 	
 
 }

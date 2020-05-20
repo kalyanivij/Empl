@@ -18,15 +18,17 @@ public class DeleteInsuranceResponse extends AbstractResponse {
 		super.setErrorMessages(errorMessages);
 	}
 
-	private Insurance  getInsurance;
+	private Insurance  Insurance;
 
-	public Insurance getGetInsurance() {
-		return getInsurance;
+	public Insurance getInsurance() {
+		return Insurance;
 	}
 
-	public void setGetInsurance(Insurance getInsurance) {
-		this.getInsurance = getInsurance;
+	public void setInsurance(Insurance insurance) {
+		Insurance = insurance;
 	}
+
+	
 
 	
 
