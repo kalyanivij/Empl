@@ -55,32 +55,6 @@ public class ValidationEmployeeUtilImpl implements ValidationEmployeeUtil {
 		return errorMessages;
 	}
 
-	/*
-	 * @Override public Set<String> validateExpenseReportRequest(int userId, String
-	 * type, String fromDate, String toDate) { Set<String> errorMessages = new
-	 * HashSet<String>();
-	 * 
-	 * addError(errorMessages, userId, "Please enter userid");
-	 * addError(errorMessages, type, "Please enter type");
-	 * 
-	 * addError(errorMessages, fromDate, "Please enter fromdate");
-	 * addError(errorMessages, toDate, "Please enter toDate");
-	 * 
-	 * return errorMessages;
-	 * 
-	 * }
-	 */
-	/*
-	 * @Override public Set<String> validateResetPasswordRequest(int userId, String
-	 * currentPassword, String newPassword) { Set<String> errorMessages = new
-	 * HashSet<String>();
-	 * 
-	 * addError(errorMessages, userId, "Please enter userid");
-	 * addError(errorMessages, currentPassword, "Please enter currentPassword");
-	 * addError(errorMessages, newPassword, "Please enter newPassword");
-	 * 
-	 * return errorMessages; }
-	 */
 	@Override
 	public Set<String> validateDeleteEmployeeRequest(int id) {
 		return validateGetEmployeeRequest(id);

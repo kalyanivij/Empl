@@ -11,7 +11,6 @@ import com.rs.eis.model.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
-	// User login(String userName, String password);
 
 	List<Employee> findByAadharNo(String aadharNo);
 

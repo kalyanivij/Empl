@@ -37,7 +37,6 @@ public class EmployerController {
 	@Autowired
 	EmployerRepository employerRepository;
 
-	//private int expenseId;
 
 	@PostMapping("/addEmployer")
 	public AddEmployerResponse addEmployer(@Valid @RequestBody AddEmployerVO addEmployerVO) {

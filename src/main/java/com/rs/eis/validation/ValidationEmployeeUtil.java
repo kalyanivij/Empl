@@ -10,8 +10,6 @@ public interface ValidationEmployeeUtil {
 	Set<String> validateGetEmployeeRequest(int id);
 
 	Set<String> validateEditEmployeeRequest(int id);
-	// Set<String> validateEmployeeReportRequest(int employeeId, String startDate,
-	// String endDate);
 
 	Set<String> validateDeleteEmployeeRequest(int id);
 

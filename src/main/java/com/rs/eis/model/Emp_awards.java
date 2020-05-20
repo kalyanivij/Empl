@@ -26,8 +26,8 @@ public class Emp_awards {
 	private String date;
 	private int employeeid;
 	private int awardsid;
-	//private Date created;
-	//private Date updated;
+	private Date created;
+	private Date updated;
 	
 	
 
