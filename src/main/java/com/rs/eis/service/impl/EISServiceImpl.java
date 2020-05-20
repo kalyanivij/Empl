@@ -15,8 +15,12 @@ import com.rs.eis.model.Trainings;
 import com.rs.eis.repository.ContactRepository;
 import com.rs.eis.repository.EmployeeRepository;
 import com.rs.eis.repository.EmployerRepository;
+import com.rs.eis.repository.TrainingsEmployeeRepository;
+import com.rs.eis.repository.TrainingsEmployerRepository;
 import com.rs.eis.repository.TrainingsRepository;
 import com.rs.eis.response.AddEmp_awardsResponse;
+import com.rs.eis.response.AddEmployeeTrainingsResponse;
+import com.rs.eis.response.AddEmployerTrainingsResponse;
 import com.rs.eis.response.ContactResponse;
 import com.rs.eis.response.DeleteContactResponse;
 import com.rs.eis.response.DeleteEmp_awardsResponse;
@@ -45,18 +49,24 @@ public class EISServiceImpl implements EISService {
 
 	@Autowired
 	TrainingsRepository trainingsRepository;
+	
+	@Autowired
+	TrainingsEmployeeRepository trainingempRepository;
+	
+	@Autowired
+	TrainingsEmployerRepository trainingemprRepository;
 
 	@Autowired
 	ContactRepository contactRepository;
 
 	@Override
-	public TrainingsResponse saveTraining(Trainings trainings) {
-		TrainingsResponse response = new TrainingsResponse();
-		Optional<Employee> emp = employeeRepository.findById(trainings.getEmployee().getId());
+	public AddEmployeeTrainingsResponse saveTrainingEmployee(Trainings trainings) {
+		AddEmployeeTrainingsResponse response = new AddEmployeeTrainingsResponse();
+		Optional<Employee> emp = employeeRepository.findById(trainings.getEmployeeId());
 		if (emp.isPresent()) {
 
 			trainings.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
-			trainings = trainingsRepository.save(trainings);
+			trainings =trainingsRepository.save(trainings) ;
 
 			response.setTrainings(trainings);
 
@@ -72,9 +82,9 @@ public class EISServiceImpl implements EISService {
 	}
 
 	@Override
-	public TrainingsResponse saveTrainings(Trainings trainings) {
-		TrainingsResponse response = new TrainingsResponse();
-		Optional<Employer> empr = employerRepository.findById(trainings.getEmployer().getId());
+	public AddEmployerTrainingsResponse saveTrainingEmployer(Trainings trainings) {
+		AddEmployerTrainingsResponse response = new AddEmployerTrainingsResponse();
+		Optional<Employer> empr =employerRepository.findById(trainings.getEmployerId());
 		if (empr.isPresent()) {
 
 			trainings.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
@@ -155,9 +165,9 @@ public class EISServiceImpl implements EISService {
 	}
 
 	@Override
-	public GetTrainingsResponse getTrainings(int employeeid) {
+	public GetTrainingsResponse getTrainings(int employeeId) {
 		GetTrainingsResponse response = new GetTrainingsResponse();
-		List<Trainings> trainings = trainingsRepository.findByEmployee(employeeid);
+		List<Trainings> trainings = trainingempRepository.findByEmployeeId(employeeId);
 		if (!trainings.isEmpty()) {
 			response.setTrainings(trainings);
 			response.setStatusCode("000");
@@ -172,9 +182,9 @@ public class EISServiceImpl implements EISService {
 	}
 
 	@Override
-	public GetTrainingsResponse getTraining(int employerid) {
+	public GetTrainingsResponse getTraining(int employerId) {
 		GetTrainingsResponse response = new GetTrainingsResponse();
-		List<Trainings> trainings = trainingsRepository.findByEmployee(employerid);
+		List<Trainings> trainings = trainingemprRepository.findByEmployerId(employerId);
 		if (!trainings.isEmpty()) {
 			response.setTrainings(trainings);
 			response.setStatusCode("000");
@@ -188,167 +198,6 @@ public class EISServiceImpl implements EISService {
 		return response;
 	}
 
-	@Override
-	public GetEmp_awardsResponse getEmp_awardsByemployeeid(int employeeid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public GetEmp_awardsResponse emp_awardsReport(int employeeid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DeleteEmp_awardsResponse deleteEmp_awards(int employeeid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public AddEmp_awardsResponse addEmp_awards(Emp_awards emp_awards) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ContactResponse saveContact(Contact contact) {
-		ContactResponse response = new ContactResponse();
-		Optional<Employee> emp = employeeRepository.findById(contact.getEmployee().getId());
-		if (emp.isPresent()) {
-
-			contact.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
-			contact = contactRepository.save(contact);
-
-			response.setContact(contact);
-
-			response.setStatusCode("000");
-			response.setStatus(HttpStatus.OK);
-		} else {
-			response.setStatusCode("001");
-			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("Invalid Input as Id is not present in the table");
-		}
-
-		return response;
-	}
-
-	@Override
-	public ContactResponse saveContacts(Contact contact) {
-		ContactResponse response = new ContactResponse();
-		Optional<Employer> empr = employerRepository.findById(contact.getEmployer().getId());
-		if (empr.isPresent()) {
-
-			contact.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
-			contact = contactRepository.save(contact);
-
-			response.setContact(contact);
-
-			response.setStatusCode("000");
-			response.setStatus(HttpStatus.OK);
-		} else {
-			response.setStatusCode("001");
-			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("Invalid Input as Id is not present in the table");
-		}
-
-		return response;
-	}
-
-	@Override
-	public EditContactResponse editContact(Contact contact) {
-		EditContactResponse response = new EditContactResponse();
-
-		Optional<Contact> contactObj = contactRepository.findById(contact.getId());
-
-		if (contactObj.isPresent()) {
-
-			contact.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
-			contact = contactRepository.save(contact);
-
-			response.setContact(contact);
-
-			response.setStatusCode("000");
-			response.setStatus(HttpStatus.OK);
-		} else {
-			response.setStatusCode("001");
-			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("Invalid Input as ContactId is not present in Contact table");
-		}
-
-		return response;
-	}
-
-	@Override
-	public DeleteContactResponse deleteContact(int contactId) {
-		DeleteContactResponse response = new DeleteContactResponse();
-
-		Optional<Contact> contact = contactRepository.findById(contactId);
-
-		if (contact.isPresent()) {
-			Contact contacts = contact.get();
-			contactRepository.delete(contacts);
-			response.setStatusCode("000");
-			response.setStatus(HttpStatus.OK);
-		} else {
-			response.setStatusCode("001");
-			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("Invalid Input as contactId is not present in Contact table");
-		}
-
-		return response;
-	}
-
-	@Override
-	public GetContactResponse getContactById(int contactId) {
-		GetContactResponse response = new GetContactResponse();
-		Optional<Contact> contact = contactRepository.findById(contactId);
-		if (contact.isPresent()) {
-			response.setContact(contact.get());
-			response.setStatusCode("000");
-			response.setStatus(HttpStatus.OK);
-		} else {
-			response.setStatusCode("001");
-			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("No Contacts Found for the given contactid");
-		}
-
-		return response;
-	}
-
-	@Override
-	public GetContactsResponse getContact(int employeeid) {
-		GetContactsResponse response = new GetContactsResponse();
-		List<Contact> contact = contactRepository.findByEmployee(employeeid);
-		if (!contact.isEmpty()) {
-			response.setContact(contact);
-			response.setStatusCode("000");
-			response.setStatus(HttpStatus.OK);
-		} else {
-			response.setStatusCode("001");
-			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("Invalid Input as Id is not present in contact table");
-		}
-
-		return response;
-	}
-
-	@Override
-	public GetContactsResponse getContacts(int employerid) {
-		GetContactsResponse response = new GetContactsResponse();
-		List<Contact> contact = contactRepository.findByEmployee(employerid);
-		if (!contact.isEmpty()) {
-			response.setContact(contact);
-			response.setStatusCode("000");
-			response.setStatus(HttpStatus.OK);
-		} else {
-			response.setStatusCode("001");
-			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("Invalid Input as Id is not present in contact table");
-		}
-
-		return response;
-	}
 
 }

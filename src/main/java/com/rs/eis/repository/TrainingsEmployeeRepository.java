@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.rs.eis.model.Trainings;
 
 @Repository
-public interface TrainingsRepository extends JpaRepository<Trainings,Integer> {
+public interface TrainingsEmployeeRepository extends JpaRepository<Trainings,Integer> {
 
+	List<Trainings> findByEmployeeId(int employeeId);
 
 }

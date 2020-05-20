@@ -31,12 +31,16 @@ public class Trainings {
 	private String byWhom;
 	private Date created;
 	private Date updated;
+	private int employeeId;
+	private int employerId;
 
 	public Trainings() {
 	}
 
+	
 	public Trainings(int id, String courseType, String duration, String startDate, String endDate, String byWhom,
-			Date created, Date updated, Employee employee, Employer employer) {
+			Date created, Date updated, int employeeId, int employerId) {
+		super();
 		this.id = id;
 		this.courseType = courseType;
 		this.duration = duration;
@@ -45,17 +49,18 @@ public class Trainings {
 		this.byWhom = byWhom;
 		this.created = created;
 		this.updated = updated;
-		this.employee = employee;
-		this.employer = employer;
+		this.employeeId = employeeId;
+		this.employerId = employerId;
 	}
 
-	@OneToOne(targetEntity=Employee.class,cascade=CascadeType.ALL)
+
+	/*@OneToOne(targetEntity=Employee.class,cascade=CascadeType.ALL)
 	@JoinColumn(name="employeeid",referencedColumnName="id")
 	private Employee employee;
 	
 	@OneToOne(targetEntity=Employer.class,cascade=CascadeType.ALL)
 	@JoinColumn(name="employerid",referencedColumnName="id")
-	private Employer employer;
+	private Employer employer;*/
 
 	public int getId() {
 		return id;
@@ -121,21 +126,24 @@ public class Trainings {
 		this.updated = updated;
 	}
 
-	public Employee getEmployee() {
-		return employee;
+	public int getEmployeeId() {
+		return employeeId;
 	}
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setEmployeeid(int employeeId) {
+		this.employeeId = employeeId;
 	}
 
-	public Employer getEmployer() {
-		return employer;
+	public int getEmployerId() {
+		return employerId;
 	}
 
-	public void setEmployer(Employer employer) {
-		this.employer = employer;
+	public void setEmployerId(int employerId) {
+		this.employerId = employerId;
 	}
 
+	
+
+	
 	
 }
