@@ -153,6 +153,7 @@ public class FERController {
 	}
 
 	@PutMapping("/emp_awards/{id}")
+	
 	public EditEmp_awardsResponse editEmp_awards(@PathVariable("id") int id,
 			@Valid @RequestBody Emp_awards emp_awards) {
 		return ferService.editEmp_awards(emp_awards);
