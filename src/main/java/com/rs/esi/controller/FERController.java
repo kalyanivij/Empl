@@ -25,6 +25,7 @@ import com.rs.esi.request.RegistrationVO;
 import com.rs.esi.request.UserVO;
 import com.rs.esi.response.AddEmp_awardsResponse;
 import com.rs.esi.response.DeleteEmp_awardsResponse;
+import com.rs.esi.response.EditEmp_awardsResponse;
 import com.rs.esi.response.GetEmp_awardsResponse;
 import com.rs.esi.response.GetUserResponse;
 import com.rs.esi.response.LoginResponse;
@@ -136,8 +137,7 @@ public class FERController {
 	 */
 
 	@PostMapping("/emp_awards")
-	
-	
+
 	public AddEmp_awardsResponse addEmp_awards(@Valid @RequestBody Emp_awards emp_awards) {
 		return ferService.addEmp_awards(emp_awards);
 	}
@@ -152,6 +152,12 @@ public class FERController {
 		}
 	}
 
+	@PutMapping("/emp_awards/{id}")
+	public EditEmp_awardsResponse editEmp_awards(@PathVariable("id") int id,
+			@Valid @RequestBody Emp_awards emp_awards) {
+		return ferService.editEmp_awards(emp_awards);
+	}
+
 	/*
 	 * @GetMapping("/{employeeid}/emp_awards/report") public Emp_awardsResponse
 	 * emp_awardsReport(@PathVariable("employeeid") int emp_awardsid) { Set<String>
@@ -160,6 +166,7 @@ public class FERController {
 	 * GetEmp_awardsResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 	 * } else { return ferService.emp_awardsReport(emp_awardsid); } }
 	 */
+
 	@DeleteMapping("/emp_awards/{employeeid}")
 	public DeleteEmp_awardsResponse deleteEmp_awards(@PathVariable("employeeid") int employeeid) {
 		Set<String> errorMessages = validationUtil.validateDeleteEpm_awardsRequest(employeeid);

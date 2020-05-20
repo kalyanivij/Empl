@@ -132,20 +132,20 @@ public class ValidationUtilImpl implements ValidationUtil {
 		return errorMessages;
 	}
 
-	@Override
-	public Set<String> validateEmp_awardsReportRequest(int employeeid) {
-		// TODO Auto-generated method stub
-		Set<String> errorMessages = new HashSet<String>();
+//	@Override
+//	public Set<String> validateEmp_awardsReportRequest(int employeeid) {
+//		// TODO Auto-generated method stub
+//		Set<String> errorMessages = new HashSet<String>();
+//
+//		addError(errorMessages, employeeid, "Please enter employeeid");
+//		
+//		return errorMessages;
+//	}
 
-		addError(errorMessages, employeeid, "Please enter employeeid");
-		
-		return errorMessages;
-	}
-
 	@Override
-	public Set<String> validateDeleteEpm_awardsRequest(int emp_awardsid) {
+	public Set<String> validateDeleteEpm_awardsRequest(int employeeid) {
 		// TODO Auto-generated method stub
-		return validateDeleteEpm_awardsRequest(emp_awardsid);
+		return validateDeleteEpm_awardsRequest(employeeid);
 	}
 
 }

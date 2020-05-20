@@ -1,6 +1,7 @@
 package com.rs.esi.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -17,13 +18,15 @@ public interface Emp_awardsRepository extends JpaRepository<Emp_awards, Integer>
 	List<Emp_awards> findByemployeeid(int employeeid);
 
 	/*
-	 * List<Emp_awards> findByemployeeid(int awardsid, String date, String created,
-	 * String updated);
+	 * List<Emp_awards> findByemployeeid(String date, String created, String
+	 * updated);
 	 */
 	/*
-	 * List<Emp_awards> findByawardsidAndType(int awardsid, String date, String
-	 * created, String updated);
+	 * Optional<Emp_awards> findByIdAndemployeeid(int getawardsid);
 	 */	
+	Optional<Emp_awards> findById(int id);
+
+	
 
 	
 

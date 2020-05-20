@@ -22,11 +22,12 @@ public interface ValidationUtil {
 	
 	Set<String> validateUpdateUserRequest(UserVO userVO);
 
-	Set<String> validateEmp_awardsReportRequest(int employeeid);
+	/*
+	 * Set<String> validateEmp_awardsReportRequest(int employeeid);
+	 */
+	Set<String> validateDeleteEpm_awardsRequest(int id);
 
-	Set<String> validateDeleteEpm_awardsRequest(int emp_awardsid);
-
-	Set<String> validateGetEmp_awardsRequest(int emp_awardsid);
+	Set<String> validateGetEmp_awardsRequest(int id);
 	
 	
 }
