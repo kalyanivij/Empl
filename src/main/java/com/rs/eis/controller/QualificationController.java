@@ -25,14 +25,14 @@ import com.rs.eis.response.DeleteQualificationResponse;
 import com.rs.eis.response.EditQualificationResponse;
 import com.rs.eis.response.GetQualificationResponse;
 import com.rs.eis.response.QualificationResponse;
-import com.rs.eis.service.FERService;
+import com.rs.eis.service.QualificationService;
 import com.rs.eis.validation.ValidationUtil;
 
 @RestController
 @RequestMapping("/api")
-public class FERController {
+public class QualificationController {
 	@Autowired
-	FERService ferService;
+	QualificationService qualificationService;
 
 	@Autowired
 	ValidationUtil validationUtil;
@@ -44,7 +44,7 @@ public class FERController {
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new QualificationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return ferService.InsertQualification(qualificationVO);
+			return qualificationService.InsertQualification(qualificationVO);
 		}
 	}
 	
@@ -54,7 +54,7 @@ public class FERController {
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new GetQualificationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return ferService.getQualififcationById(id);
+			return qualificationService.getQualificationById(id);
 		}
 	}
 
@@ -64,14 +64,19 @@ public class FERController {
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new DeleteQualificationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return ferService.deleteQualification(id);
+			return qualificationService.deleteQualification(id);
 		}
 	}
 
 	@PutMapping("/qualification/{id}")
 	public EditQualificationResponse editQualification(@PathVariable("id") int Id,
-			@Valid @RequestBody Qualification qualification) {
-		return ferService.editQualification(qualification);
+			@Valid @RequestBody QualificationVO qualificationVO) {
+		Set<String> errorMessages = validationUtil.validateQualificationRequest(qualificationVO);
+		if (!CollectionUtils.isEmpty(errorMessages)) {
+			return new EditQualificationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+		} else {
+			return qualificationService.editQualification(qualificationVO);
+		}
 	}
 
 }

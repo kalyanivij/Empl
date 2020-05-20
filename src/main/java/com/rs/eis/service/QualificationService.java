@@ -7,14 +7,14 @@ import com.rs.eis.response.EditQualificationResponse;
 import com.rs.eis.response.GetQualificationResponse;
 import com.rs.eis.response.QualificationResponse;
 
-public interface FERService {
+public interface QualificationService {
 
 	QualificationResponse InsertQualification(QualificationVO qualificationVO);
 
-	GetQualificationResponse getQualififcationById(int id);
+	GetQualificationResponse getQualificationById(int id);
 
 	DeleteQualificationResponse deleteQualification(int id);
 
-	EditQualificationResponse editQualification(Qualification qualification);
+	EditQualificationResponse editQualification(QualificationVO qualificationVO);
 
 }

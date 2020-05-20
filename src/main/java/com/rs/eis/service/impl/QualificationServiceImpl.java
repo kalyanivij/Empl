@@ -13,11 +13,11 @@ import com.rs.eis.response.DeleteQualificationResponse;
 import com.rs.eis.response.EditQualificationResponse;
 import com.rs.eis.response.GetQualificationResponse;
 import com.rs.eis.response.QualificationResponse;
-import com.rs.eis.service.FERService;
+import com.rs.eis.service.QualificationService;
 import com.rs.eis.util.FERUtil;
 
 @Service
-public class FERServiceImpl implements FERService {
+public class QualificationServiceImpl implements QualificationService {
 
 	@Autowired
 	QualificationRepository qualificationRepository;
@@ -46,7 +46,7 @@ public class FERServiceImpl implements FERService {
 	}
 
 	@Override
-	public GetQualificationResponse getQualififcationById(int id) {
+	public GetQualificationResponse getQualificationById(int id) {
 
 		GetQualificationResponse response = new GetQualificationResponse();
 		Optional<Qualification> QualificationObj = qualificationRepository.findById(id);
@@ -85,14 +85,14 @@ public class FERServiceImpl implements FERService {
 	}
 
 	@Override
-	public EditQualificationResponse editQualification(Qualification qualification) {
+	public EditQualificationResponse editQualification(QualificationVO qualificationVO) {
 
 		EditQualificationResponse response = new EditQualificationResponse();
 
-		Optional<Qualification> qualificationObj = qualificationRepository.findById(qualification.getId());
+		Optional<Qualification> qualificationObj = qualificationRepository.findById(qualificationVO.getId());
 
 		if (qualificationObj.isPresent()) {
-
+			Qualification qualification = FERUtil.loadQualificationVOToQualification(qualificationVO);
 			qualification = qualificationRepository.save(qualification);
 
 			response.setQualification(qualification);
