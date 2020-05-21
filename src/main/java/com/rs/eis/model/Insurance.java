@@ -21,26 +21,28 @@ public class Insurance {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private int amount;
-	private String startdate;
-	private String enddate;
-	private int insuranceid;
-	private int employeeid;
-	public Insurance(int id, int amount, String startdate, String enddate,int insuranceid, int employeeid) {
+	private String startDate;
+	private String endDate;
+	private int insuranceId;
+	private int employeeId;
+	private Date created;
+	private Date updated;
+	public Insurance(int id, int amount, String startDate, String endDate,int insuranceId, int employeeId) {
 
 		this.id = id;
 		this.amount = amount;
-		this.startdate = startdate;
-		this.enddate = enddate;
-		this.insuranceid=insuranceid;
-		this.employeeid = employeeid;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.insuranceId=insuranceId;
+		this.employeeId = employeeId;
 	}
 
 	public int getInsuranceid() {
-		return insuranceid;
+		return insuranceId;
 	}
 
-	public void setInsuranceid(int insuranceid) {
-		this.insuranceid = insuranceid;
+	public void setInsuranceid(int insuranceId) {
+		this.insuranceId = insuranceId;
 	}
 
 	public Insurance() {
@@ -62,35 +64,37 @@ public class Insurance {
 		this.amount = amount;
 	}
 
-	public String getStartdate() {
-		return startdate;
+	public String getStartDate() {
+		return startDate;
 	}
 
-	public void setStartdate(String startdate) {
-		this.startdate = startdate;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
 	}
 
-	public String getEnddate() {
-		return enddate;
+	public String getEndDate() {
+		return endDate;
 	}
 
-	public void setEnddate(String enddate) {
-		this.enddate = enddate;
+	public void setEnddDate(String endDate) {
+		this.endDate = endDate;
 	}
 
-	public int getEmployeeid() {
-		return employeeid;
+	public int getEmployeeId() {
+		return employeeId;
 	}
 
-	public void setEmployeeid(int employeeid) {
-		this.employeeid = employeeid;
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
 	}
 
-	public void setCreated(Date currentDate) {
+	public Date getCreated() {
+		return created;
+	}
+
+	public Date getUpdated() {
+		return updated;
+	}
+
 		
-	}
-	public void setUpdated(Date currentDate) {
-		
-	}
-	
 }
