@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import com.rs.esi.repository.ExpenseRepository;
 import com.rs.esi.repository.Perfomance_reviewRepository;
 import com.rs.esi.request.RegistrationVO;
 import com.rs.esi.response.AddPerfomance_reviewResponse;
+import com.rs.esi.response.DeletePerfomance_reviewResponse;
 import com.rs.esi.response.GetPerfomance_reviewResponse;
 import com.rs.esi.response.LoginResponse;
 import com.rs.esi.response.RegistrationResponse;
@@ -46,6 +48,7 @@ public class FERController {
 	private int expenseId;
 
 	@PostMapping("/register")
+	
 	public RegistrationResponse userRegistration(@Valid @RequestBody RegistrationVO registrationVO) {
 
 		Set<String> errorMessages = validationUtil.validateRegistrationRequest(registrationVO);
@@ -63,13 +66,13 @@ public class FERController {
 	   ferService.addPerfomance_review(perfomance_review); }
 	  
 
-	@GetMapping("/perfomance_review/{employeeid}")
-	public GetPerfomance_reviewResponse getPerfomance_review(@PathVariable("perfomance_reviewid") int perfomance_review) {
-		Set<String> errorMessages = validationUtil.validateGetPerfomance_reviewRequest(perfomance_review);
+	@GetMapping("/getperfomance_review/{employeeid}")
+	public GetPerfomance_reviewResponse getPerfomance_review(@PathVariable("employeeid") int employeeid) {
+		Set<String> errorMessages = validationUtil.validateGetPerfomance_reviewRequest(employeeid);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new GetPerfomance_reviewResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return ferService.getPerfomance_reviewByemployeeid(perfomance_review);
+			return ferService.getPerfomance_reviewByemployeeid(employeeid);
 		}
 	}
 
@@ -82,7 +85,18 @@ public class FERController {
 			return ferService.perfomance_reviewReport(employeeid);
 		}
 	}
+	
+	
+	@DeleteMapping("/perfomance_review/{employeeid}")
+	public DeletePerfomance_reviewResponse deletePerfomance_review(@PathVariable(value = "employeeid") int employeeid) {
+		Set<String> errorMessages = validationUtil.validateDeletePerfomance_reviewRequest(employeeid);
+		if (!CollectionUtils.isEmpty(errorMessages)) {
+			return new DeletePerfomance_reviewResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+		} else {
+			return ferService.deletePerfomance_review(employeeid);
+		}
 
 	
 	
+}
 }

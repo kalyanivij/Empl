@@ -7,6 +7,7 @@ import com.rs.esi.request.UserVO;
 import com.rs.esi.response.AddExpenseResponse;
 import com.rs.esi.response.AddPerfomance_reviewResponse;
 import com.rs.esi.response.DeleteExpenseResponse;
+import com.rs.esi.response.DeletePerfomance_reviewResponse;
 import com.rs.esi.response.EditExpenseResponse;
 import com.rs.esi.response.ExpenseReportResponse;
 import com.rs.esi.response.GetExpenseResponse;
@@ -40,11 +41,13 @@ public interface FERService {
 	GetUserResponse getUser(int userid);
 	
 	
-	GetPerfomance_reviewResponse getPerfomance_reviewByemployeeid(int reviewid);
+	GetPerfomance_reviewResponse getPerfomance_reviewByemployeeid(int employeeid);
 
 	GetPerfomance_reviewResponse perfomance_reviewReport(int employeeid);
 
 	AddPerfomance_reviewResponse addPerfomance_review(Perfomance_Review perfomance_review);
+
+	DeletePerfomance_reviewResponse deletePerfomance_review(int employeeid);
 
 	
 

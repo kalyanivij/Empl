@@ -27,12 +27,8 @@ public interface ValidationUtil {
 	Set<String> validateDeletePerfomance_reviewRequest(int employeeid);
 
 	
-	/*
-	 * Set<String> validateExpenseReportRequest(int userId, String type, String
-	 * fromDate, String toDate);
-	 */
-
-	Set<String> validateGetPerfomance_reviewRequest(int emp_awards);
+	
+	Set<String> validateGetPerfomance_reviewRequest(int reviewid);
 	
 
 

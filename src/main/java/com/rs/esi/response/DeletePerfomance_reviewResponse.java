@@ -8,13 +8,13 @@ import com.rs.esi.model.Expense;
 import com.rs.esi.model.Perfomance_Review;
 
 public class DeletePerfomance_reviewResponse extends AbstractResponse {
-private Perfomance_Review emp_awards;
+private Perfomance_Review perfomance_review;
 	
-	public Perfomance_Review getEmp_awards() {
-		return emp_awards;
+	public Perfomance_Review getPerfomance_review() {
+		return perfomance_review;
 	}
-	public void setEmp_awards(Perfomance_Review expense) {
-		this.emp_awards = expense;
+	public void setPerfomance_review(Perfomance_Review perfomance_review) {
+		this.perfomance_review = perfomance_review;
 	}
 	public DeletePerfomance_reviewResponse() {
 

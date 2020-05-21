@@ -19,6 +19,7 @@ import com.rs.esi.request.UserVO;
 import com.rs.esi.response.AddExpenseResponse;
 import com.rs.esi.response.AddPerfomance_reviewResponse;
 import com.rs.esi.response.DeleteExpenseResponse;
+import com.rs.esi.response.DeletePerfomance_reviewResponse;
 import com.rs.esi.response.EditExpenseResponse;
 import com.rs.esi.response.ExpenseReportResponse;
 import com.rs.esi.response.GetExpenseResponse;
@@ -111,9 +112,9 @@ public class FERServiceImpl implements FERService {
 	
 	
 	@Override
-	public GetPerfomance_reviewResponse getPerfomance_reviewByemployeeid(int reviewid) {
+	public GetPerfomance_reviewResponse getPerfomance_reviewByemployeeid(int employeeid) {
 		GetPerfomance_reviewResponse response = new GetPerfomance_reviewResponse();
-		Optional<Perfomance_Review> perfomance_reviewObj = perfomance_reviewRepository.findById(reviewid);
+		Optional<Perfomance_Review> perfomance_reviewObj = perfomance_reviewRepository.findById(employeeid);
 		if (perfomance_reviewObj.isPresent()) {
 
 			response.setPerfomance_review(perfomance_reviewObj.get());
@@ -184,11 +185,13 @@ public class FERServiceImpl implements FERService {
 		return null;
 	}
 
+
 	@Override
 	public ResetPasswordResponse resetPassword(int userid, String currentPassword, String newPassword) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	@Override
 	public DeleteExpenseResponse deleteExpense(int expenseId) {
@@ -196,4 +199,28 @@ public class FERServiceImpl implements FERService {
 		return null;
 	}
 
+
+	@Override
+	public DeletePerfomance_reviewResponse deletePerfomance_review(int employeeid) {
+		DeletePerfomance_reviewResponse response = new DeletePerfomance_reviewResponse();
+
+		Optional<Perfomance_Review> perfomance_reviewObj = perfomance_reviewRepository.findById(employeeid);
+
+		if (perfomance_reviewObj.isPresent()) {
+			Perfomance_Review perfomance_review = perfomance_reviewObj.get();
+			perfomance_reviewRepository.delete(perfomance_review);
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as EmployeeId is not present in perfomance_review table");
+		}
+
+		return response;
+	}
+
+
+
+	
 }

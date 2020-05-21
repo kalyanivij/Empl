@@ -138,10 +138,10 @@ public class ValidationUtilImpl implements ValidationUtil {
 	}
 
 	@Override
-	public Set<String> validateGetPerfomance_reviewRequest(int emp_awards) {
+	public Set<String> validateGetPerfomance_reviewRequest(int reviewid) {
 		Set<String> errorMessages = new HashSet<String>();
 
-		addError(errorMessages, emp_awards, "Please enter valid emp_id");
+		addError(errorMessages, reviewid, "Please enter valid reviewid");
 
 		return errorMessages;
 
