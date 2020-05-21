@@ -45,5 +45,10 @@ public class AbstractResponse {
 
 	public void setErrorMessages(Set<String> errorMessages) {
 		this.errorMessages = errorMessages;
+<<<<<<< HEAD
 	}
+=======
+	}
+	
+>>>>>>> branch 'master' of https://github.com/kalyanivij/Empl.git
 }

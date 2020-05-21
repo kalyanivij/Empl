@@ -2,10 +2,16 @@ package com.rs.eis.validation;
 
 import java.util.Set;
 
+<<<<<<< HEAD
 
 import com.rs.eis.request.QualificationVO;
+=======
+import com.rs.eis.request.RegistrationVO;
+import com.rs.eis.request.UserVO;
+>>>>>>> branch 'master' of https://github.com/kalyanivij/Empl.git
 
 public interface ValidationUtil {
+<<<<<<< HEAD
 
 	Set<String> validateQualificationRequest(QualificationVO qualificationVO);
 
@@ -14,23 +20,36 @@ public interface ValidationUtil {
 	Set<String> validateDeleteQualificationRequest(int id);
 	
 	Set<String> validateUpdateQualificationRequest(int id);
+=======
+	Set<String> validateRegistrationRequest(RegistrationVO registrationVO);
+
+	Set<String> validateGetExpenseRequest(int expenseId);
+
+	Set<String> validateGetExpensesRequest(int userId);
+
+	Set<String> validateExpenseReportRequest(int userId, String type, String fromDate, String toDate);
+
+	Set<String> validateResetPasswordRequest(int userId, String currentPassword, String newPassword);
+
+	Set<String> validateDeleteExpenseRequest(int expenseId);
+
+	Set<String> validateGetUserRequest(int userId);
+>>>>>>> branch 'master' of https://github.com/kalyanivij/Empl.git
 	
-	Set<String> validateEmp_awardsReportRequest(int employeeid);
+	Set<String> validateUpdateUserRequest(UserVO userVO);
+	
+	
+	Set<String> validateInsuranceReportRequest(int employeeid);
+	
+	Set<String> validateDeleteInsuranceRequest(int employeeid);
+	
+	Set<String> validateGetInsuranceRequest(int employeeid);
 
-	Set<String> validateDeleteEpm_awardsRequest(int emp_awardsid);
+	Set<String> validateGetFamilyRequest(int employeeid);
 
-	Set<String> validateGetEmp_awardsRequest(int emp_awardsid);
+	Set<String> validateFamilyReportRequest(int employeeid);
 
-	Set<String> validateDeleteTrainingsRequest(int trainingId);
+	Set<String> validateDeleteFamilyRequest(int employeeid);
 
-	Set<String> validateGetTrainingRequest(int trainingId);
-
-	Set<String> validateGetTrainingsRequest(int employerid);
-
-	Set<String> validateDeleteContactRequest(int contactId);
-
-	Set<String> validateGetContactRequest(int employeeId);
-
-	Set<String> validateGetContactsRequest(int employerid);
 
 }
