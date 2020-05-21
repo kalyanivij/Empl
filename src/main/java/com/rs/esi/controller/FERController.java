@@ -51,6 +51,7 @@ public class FERController {
 	
 	public RegistrationResponse userRegistration(@Valid @RequestBody RegistrationVO registrationVO) {
 
+		
 		Set<String> errorMessages = validationUtil.validateRegistrationRequest(registrationVO);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new RegistrationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
