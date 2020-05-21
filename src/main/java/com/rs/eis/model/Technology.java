@@ -26,6 +26,7 @@ public class Technology {
 	private String name;
 	private Date created;
 	private Date updated;
+	
 
 	public Technology() {
 	}
