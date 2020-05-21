@@ -55,15 +55,7 @@ public class ValidationUtilImpl implements ValidationUtil {
 		return errorMessages;
 	}
 
-	@Override
-	public Set<String> validateGetExpensesRequest(int userId) {
-		Set<String> errorMessages = new HashSet<String>();
-
-		addError(errorMessages, userId, "Please enter valid userId");
-
-		return errorMessages;
-	}
-
+	
 	@Override
 	public Set<String> validateExpenseReportRequest(int userId, String type, String fromDate, String toDate) {
 		Set<String> errorMessages = new HashSet<String>();
