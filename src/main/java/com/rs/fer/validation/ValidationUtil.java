@@ -19,24 +19,21 @@ public interface ValidationUtil {
 	Set<String> validateDeleteExpenseRequest(int expenseId);
 
 	Set<String> validateGetUserRequest(int userId);
-	
+
 	Set<String> validateUpdateUserRequest(UserVO userVO);
-	
+
 	Set<String> validateGetTransportationRequest(int Id);
-	
+
 	Set<String> validateGetPfRequest(int Id);
-	
-	
+
 	Set<String> validateDeleteAllocationRequest(int allocationId);
 
 	Set<String> validateGetAllocationRequest(int allocationId);
 
 	Set<String> validateGetAllocationsRequest(int projectId);
-	
-Set<String> validateDeleteResumeRequest(int resumeId);
-	
+
+	Set<String> validateDeleteResumeRequest(int resumeId);
+
 	Set<String> validateGetResumeRequest(int employeeId);
-
-
 
 }

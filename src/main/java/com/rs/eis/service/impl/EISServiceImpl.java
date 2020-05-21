@@ -19,6 +19,7 @@ import com.rs.eis.repository.FamilyRepository;
 import com.rs.eis.repository.InsuranceRepository;
 import com.rs.eis.repository.ProjectRepository;
 import com.rs.eis.repository.ResumeRepository;
+import com.rs.eis.request.AllocationVO;
 import com.rs.eis.response.AddAllocationResponse;
 import com.rs.eis.response.AddFamilyResponse;
 import com.rs.eis.response.AddInsuranceResponse;
@@ -424,9 +425,9 @@ public class EISServiceImpl implements EISService {
 		AddAllocationResponse response = new AddAllocationResponse();
 
 		//Optional<Allocation> allocationObj = allocationRepository.findById(allocation.getProject().getId());
-		Optional<Project> allocationObj = projectRepository.findById(allocation.getProjectid());
+		Optional<Project> projectObj = projectRepository.findById(allocation.getProjectid());
 
-		if (allocationObj.isPresent()) {
+		if (projectObj.isPresent()) {
 
 			allocation = allocationRepository.save(allocation);
 
