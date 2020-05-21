@@ -6,131 +6,90 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.rs.eis.model.Designation;
-import com.rs.eis.model.Emp_Designation;
-import com.rs.eis.model.Salary;
-import com.rs.eis.repository.DesignationRepository;
-import com.rs.eis.repository.Emp_DesignationRepository;
-import com.rs.eis.repository.SalaryRepository;
-import com.rs.eis.response.DeleteDesignationResponse;
-import com.rs.eis.response.DeleteEmp_DesignationResponse;
-import com.rs.eis.response.DeleteSalaryResponse;
-import com.rs.eis.response.DesignationResponse;
-import com.rs.eis.response.EditDesignationResponse;
-import com.rs.eis.response.EditEmp_DesignationResponse;
-import com.rs.eis.response.EditSalaryResponse;
-import com.rs.eis.response.Emp_DesignationResponse;
-import com.rs.eis.response.GetDesignationResponse;
-import com.rs.eis.response.GetEmp_DesignationResponse;
-import com.rs.eis.response.GetSalaryResponse;
-import com.rs.eis.response.SalaryResponse;
+import com.rs.eis.model.Country;
+import com.rs.eis.model.State;
+import com.rs.eis.repository.CountryRepository;
+import com.rs.eis.repository.StateRepository;
+import com.rs.eis.response.CountryResponse;
+import com.rs.eis.response.DeleteCountryResponse;
+import com.rs.eis.response.DeleteStateResponse;
+import com.rs.eis.response.EditCountryResponse;
+import com.rs.eis.response.EditStateResponse;
+import com.rs.eis.response.GetCountryResponse;
+import com.rs.eis.response.GetStateResponse;
+import com.rs.eis.response.StateResponse;
 import com.rs.eis.service.EISService;
 
 @Service
 public class EISServiceImpl implements EISService {
 
 	@Autowired
-	DesignationRepository designationRepository;
+
+	EISService eisService;
+
 	@Autowired
-	Emp_DesignationRepository emp_designationRepository;
+
+	CountryRepository countryRepository;
+
 	@Autowired
-	SalaryRepository salaryRepository;
+	StateRepository stateRepository;
 
-	public DesignationResponse addDesignation(Designation designation) {
-		DesignationResponse response = new DesignationResponse();
-
-		/*
-		 * Optional<Designation> userObj =
-		 * designationRepository.findById(designation.getUserId());
-		 * 
-		 * if (userObj.isPresent()) {
-		 */
-		designation = designationRepository.save(designation);
-
-		response.setDesignation(designation);
-
-		response.setStatusCode("000");
-		response.setStatus(
-				HttpStatus.OK); /*
-								 * else { response.setStatusCode("001"); response.setStatus(HttpStatus.
-								 * PRECONDITION_FAILED); response.
-								 * setErrorMessage("Invalid Input as userId is not present in user table" ); }
-								 */
-		return response;
-
-	}
-
-	public Emp_DesignationResponse addemp_designation(Emp_Designation emp_designation) {
-		Emp_DesignationResponse response = new Emp_DesignationResponse();
-
-		/*
-		 * Optional<Emp_Designation> userObj =
-		 * emp_designationRepository.findById(emp_designation.getEmployeeid());
-		 * 
-		 * if (userObj.isPresent()) {
-		 */
-
-		// emp_designation.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
-		emp_designation = emp_designationRepository.save(emp_designation);
-
-		response.setEmp_designation(emp_designation);
-
+	public StateResponse addState(State state) {
+		StateResponse response = new StateResponse();
+		state = stateRepository.save(state);
+		/* if (!state.isEmpty()) { */
+		response.setState(state);
 		response.setStatusCode("000");
 		response.setStatus(HttpStatus.OK);
 		/*
 		 * } else { response.setStatusCode("001");
 		 * response.setStatus(HttpStatus.PRECONDITION_FAILED); response.
-		 * setErrorMessage("Invalid Input as userId is not present in user table"); }
+		 * setErrorMessage("Invalid Input as name is not present in state table"); }
 		 */
 		return response;
 	}
 
 	@Override
-	public GetEmp_DesignationResponse getemp_DesignationById(int id) {
-		GetEmp_DesignationResponse response = new GetEmp_DesignationResponse();
-		Optional<Emp_Designation> dObj = emp_designationRepository.findById(id);
-		if (dObj.isPresent()) {
-			response.setEmp_designation(dObj.get());
-			response.setStatusCode("000");
-			response.setStatus(HttpStatus.OK);
-		} else {
-			response.setStatusCode("001");
-			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("No data Found for the given id");
-		}
-		return response;
-	}
-
-	@Override
-	public SalaryResponse addSalary(Salary salary) {
-		SalaryResponse response = new SalaryResponse();
-
-		/*
-		 * Optional<Salary> userObj = salaryRepository.findById(salary.getEmployeeid());
-		 * 
-		 * if (userObj.isPresent()) {
-		 */
-		// salary.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
-		salary = salaryRepository.save(salary);
-
-		response.setSalary(salary);
-
+	public CountryResponse addCountry(Country country) {
+		CountryResponse response = new CountryResponse();
+		country = countryRepository.save(country);
+		/* if (!state.isEmpty()) { */
+		response.setCountry(country);
 		response.setStatusCode("000");
 		response.setStatus(HttpStatus.OK);
 		/*
 		 * } else { response.setStatusCode("001");
 		 * response.setStatus(HttpStatus.PRECONDITION_FAILED); response.
-		 * setErrorMessage("Invalid Input as userId is not present in user table"); }
+		 * setErrorMessage("Invalid Input as name is not present in state table"); }
 		 */
 		return response;
 	}
 
 	@Override
-	public GetDesignationResponse getDesignationById(int id) {
-		GetDesignationResponse response = new GetDesignationResponse();
-		Optional<Designation> dObj = designationRepository.findById(id);
-		if (dObj.isPresent()) {
-			response.setDesignation(dObj.get());
+	public GetStateResponse getStateById(int id) {
+		GetStateResponse response = new GetStateResponse();
+		Optional<State> state = stateRepository.findById(id);
+		if (state.isPresent()) {
+			response.setState(state.get());
+
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as employeeId is not present in user table");
+		}
+
+		return response;
+	}
+
+	@Override
+	public DeleteStateResponse deleteStateById(int id) {
+		DeleteStateResponse response = new DeleteStateResponse();
+		Optional<State> state = stateRepository.findById(id);
+		if (state.isPresent()) {
+			State State = state.get();
+			stateRepository.delete(State);
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
 		} else {
@@ -142,146 +101,83 @@ public class EISServiceImpl implements EISService {
 	}
 
 	@Override
-	public DeleteDesignationResponse deleteDesignation(Integer id) {
-		DeleteDesignationResponse response = new DeleteDesignationResponse();
-		Optional<Designation> dObj = designationRepository.findById(id);
-		if (dObj.isPresent()) {
-			Designation Designation = dObj.get();
-			designationRepository.delete(Designation);
+	public EditStateResponse editState(State state) {
+		EditStateResponse response = new EditStateResponse();
+		Optional<State> stateObj = stateRepository.findById(state.getId());
+		if (stateObj.isPresent()) {
+
+			state = stateRepository.save(state);
+			response.setState(state);
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
+
 		} else {
 			response.setStatusCode("001");
 			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("No data Found for the given id");
-		}
-		return response;
-	}
+			response.setErrorMessage("Invalid Input as name is not present in state table");
 
-	public EditDesignationResponse editDesignation(Designation designation) {
-		EditDesignationResponse response = new EditDesignationResponse();
-		Optional<Designation> dObj = designationRepository.findById(designation.getId());
-		if (dObj.isPresent()) {
-			designation = designationRepository.save(designation);
-			response.setDesignation(designation);
-			response.setStatusCode("000");
-			response.setStatus(HttpStatus.OK);
-		} else {
-			response.setStatusCode("001");
-			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("No data Found for the given id");
-		}
-
-		return response;
-	}
-
-	public EditSalaryResponse editSlary(Salary salary) {
-		EditSalaryResponse response = new EditSalaryResponse();
-		Optional<Salary> dObj = salaryRepository.findById(salary.getId());
-		if (dObj.isPresent()) {
-			salary = salaryRepository.save(salary);
-			response.setSalary(salary);
-			response.setStatusCode("000");
-			response.setStatus(HttpStatus.OK);
-		} else {
-			response.setStatusCode("001");
-			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("No data Found for the given id");
 		}
 
 		return response;
 	}
 
 	@Override
-	public GetSalaryResponse getSalaryById(int id) {
-		GetSalaryResponse response = new GetSalaryResponse();
-		Optional<Salary> dObj = salaryRepository.findById(id);
-		if (dObj.isPresent()) {
-			response.setSalary(dObj.get());
+
+	public GetCountryResponse getCountryById(int id) {
+		GetCountryResponse response = new GetCountryResponse();
+		Optional<Country> country = countryRepository.findById(id);
+		if (country.isPresent()) {
+			response.setCountry(country.get());
+
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
+
 		} else {
 			response.setStatusCode("001");
 			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+
 			response.setErrorMessage("No data Found for the given id");
 		}
 		return response;
 	}
 
 	@Override
-	public EditSalaryResponse edit(Salary salary) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public DeleteDesignationResponse emp_deleteDesignation(Integer id) {
-		DeleteDesignationResponse response = new DeleteDesignationResponse();
-		Optional<Designation> dObj = designationRepository.findById(id);
-		if (dObj.isPresent()) {
-			Designation Designation = dObj.get();
-			designationRepository.delete(Designation);
+	public DeleteCountryResponse deleteCountryById(int id) {
+		DeleteCountryResponse response = new DeleteCountryResponse();
+		Optional<Country> country = countryRepository.findById(id);
+		if (country.isPresent()) {
+			Country Country = country.get();
+			countryRepository.delete(Country);
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
 		} else {
 			response.setStatusCode("001");
 			response.setStatus(HttpStatus.PRECONDITION_FAILED);
 			response.setErrorMessage("No data Found for the given id");
+
 		}
 		return response;
 	}
 
 	@Override
-	public DeleteEmp_DesignationResponse deleteemp_Designation(int id) {
-		DeleteEmp_DesignationResponse response = new DeleteEmp_DesignationResponse();
-		Optional<Emp_Designation> dObj = emp_designationRepository.findById(id);
-		if (dObj.isPresent()) { 
-			Emp_Designation Emp_Designation = dObj.get();
-			emp_designationRepository.delete(Emp_Designation);
+
+	public EditCountryResponse editCountry(Country country) {
+		EditCountryResponse response = new EditCountryResponse();
+		Optional<Country> countryObj = countryRepository.findById(country.getId());
+		if (countryObj.isPresent()) {
+			
+			country=countryRepository.save(country);
+			response.setCountry(country);
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
+
 		} else {
 			response.setStatusCode("001");
 			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("No data Found for the given id");
+			response.setErrorMessage("Invalid Input as name is not present in state table");
 		}
+
 		return response;
 
 	}
-
-	@Override
-	public EditEmp_DesignationResponse editemp_Designation(Emp_Designation emp_designation) {
-		EditEmp_DesignationResponse response = new EditEmp_DesignationResponse();
-		Optional<Emp_Designation> dObj = emp_designationRepository.findById(emp_designation.getId());
-		if (dObj.isPresent()) {
-			emp_designation = emp_designationRepository.save(emp_designation);
-			response.setEmp_designation(emp_designation); 
-			response.setStatusCode("000");
-			response.setStatus(HttpStatus.OK);
-		} else {
-			response.setStatusCode("001");
-			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("No data Found for the given id");
-		}
-
-		return response;    
-
-	}
-
-	@Override
-	public DeleteSalaryResponse deletesalary(Integer id) {
-		DeleteSalaryResponse response = new DeleteSalaryResponse();
-		Optional<Salary> dObj = salaryRepository.findById(id);
-		if (dObj.isPresent()) {
-			Salary Salary = dObj.get();
-			salaryRepository.delete(Salary);
-			response.setStatusCode("000");
-			response.setStatus(HttpStatus.OK);
-		} else {
-			response.setStatusCode("001");
-			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("No data Found for the given id");
-		}
-		return response;
-	}
-
 }

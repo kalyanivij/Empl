@@ -6,13 +6,12 @@ import org.springframework.http.HttpStatus;
 
 public class AbstractResponse {
 
+
 	private HttpStatus status;
 
 	private String statusCode;
 
 	private String errorMessage;
-
-	private Set<String> errorMessages;
 
 	public HttpStatus getStatus() {
 		return status;
@@ -45,5 +44,10 @@ public class AbstractResponse {
 	public void setErrorMessages(Set<String> errorMessages) {
 		this.errorMessages = errorMessages;
 	}
+
+	private Set<String> errorMessages;
+
+	
+	
 
 }

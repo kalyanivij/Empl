@@ -16,23 +16,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rs.eis.model.Designation;
-import com.rs.eis.model.Emp_Designation;
-import com.rs.eis.model.Salary;
-import com.rs.eis.repository.DesignationRepository;
-import com.rs.eis.repository.Emp_DesignationRepository;
-import com.rs.eis.repository.SalaryRepository;
-import com.rs.eis.response.DeleteDesignationResponse;
-import com.rs.eis.response.DeleteEmp_DesignationResponse;
-import com.rs.eis.response.DeleteSalaryResponse;
-import com.rs.eis.response.DesignationResponse;
-import com.rs.eis.response.EditDesignationResponse;
-import com.rs.eis.response.EditEmp_DesignationResponse;
-import com.rs.eis.response.Emp_DesignationResponse;
-import com.rs.eis.response.GetDesignationResponse;
-import com.rs.eis.response.GetEmp_DesignationResponse;
-import com.rs.eis.response.GetSalaryResponse;
-import com.rs.eis.response.SalaryResponse;
+import com.rs.eis.model.Country;
+import com.rs.eis.model.State;
+import com.rs.eis.repository.CountryRepository;
+import com.rs.eis.repository.StateRepository;
+import com.rs.eis.response.CountryResponse;
+import com.rs.eis.response.DeleteCountryResponse;
+import com.rs.eis.response.DeleteStateResponse;
+import com.rs.eis.response.EditCountryResponse;
+import com.rs.eis.response.EditStateResponse;
+import com.rs.eis.response.GetCountryResponse;
+import com.rs.eis.response.GetStateResponse;
+import com.rs.eis.response.StateResponse;
 import com.rs.eis.service.EISService;
 import com.rs.eis.validation.ValidationUtil;
 
@@ -42,107 +37,79 @@ public class EISController {
 
 	@Autowired
 	EISService eisService;
+
 	@Autowired
 	ValidationUtil validationUtil;
+
 	@Autowired
-	DesignationRepository designationRepository;
+	StateRepository stateRepository;
+	
 	@Autowired
-	Emp_DesignationRepository emp_designationRepository;
-	@Autowired
-	SalaryRepository salaryRepository;
-	// private int expenseId;
+	CountryRepository countryRepository;
 
-	@PostMapping("/designation")
-	public DesignationResponse addDesignation(@Valid @RequestBody Designation designation) {
-		return eisService.addDesignation(designation);
+	@PostMapping("/state")
+	public StateResponse addState(@Valid @RequestBody State state) {
+		return eisService.addState(state);
 	}
 
-	@GetMapping("/designation/{id}")
-	public GetDesignationResponse getDesignationById(@PathVariable("id") int id) {
-		Set<String> errorMessages = validationUtil.validateGetDesignationRequest(id);
+	@GetMapping("/state/{id}")
+	public GetStateResponse getStateById(@PathVariable("id") int id) {
+		Set<String> errorMessages = validationUtil.validateStateRequest(id);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
-			return new GetDesignationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+			return new GetStateResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return eisService.getDesignationById(id);
+			return eisService.getStateById(id);
 		}
 	}
 
-	@GetMapping("/emp_designation/{id}")
-	public GetEmp_DesignationResponse getEmp_DesignationById(@PathVariable("id") int id) {
-		Set<String> errorMessages = validationUtil.validatePutDesignationRequest(id);
+	@DeleteMapping("/state/{id}")
+	public DeleteStateResponse deleteStateById(@PathVariable("id") int id) {
+		Set<String> errorMessages = validationUtil.validateStateRequest(id);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
-			return new GetEmp_DesignationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+			return new DeleteStateResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return eisService.getemp_DesignationById(id);
+			return eisService.deleteStateById(id);
 		}
 	}
 
-	@DeleteMapping("/designation/{id}")
-	public DeleteDesignationResponse deleteDesignationById(@PathVariable(value = "id") int id) {
-		Set<String> errorMessages = validationUtil.validateDeleteDesignationRequest(id);
+	@PutMapping("/state/{id}")
+	public EditStateResponse editState(@PathVariable("id") int id, @Valid @RequestBody State state) {
+
+		return eisService.editState(state);
+
+	}
+
+	@PostMapping("/country")
+	public CountryResponse addCountry(@Valid @RequestBody Country country) {
+
+		return eisService.addCountry(country);
+	}
+
+	@GetMapping("/country/{id}")
+	public GetCountryResponse getCountryById(@PathVariable("id") int id) {
+		Set<String> errorMessages = validationUtil.validateStateRequest(id);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
-			return new DeleteDesignationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+			return new GetCountryResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return eisService.deleteDesignation(id);
+			return eisService.getCountryById(id);
 		}
 	}
 
-	@DeleteMapping("/emp_designation/{id}")
-	public DeleteEmp_DesignationResponse emp_deleteDesignationById(@PathVariable(value = "id") int id) {
-		Set<String> errorMessages = validationUtil.validateDeleteDesignationRequest(id);
+	@DeleteMapping("/country/{id}")
+	public DeleteCountryResponse deleteCountryById(@PathVariable("id") int id) {
+		Set<String> errorMessages = validationUtil.validateStateRequest(id);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
-			return new DeleteEmp_DesignationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+			return new DeleteCountryResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return eisService.deleteemp_Designation(id);
+			return eisService.deleteCountryById(id);
 		}
 	}
 
-	@PutMapping("/designation/{id}")
-	public EditDesignationResponse editDesignation(@PathVariable("id") int id,
-			@Valid @RequestBody Designation designation) {
-		return eisService.editDesignation(designation);
-	}
+	@PutMapping("/country/{id}")
+	public EditCountryResponse editCountry(@PathVariable("id") int id, @Valid @RequestBody Country country) {
 
-	@PutMapping("/emp_designation/{id}")
-	public EditEmp_DesignationResponse editemp_Designation(@PathVariable("id") int id,
-			@Valid @RequestBody Emp_Designation emp_designation) {
-		return eisService.editemp_Designation(emp_designation);
-	}
-
-	@PostMapping("/emp_designation")
-	public Emp_DesignationResponse addEmp_Designation(@Valid @RequestBody Emp_Designation emp_designation) {
-		return eisService.addemp_designation(emp_designation);
-	}
-
-	@PostMapping("/salary")
-	public SalaryResponse addSalary(@Valid @RequestBody Salary Salary) {
-		return eisService.addSalary(Salary);
+		return eisService.editCountry(country);
 
 	}
 
-	@GetMapping("/salary/{id}")
-	public GetSalaryResponse getSalaryById(@PathVariable("id") int id) {
-		Set<String> errorMessages = validationUtil.validateGetDesignationRequest(id);
-		if (!CollectionUtils.isEmpty(errorMessages)) {
-			return new GetSalaryResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
-		} else {
-			return eisService.getSalaryById(id);
-		}
-	}
-		@DeleteMapping("/salary/{id}")
-		public DeleteSalaryResponse deleteSalaryById(@PathVariable(value = "id") int id) {
-			Set<String> errorMessages = validationUtil.validateDeleteSalaryRequest(id);
-			if (!CollectionUtils.isEmpty(errorMessages)) {
-				return new DeleteSalaryResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
-			} else {
-				return eisService.deletesalary(id);
-			}
-		}
-	/*
-	 * @PutMapping("/salary/{id}") public EditDesignationResponse
-	 * editSalary(@PathVariable("id") int id,
-	 * 
-	 * @Valid @RequestBody Salary salary) { return
-	 * eisService.editDesignation(designation); } }
-	 */
 }

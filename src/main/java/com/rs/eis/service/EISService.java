@@ -1,44 +1,34 @@
 package com.rs.eis.service;
 
-import com.rs.eis.model.Designation;
-import com.rs.eis.model.Emp_Designation;
-import com.rs.eis.model.Salary;
-import com.rs.eis.response.DeleteDesignationResponse;
-import com.rs.eis.response.DeleteEmp_DesignationResponse;
-import com.rs.eis.response.DeleteSalaryResponse;
-import com.rs.eis.response.DesignationResponse;
-import com.rs.eis.response.EditDesignationResponse;
-import com.rs.eis.response.EditEmp_DesignationResponse;
-import com.rs.eis.response.EditSalaryResponse;
-import com.rs.eis.response.Emp_DesignationResponse;
-import com.rs.eis.response.GetDesignationResponse;
-import com.rs.eis.response.GetEmp_DesignationResponse;
-import com.rs.eis.response.GetSalaryResponse;
-import com.rs.eis.response.SalaryResponse;
+import javax.validation.Valid;
+
+import com.rs.eis.model.Country;
+import com.rs.eis.model.State;
+import com.rs.eis.response.CountryResponse;
+import com.rs.eis.response.DeleteCountryResponse;
+import com.rs.eis.response.DeleteStateResponse;
+import com.rs.eis.response.EditCountryResponse;
+import com.rs.eis.response.EditStateResponse;
+import com.rs.eis.response.GetCountryResponse;
+import com.rs.eis.response.GetStateResponse;
+import com.rs.eis.response.StateResponse;
 
 public interface EISService {
-	DesignationResponse addDesignation(Designation designation);
 
-	GetDesignationResponse getDesignationById(int id);
+	CountryResponse addCountry(Country country);
 
-	DeleteDesignationResponse deleteDesignation(Integer id);
+	StateResponse addState(State state);
 
-	EditDesignationResponse editDesignation(Designation designation);
+	GetStateResponse getStateById(int id);
 
-	Emp_DesignationResponse addemp_designation(Emp_Designation emp_designation);
+	DeleteStateResponse deleteStateById(int id);
 
-	GetEmp_DesignationResponse getemp_DesignationById(int id);
+	EditStateResponse editState(State state);
 
-	DeleteEmp_DesignationResponse deleteemp_Designation(int id);
+	GetCountryResponse getCountryById(int id);
 
-	SalaryResponse addSalary(Salary salary);
+	DeleteCountryResponse deleteCountryById(int id);
 
-	EditEmp_DesignationResponse editemp_Designation(Emp_Designation emp_designation);
-
-	EditSalaryResponse edit(Salary salary);
-
-	GetSalaryResponse getSalaryById(int id);
-	DeleteSalaryResponse deletesalary(Integer id);
-
+	EditCountryResponse editCountry(@Valid Country country);
 
 }
