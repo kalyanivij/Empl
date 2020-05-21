@@ -348,6 +348,34 @@ public class ValidationUtilImpl implements ValidationUtil {
 
 		return validateDeleteInsuranceRequest(employeeid);
 >>>>>>> branch 'master' of https://github.com/kalyanivij/Empl.git
+
+	}
+
+	
+	
+	@Override
+	public Set<String> validateDeleteAllocationRequest(int allocationId) {
+		return validateGetAllocationRequest(allocationId);
+	}
+
+	@Override
+	public Set<String> validateGetAllocationRequest(int allocationId) {
+		Set<String> errorMessages = new HashSet<String>();
+
+		addError(errorMessages, allocationId, "Please enter valid allocationId");
+
+		return errorMessages;
+
+	}
+
+	@Override
+	public Set<String> validateGetAllocationsRequest(int projectId) {
+		Set<String> errorMessages = new HashSet<String>();
+
+		addError(errorMessages, projectId, "Please enter valid projectId");
+
+		return errorMessages;
+
 	}
 
 }

@@ -25,6 +25,14 @@ public interface ValidationUtil {
 	Set<String> validateGetTransportationRequest(int Id);
 	
 	Set<String> validateGetPfRequest(int Id);
+	
+	
+	Set<String> validateDeleteAllocationRequest(int allocationId);
+
+	Set<String> validateGetAllocationRequest(int allocationId);
+
+	Set<String> validateGetAllocationsRequest(int projectId);
+
 
 
 }

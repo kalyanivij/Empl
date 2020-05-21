@@ -2,7 +2,7 @@ package com.rs.eis.validation;
 
 import java.util.Set;
 
-<<<<<<< HEAD
+<<<<<<<HEAD
 import com.rs.eis.request.RegistrationVO;
 import com.rs.eis.request.UserVO;
 
@@ -20,24 +20,20 @@ public interface ValidationUtil {
 	Set<String> validateDeleteExpenseRequest(int expenseId);
 
 	Set<String> validateGetUserRequest(int userId);
-	
+
 	Set<String> validateUpdateUserRequest(UserVO userVO);
-
-
 
 	Set<String> validateExperienceRequest(int employeeid);
 
 	Set<String> validateTechnologyRequest(int id);
 
-	Set<String> validateDeleteTechnologyRequest(int id);
-=======
-<<<<<<< HEAD
+	Set<String> validateDeleteTechnologyRequest(int id);=======<<<<<<<HEAD
 
-import com.rs.eis.request.QualificationVO;
-=======
+import com.rs.eis.request.QualificationVO;=======
 import com.rs.eis.request.RegistrationVO;
-import com.rs.eis.request.UserVO;
->>>>>>> branch 'master' of https://github.com/kalyanivij/Empl.git
+	import com.rs.eis.request.UserVO;>>>>>>>branch'master'
+
+	of https:// github.com/kalyanivij/Empl.git
 
 public interface ValidationUtil {
 <<<<<<< HEAD
@@ -82,4 +78,11 @@ public interface ValidationUtil {
 
 
 >>>>>>> branch 'master' of https://github.com/kalyanivij/Empl.git
+	
+	
+	Set<String> validateDeleteAllocationRequest(int allocationId);
+
+Set<String> validateGetAllocationRequest(int allocationId);
+
+Set<String> validateGetAllocationsRequest(int projectId);
 }
