@@ -14,167 +14,135 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rs.eis.model.Family;
-import com.rs.eis.model.Insurance;
-import com.rs.eis.repository.InsuranceRepository;
-import com.rs.eis.response.AddFamilyResponse;
-import com.rs.eis.response.AddInsuranceResponse;
-import com.rs.eis.response.DeleteFamilyResponse;
-import com.rs.eis.response.DeleteInsuranceResponse;
-import com.rs.eis.response.EditFamilyResponse;
-import com.rs.eis.response.EditInsuranceResponse;
-import com.rs.eis.response.GetFamilyResponse;
-import com.rs.eis.response.GetInsuranceResponse;
+import com.rs.eis.model.Designation;
+import com.rs.eis.model.Emp_Designation;
+import com.rs.eis.model.Salary;
+import com.rs.eis.repository.DesignationRepository;
+import com.rs.eis.repository.Emp_DesignationRepository;
+import com.rs.eis.repository.SalaryRepository;
+import com.rs.eis.response.DeleteDesignationResponse;
+import com.rs.eis.response.DeleteEmp_DesignationResponse;
+import com.rs.eis.response.DeleteSalaryResponse;
+import com.rs.eis.response.DesignationResponse;
+import com.rs.eis.response.EditDesignationResponse;
+import com.rs.eis.response.EditEmp_DesignationResponse;
+import com.rs.eis.response.Emp_DesignationResponse;
+import com.rs.eis.response.GetDesignationResponse;
+import com.rs.eis.response.GetEmp_DesignationResponse;
+import com.rs.eis.response.GetSalaryResponse;
+import com.rs.eis.response.SalaryResponse;
 import com.rs.eis.service.EISService;
 import com.rs.eis.validation.ValidationUtil;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/eis")
 public class EISController {
+
 	@Autowired
 	EISService eisService;
-
 	@Autowired
 	ValidationUtil validationUtil;
-
 	@Autowired
-	InsuranceRepository inuranceRepository;
+	DesignationRepository designationRepository;
+	@Autowired
+	Emp_DesignationRepository emp_designationRepository;
+	@Autowired
+	SalaryRepository salaryRepository;
+	// private int expenseId;
 
-	private Insurance insurance;
+	@PostMapping("/designation")
+	public DesignationResponse addDesignation(@Valid @RequestBody Designation designation) {
+		return eisService.addDesignation(designation);
+	}
 
-	private Family family;
+	@GetMapping("/designation/{id}")
+	public GetDesignationResponse getDesignationById(@PathVariable("id") int id) {
+		Set<String> errorMessages = validationUtil.validateGetDesignationRequest(id);
+		if (!CollectionUtils.isEmpty(errorMessages)) {
+			return new GetDesignationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+		} else {
+			return eisService.getDesignationById(id);
+		}
+	}
 
+	@GetMapping("/emp_designation/{id}")
+	public GetEmp_DesignationResponse getEmp_DesignationById(@PathVariable("id") int id) {
+		Set<String> errorMessages = validationUtil.validatePutDesignationRequest(id);
+		if (!CollectionUtils.isEmpty(errorMessages)) {
+			return new GetEmp_DesignationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+		} else {
+			return eisService.getemp_DesignationById(id);
+		}
+	}
+
+	@DeleteMapping("/designation/{id}")
+	public DeleteDesignationResponse deleteDesignationById(@PathVariable(value = "id") int id) {
+		Set<String> errorMessages = validationUtil.validateDeleteDesignationRequest(id);
+		if (!CollectionUtils.isEmpty(errorMessages)) {
+			return new DeleteDesignationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+		} else {
+			return eisService.deleteDesignation(id);
+		}
+	}
+
+	@DeleteMapping("/emp_designation/{id}")
+	public DeleteEmp_DesignationResponse emp_deleteDesignationById(@PathVariable(value = "id") int id) {
+		Set<String> errorMessages = validationUtil.validateDeleteDesignationRequest(id);
+		if (!CollectionUtils.isEmpty(errorMessages)) {
+			return new DeleteEmp_DesignationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+		} else {
+			return eisService.deleteemp_Designation(id);
+		}
+	}
+
+	@PutMapping("/designation/{id}")
+	public EditDesignationResponse editDesignation(@PathVariable("id") int id,
+			@Valid @RequestBody Designation designation) {
+		return eisService.editDesignation(designation);
+	}
+
+	@PutMapping("/emp_designation/{id}")
+	public EditEmp_DesignationResponse editemp_Designation(@PathVariable("id") int id,
+			@Valid @RequestBody Emp_Designation emp_designation) {
+		return eisService.editemp_Designation(emp_designation);
+	}
+
+	@PostMapping("/emp_designation")
+	public Emp_DesignationResponse addEmp_Designation(@Valid @RequestBody Emp_Designation emp_designation) {
+		return eisService.addemp_designation(emp_designation);
+	}
+
+	@PostMapping("/salary")
+	public SalaryResponse addSalary(@Valid @RequestBody Salary Salary) {
+		return eisService.addSalary(Salary);
+
+	}
+
+	@GetMapping("/salary/{id}")
+	public GetSalaryResponse getSalaryById(@PathVariable("id") int id) {
+		Set<String> errorMessages = validationUtil.validateGetDesignationRequest(id);
+		if (!CollectionUtils.isEmpty(errorMessages)) {
+			return new GetSalaryResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+		} else {
+			return eisService.getSalaryById(id);
+		}
+	}
+		@DeleteMapping("/salary/{id}")
+		public DeleteSalaryResponse deleteSalaryById(@PathVariable(value = "id") int id) {
+			Set<String> errorMessages = validationUtil.validateDeleteSalaryRequest(id);
+			if (!CollectionUtils.isEmpty(errorMessages)) {
+				return new DeleteSalaryResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+			} else {
+				return eisService.deletesalary(id);
+			}
+		}
 	/*
-	 * @PostMapping("/register") public RegistrationResponse
-	 * userRegistration(@Valid @RequestBody RegistrationVO registrationVO) {
+	 * @PutMapping("/salary/{id}") public EditDesignationResponse
+	 * editSalary(@PathVariable("id") int id,
 	 * 
-	 * Set<String> errorMessages =
-	 * validationUtil.validateRegistrationRequest(registrationVO); if
-	 * (!CollectionUtils.isEmpty(errorMessages)) { return new
-	 * RegistrationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages); }
-	 * else { return ferService.registration(registrationVO); } }
-	 */
-	/*
-	 * @PostMapping("/insurence") public InsuranceResponse insurance(@RequestParam
-	 * ("id") int Id, @RequestParam int employeeid) { return
-	 * ferService.insuranceResponse(employeeid); }
-	 * 
-	 * @PostMapping("/family") public FamilyResponse family(@Valid @RequestBody
-	 * ("id") int Id, @RequestParam int employeeid) { return
-	 * ferService.familyResponse(employeeid); }
-	 */
-
-	
-	@PostMapping("/insurence")
-	public AddInsuranceResponse addinsurance(@Valid @RequestBody Insurance insuranse) {
-		return eisService.addInsurance(insuranse);
-	}
-
-	@PostMapping("/family")
-	public AddFamilyResponse addfamily(@Valid @RequestBody Family family) {
-		return eisService.addFamily(family);
-	}
-	
-	  @PutMapping("/insurance/{employeeid}") 
-	  public EditInsuranceResponse
-	  editInsurance(@PathVariable("id") int Id, @RequestParam int employeeid) {
-	  return eisService.editInsurance(insurance); 
-	  }
-	  @PutMapping("/family/{employeeid}") 
-	  public EditFamilyResponse
-	  editFamily(@PathVariable("id") int Id, @RequestParam int employeeid) {
-	  return eisService.editFamily(family); 
-	  }
-
-	@GetMapping("/Insuranceid")
-	public GetInsuranceResponse getInsurence(@PathVariable("insuranceid") int employeeid) {
-		Set<String> errorMessages = validationUtil.validateGetInsuranceRequest(employeeid);
-		if (!CollectionUtils.isEmpty(errorMessages)) {
-			return new GetInsuranceResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
-		} else {
-			return eisService.getInsuranceByemployeeid(employeeid);
-		}
-	}
-
-	@GetMapping("/relationid")
-	public GetFamilyResponse getFamily(@PathVariable("relationid") int employeeid) {
-		Set<String> errorMessages = validationUtil.validateGetFamilyRequest(employeeid);
-		if (!CollectionUtils.isEmpty(errorMessages)) {
-			return new GetFamilyResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
-		} else {
-			return eisService.getFamilyByemployeeid(employeeid);
-		}
-	}
-
-	@GetMapping("/{emloyeeid}Insurance/report")
-	public GetInsuranceResponse getInsurenceReport(@PathVariable("employeeid") int employeeid) {
-		Set<String> errorMessages = validationUtil.validateInsuranceReportRequest(employeeid);
-		if (!CollectionUtils.isEmpty(errorMessages)) {
-			return new GetInsuranceResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
-		} else {
-			return eisService.insuranceReport(employeeid);
-		}
-	}
-
-	@GetMapping("/{emloyeeid}Family/report")
-	public GetFamilyResponse getFamilyReport(@PathVariable("employeeid") int employeeid) {
-		Set<String> errorMessages = validationUtil.validateFamilyReportRequest(employeeid);
-		if (!CollectionUtils.isEmpty(errorMessages)) {
-			return new GetFamilyResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
-		} else {
-			return eisService.familyReport(employeeid);
-		}
-	}
-
-	@DeleteMapping("/Insurance/{employeeid}")
-	public DeleteInsuranceResponse deleteInsurance(@PathVariable(value = "employeeid") int employeeid) {
-		Set<String> errorMessages = validationUtil.validateDeleteInsuranceRequest(employeeid);
-		if (!CollectionUtils.isEmpty(errorMessages)) {
-			return new DeleteInsuranceResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
-		} else {
-
-			return eisService.deleteinsurance(employeeid);
-		}
-	}
-
-	@DeleteMapping("/Family/{employeeid}")
-	public DeleteFamilyResponse deleteFamily(@PathVariable(value = "employeeid") int employeeid) {
-		Set<String> errorMessages = validationUtil.validateDeleteFamilyRequest(employeeid);
-		if (!CollectionUtils.isEmpty(errorMessages)) {
-			return new DeleteFamilyResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
-		} else {
-
-			return eisService.deleteFamily(employeeid);
-		}
-	}
-
-	/*
-	 * @PutMapping("/reset/{userId}") public ResetPasswordResponse
-	 * reset(@PathVariable(value = "userId") int userId, @RequestParam String
-	 * currentPassword,
-	 * 
-	 * @RequestParam String newPassword) { Set<String> errorMessages =
-	 * validationUtil.validateResetPasswordRequest(userId, currentPassword,
-	 * newPassword); if (!CollectionUtils.isEmpty(errorMessages)) { return new
-	 * ResetPasswordResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
-	 * } else { return ferService.resetPassword(userId, currentPassword,
-	 * newPassword); } }
-	 * 
-	 * @GetMapping("/user/{id}") public GetUserResponse getUser(@PathVariable("id")
-	 * int id) { Set<String> errorMessages =
-	 * validationUtil.validateGetUserRequest(id); if
-	 * (!CollectionUtils.isEmpty(errorMessages)) { return new
-	 * GetUserResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages); } else
-	 * { return ferService.getUser(id); } }
-	 * 
-	 * @PutMapping("/user") public UpdateUserResponse update(@RequestBody UserVO
-	 * userVO) { Set<String> errorMessages =
-	 * validationUtil.validateUpdateUserRequest(userVO); if
-	 * (!CollectionUtils.isEmpty(errorMessages)) { return new
-	 * UpdateUserResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages); }
-	 * else { return ferService.updateUser(userVO); }
+	 * @Valid @RequestBody Salary salary) { return
+	 * eisService.editDesignation(designation); } }
 	 */
 }

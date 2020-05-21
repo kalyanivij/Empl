@@ -1,65 +1,44 @@
 package com.rs.eis.service;
 
-import com.rs.eis.model.Allocation;
-import com.rs.eis.model.Family;
-import com.rs.eis.model.Insurance;
-import com.rs.eis.model.Resume;
-import com.rs.eis.response.AddAllocationResponse;
-import com.rs.eis.response.AddFamilyResponse;
-import com.rs.eis.response.AddInsuranceResponse;
-import com.rs.eis.response.AddResumeResponse;
-import com.rs.eis.response.DeleteAllocationResponse;
-import com.rs.eis.response.DeleteFamilyResponse;
-import com.rs.eis.response.DeleteInsuranceResponse;
-import com.rs.eis.response.DeleteResumeResponse;
-import com.rs.eis.response.EditAllocationResponse;
-import com.rs.eis.response.EditFamilyResponse;
-import com.rs.eis.response.EditInsuranceResponse;
-import com.rs.eis.response.EditResumeResponse;
-import com.rs.eis.response.GetAllocationResponse;
-import com.rs.eis.response.GetAllocationsResponse;
-import com.rs.eis.response.GetFamilyResponse;
-import com.rs.eis.response.GetInsuranceResponse;
-import com.rs.eis.response.GetResumeResponse;
+import com.rs.eis.model.Designation;
+import com.rs.eis.model.Emp_Designation;
+import com.rs.eis.model.Salary;
+import com.rs.eis.response.DeleteDesignationResponse;
+import com.rs.eis.response.DeleteEmp_DesignationResponse;
+import com.rs.eis.response.DeleteSalaryResponse;
+import com.rs.eis.response.DesignationResponse;
+import com.rs.eis.response.EditDesignationResponse;
+import com.rs.eis.response.EditEmp_DesignationResponse;
+import com.rs.eis.response.EditSalaryResponse;
+import com.rs.eis.response.Emp_DesignationResponse;
+import com.rs.eis.response.GetDesignationResponse;
+import com.rs.eis.response.GetEmp_DesignationResponse;
+import com.rs.eis.response.GetSalaryResponse;
+import com.rs.eis.response.SalaryResponse;
 
 public interface EISService {
+	DesignationResponse addDesignation(Designation designation);
 
-	
-	
-	DeleteInsuranceResponse deleteinsurance  (int employeeid);
+	GetDesignationResponse getDesignationById(int id);
 
-	GetInsuranceResponse getInsuranceByemployeeid(int employeeid);
-	GetInsuranceResponse insuranceReport(int employeeid);
+	DeleteDesignationResponse deleteDesignation(Integer id);
 
-	AddInsuranceResponse addInsurance(Insurance insurance);
-	EditInsuranceResponse editInsurance(Insurance insurance);
-	EditFamilyResponse editFamily(Family family);
+	EditDesignationResponse editDesignation(Designation designation);
 
-	
-	GetFamilyResponse getFamilyByemployeeid(int employeeid);
-	GetFamilyResponse familyReport(int employeeid);
+	Emp_DesignationResponse addemp_designation(Emp_Designation emp_designation);
 
-	DeleteFamilyResponse deleteFamily(int employeeid);
-	AddFamilyResponse addFamily(Family family);
-	
-	
+	GetEmp_DesignationResponse getemp_DesignationById(int id);
 
-	AddAllocationResponse addAllocation(Allocation allocation);
-	
-	EditAllocationResponse editAllocation(Allocation allocation);
-	
-	DeleteAllocationResponse deleteAllocation(int projectid);
-	
-	GetAllocationResponse getAllocationById(int id);
-	
-	GetAllocationsResponse getAllocations(int projectid);
-	
-	
-	AddResumeResponse addResume(Resume resume);
-	EditResumeResponse editResume(Resume resume);
-	 GetResumeResponse getResume(int employeeId);
-	DeleteResumeResponse deleteResume(int reesumeId);
-	
+	DeleteEmp_DesignationResponse deleteemp_Designation(int id);
+
+	SalaryResponse addSalary(Salary salary);
+
+	EditEmp_DesignationResponse editemp_Designation(Emp_Designation emp_designation);
+
+	EditSalaryResponse edit(Salary salary);
+
+	GetSalaryResponse getSalaryById(int id);
+	DeleteSalaryResponse deletesalary(Integer id);
 
 
 }
