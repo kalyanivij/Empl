@@ -32,6 +32,10 @@ public interface ValidationUtil {
 	Set<String> validateGetAllocationRequest(int allocationId);
 
 	Set<String> validateGetAllocationsRequest(int projectId);
+	
+Set<String> validateDeleteResumeRequest(int resumeId);
+	
+	Set<String> validateGetResumeRequest(int employeeId);
 
 
 
