@@ -377,5 +377,19 @@ public class ValidationUtilImpl implements ValidationUtil {
 		return errorMessages;
 
 	}
+	@Override
+	public Set<String> validateDeleteResumeRequest(int resumeId) {
+		return validateGetResumeRequest(resumeId);
+	}
+
+	@Override
+	public Set<String> validateGetResumeRequest(int employeeId) {
+		Set<String> errorMessages = new HashSet<String>();
+
+		addError(errorMessages, employeeId, "Please enter valid employeeId");
+
+		return errorMessages;
+
+	}
 
 }

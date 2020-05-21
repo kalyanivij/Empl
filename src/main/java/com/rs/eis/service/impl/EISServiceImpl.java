@@ -8,26 +8,34 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.rs.eis.model.Allocation;
+import com.rs.eis.model.Employee;
 import com.rs.eis.model.Family;
 import com.rs.eis.model.Insurance;
 import com.rs.eis.model.Project;
+import com.rs.eis.model.Resume;
 import com.rs.eis.repository.AllocationRepository;
+import com.rs.eis.repository.EmployeeRepository;
 import com.rs.eis.repository.FamilyRepository;
 import com.rs.eis.repository.InsuranceRepository;
 import com.rs.eis.repository.ProjectRepository;
+import com.rs.eis.repository.ResumeRepository;
 import com.rs.eis.response.AddAllocationResponse;
 import com.rs.eis.response.AddFamilyResponse;
 import com.rs.eis.response.AddInsuranceResponse;
+import com.rs.eis.response.AddResumeResponse;
 import com.rs.eis.response.DeleteAllocationResponse;
 import com.rs.eis.response.DeleteFamilyResponse;
 import com.rs.eis.response.DeleteInsuranceResponse;
+import com.rs.eis.response.DeleteResumeResponse;
 import com.rs.eis.response.EditAllocationResponse;
 import com.rs.eis.response.EditFamilyResponse;
 import com.rs.eis.response.EditInsuranceResponse;
+import com.rs.eis.response.EditResumeResponse;
 import com.rs.eis.response.GetAllocationResponse;
 import com.rs.eis.response.GetAllocationsResponse;
 import com.rs.eis.response.GetFamilyResponse;
 import com.rs.eis.response.GetInsuranceResponse;
+import com.rs.eis.response.GetResumeResponse;
 import com.rs.eis.service.EISService;
 import com.rs.eis.util.DateUtil;
 
@@ -43,6 +51,13 @@ public class EISServiceImpl implements EISService {
 	AllocationRepository allocationRepository;
 	@Autowired
 	ProjectRepository projectRepository;
+	
+	
+	@Autowired
+	ResumeRepository resumeRepository;
+	
+	@Autowired
+	EmployeeRepository employeeRepository;
 
 	/*
 	 * public RegistrationResponse registration(RegistrationVO registrationVO) {
@@ -563,6 +578,98 @@ public class EISServiceImpl implements EISService {
 	 */
 	
 	
-	
+	@Override
+	public AddResumeResponse addResume(Resume resume) {
+		AddResumeResponse response = new AddResumeResponse();
+
+		Optional<Employee> resumeObj = employeeRepository.findById(resume.getEmployeeId());
+
+		if (resumeObj.isPresent()) {
+
+			resume = resumeRepository.save(resume);
+
+			response.setResume(resume);
+
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Resume insertion as employeeId is not present in employee table");
+		}
+
+		return response;
+	}
+
+
+
+	@Override
+	public DeleteResumeResponse deleteResume(int reesumeId) {
+		DeleteResumeResponse response = new DeleteResumeResponse();
+
+		Optional<Resume> resumeObj = resumeRepository.findById(reesumeId);
+
+		if (resumeObj.isPresent()) {
+			Resume resume = resumeObj.get();
+			resumeRepository.delete(resume);
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as employeeId is not present in Resume table");
+		}
+
+		return response;
+
+	}
+
+
+
+	@Override
+	public EditResumeResponse editResume(Resume resume) {
+		EditResumeResponse response = new EditResumeResponse();
+
+		Optional<Resume> resumeObj = resumeRepository.findById(resume.getId());
+
+		if (resumeObj.isPresent()) {
+
+			//expense.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
+			resume = resumeRepository.save(resume);
+
+			response.setResume(resume);
+
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as resume is not present in resume table");
+		}
+
+		return response;
+
+	}
+
+
+
+	@Override
+	public GetResumeResponse getResume(int employeeId) {
+		GetResumeResponse response = new GetResumeResponse();
+		Optional<Resume> resumeObj = resumeRepository.findById(employeeId);
+		if (resumeObj.isPresent()) {
+			response.setResume(resumeObj.get());
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("No resume Found for the given employeeId");
+		}
+
+		return response;
+
+	}
+
 	
 	}	

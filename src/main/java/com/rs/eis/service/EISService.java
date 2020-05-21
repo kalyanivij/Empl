@@ -3,19 +3,24 @@ package com.rs.eis.service;
 import com.rs.eis.model.Allocation;
 import com.rs.eis.model.Family;
 import com.rs.eis.model.Insurance;
+import com.rs.eis.model.Resume;
 import com.rs.eis.response.AddAllocationResponse;
 import com.rs.eis.response.AddFamilyResponse;
 import com.rs.eis.response.AddInsuranceResponse;
+import com.rs.eis.response.AddResumeResponse;
 import com.rs.eis.response.DeleteAllocationResponse;
 import com.rs.eis.response.DeleteFamilyResponse;
 import com.rs.eis.response.DeleteInsuranceResponse;
+import com.rs.eis.response.DeleteResumeResponse;
 import com.rs.eis.response.EditAllocationResponse;
 import com.rs.eis.response.EditFamilyResponse;
 import com.rs.eis.response.EditInsuranceResponse;
+import com.rs.eis.response.EditResumeResponse;
 import com.rs.eis.response.GetAllocationResponse;
 import com.rs.eis.response.GetAllocationsResponse;
 import com.rs.eis.response.GetFamilyResponse;
 import com.rs.eis.response.GetInsuranceResponse;
+import com.rs.eis.response.GetResumeResponse;
 
 public interface EISService {
 
@@ -48,6 +53,13 @@ public interface EISService {
 	GetAllocationResponse getAllocationById(int id);
 	
 	GetAllocationsResponse getAllocations(int projectid);
+	
+	
+	AddResumeResponse addResume(Resume resume);
+	EditResumeResponse editResume(Resume resume);
+	 GetResumeResponse getResume(int employeeId);
+	DeleteResumeResponse deleteResume(int reesumeId);
+	
 
 
 }
