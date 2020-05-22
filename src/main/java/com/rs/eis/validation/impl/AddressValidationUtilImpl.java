@@ -28,10 +28,13 @@ public class AddressValidationUtilImpl implements AddressValidationUtil {
 		return errorMessages;
 	}
 
-	
-
 	@Override
 	public Set<String> validateGetStateRequest(int id) {
+		return validateDeleteStateRequest(id);
+	}
+
+	@Override
+	public Set<String> validateGetStateRequest1(int id) {
 		Set<String> errorMessages = new HashSet<String>();
 
 		addError(errorMessages, id, "Please enter valid Id");

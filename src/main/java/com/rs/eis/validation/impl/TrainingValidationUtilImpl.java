@@ -9,6 +9,7 @@ import com.rs.eis.validation.TrainingValidationUtil;
 
 @Component
 public class TrainingValidationUtilImpl implements TrainingValidationUtil {
+	
 
 	public static Set<String> addError(Set<String> errorMessages, int value, String errorMessage) {
 

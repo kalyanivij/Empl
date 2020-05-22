@@ -3,6 +3,7 @@ package com.rs.eis.request;
 import java.util.Date;
 
 public class TrainingsVO {
+	
 	private int id;
 	private String courseType;
 	private String duration;

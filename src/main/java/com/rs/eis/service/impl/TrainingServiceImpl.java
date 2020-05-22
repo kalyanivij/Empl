@@ -29,6 +29,7 @@ import com.rs.eis.util.TrainingUtil;
 @Service
 public class TrainingServiceImpl implements TrainingService {
 	
+	
 	@Autowired
 	EmployeeRepository employeeRepository;
 	

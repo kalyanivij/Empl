@@ -9,6 +9,7 @@ import com.rs.eis.model.Trainings;
 
 @Repository
 public interface TrainingsEmployerRepository extends JpaRepository<Trainings,Integer> {
+	
 
 	List<Trainings> findByEmployerId(int employerId);
 

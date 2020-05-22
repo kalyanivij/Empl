@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import com.rs.eis.model.Trainings;
 
 public class GetTrainingsResponse extends AbstractResponse {
+	
 	private List<Trainings> trainings;
 
 	public GetTrainingsResponse() {

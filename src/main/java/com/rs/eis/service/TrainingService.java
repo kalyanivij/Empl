@@ -11,6 +11,7 @@ import com.rs.eis.response.GetTrainingsResponse;
 
 public interface TrainingService {
 	
+	
 	AddEmployeeTrainingsResponse saveTrainingEmployee(TrainingsVO trainingsVO);
 	
 	AddEmployerTrainingsResponse saveTrainingEmployer(TrainingsVO trainingsVO);

@@ -6,7 +6,7 @@ public interface AddressValidationUtil {
 
 	Set<String> validateStateRequest(int id);
 
-	
+	Set<String> validateGetStateRequest1(int id);
 
 	Set<String> validateGetStateRequest(int id);
 

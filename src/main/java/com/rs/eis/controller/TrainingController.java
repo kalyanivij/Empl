@@ -36,6 +36,7 @@ import com.rs.eis.validation.TrainingValidationUtil;
 @RequestMapping("/empl")
 public class TrainingController {
 	
+	
 	@Autowired
 	TrainingService trainingsService;
 	

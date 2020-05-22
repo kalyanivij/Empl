@@ -1,10 +1,6 @@
 package com.rs.eis.util;
 
-import com.rs.eis.model.Certification;
-import com.rs.eis.model.Timesheet;
 import com.rs.eis.model.Trainings;
-import com.rs.eis.request.CertificationVO;
-import com.rs.eis.request.TimesheetVO;
 import com.rs.eis.request.TrainingsVO;
 
 public class TrainingUtil {

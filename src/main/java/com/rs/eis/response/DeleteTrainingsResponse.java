@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import com.rs.eis.model.Trainings;
 
 public class DeleteTrainingsResponse extends AbstractResponse {
+	
 
 private Trainings trainings;
 	

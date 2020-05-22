@@ -7,6 +7,7 @@ import com.rs.eis.model.Trainings;
 
 @Repository
 public interface TrainingsRepository extends JpaRepository<Trainings,Integer> {
+	
 
 
 
