@@ -21,6 +21,8 @@ public class State {
 	private int id;
 
 	private String name;
+	
+	private int countryid;
 
 	public int getId() {
 		return id;
@@ -45,8 +47,6 @@ public class State {
 	public void setCountryid(int countryid) {
 		this.countryid = countryid;
 	}
-
-	private int countryid;
 
 	
 
