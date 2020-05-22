@@ -1,8 +1,8 @@
-package com.rs.fer.validation.impl;
+package com.rs.eis.validation.impl;
 
 import java.util.Set;
 
-import com.rs.fer.request.RegistrationVO;
+import com.rs.eis.request.RegistrationVO;
 
 public interface ValidationUtil {
 	Set<String> validateRegistrationRequest(RegistrationVO registrationVO);
