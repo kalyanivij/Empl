@@ -12,9 +12,4 @@ public interface BookRepository extends JpaRepository<Book,Integer> {
 	Optional<Book> findByName(String name);
 
 	
-	// List<Book> findByName(String name);
-	 
-	/*
-	 * Optional<Book> findById(String name);
-	 */
 }

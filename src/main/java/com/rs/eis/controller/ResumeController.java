@@ -28,7 +28,7 @@ import com.rs.fer.validation.ValidationUtil;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/eis")
 public class ResumeController {
 	@Autowired
 	EISService eisService;

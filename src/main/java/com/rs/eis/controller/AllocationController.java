@@ -28,7 +28,7 @@ import com.rs.eis.service.EISService;
 import com.rs.fer.validation.ValidationUtil;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/eis")
 public class AllocationController {
 	@Autowired
 	EISService ferService;

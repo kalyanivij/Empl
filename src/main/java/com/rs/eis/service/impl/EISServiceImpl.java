@@ -1,12 +1,12 @@
 package com.rs.eis.service.impl;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import com.rs.eis.model.Allocation;
 import com.rs.eis.model.Employee;
 import com.rs.eis.model.Family;
@@ -37,278 +37,183 @@ import com.rs.eis.response.GetAllocationsResponse;
 import com.rs.eis.response.GetFamilyResponse;
 import com.rs.eis.response.GetInsuranceResponse;
 import com.rs.eis.response.GetResumeResponse;
+=======
+import com.rs.eis.model.Country;
+import com.rs.eis.model.State;
+import com.rs.eis.repository.CountryRepository;
+import com.rs.eis.repository.StateRepository;
+import com.rs.eis.response.CountryResponse;
+import com.rs.eis.response.DeleteCountryResponse;
+import com.rs.eis.response.DeleteStateResponse;
+import com.rs.eis.response.EditCountryResponse;
+import com.rs.eis.response.EditStateResponse;
+import com.rs.eis.response.GetCountryResponse;
+import com.rs.eis.response.GetStateResponse;
+import com.rs.eis.response.StateResponse;
+>>>>>>> branch 'master' of git@github.com:kalyanivij/Empl.git
 import com.rs.eis.service.EISService;
-import com.rs.eis.util.DateUtil;
 
 @Service
 public class EISServiceImpl implements EISService {
 
 	@Autowired
-	InsuranceRepository insuranceRepository;
-	@Autowired
-	FamilyRepository familyRepository;
-	
-	@Autowired
-	AllocationRepository allocationRepository;
-	@Autowired
-	ProjectRepository projectRepository;
-	
-	
-	@Autowired
-	ResumeRepository resumeRepository;
-	
-	@Autowired
-	EmployeeRepository employeeRepository;
 
-	/*
-	 * public RegistrationResponse registration(RegistrationVO registrationVO) {
-	 * 
-	 * RegistrationResponse response = new RegistrationResponse();
-	 * 
-	 * List<User> users = userRepository.findByEmail(registrationVO.getEmail());
-	 * 
-	 * if (CollectionUtils.isEmpty(users)) {
-	 * 
-	 * User user = FERUtil.loadRegistrationVOToUser(registrationVO);
-	 * 
-	 * user = userRepository.save(user);
-	 * 
-	 * response.setUser(user);
-	 * 
-	 * response.setStatusCode("000"); response.setStatus(HttpStatus.OK); } else {
-	 * response.setStatusCode("001");
-	 * response.setStatus(HttpStatus.PRECONDITION_FAILED);
-	 * response.setErrorMessage("User is already registered"); }
-	 * 
-	 * return response; }
-	 * 
-	 * public AddExpenseResponse addExpense(Expense expense) {
-	 * 
-	 * AddExpenseResponse response = new AddExpenseResponse();
-	 * 
-	 * Optional<User> userObj = userRepository.findById(expense.getUserId());
-	 * 
-	 * if (userObj.isPresent()) {
-	 * 
-	 * expense.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss")); expense =
-	 * expenseRepository.save(expense);
-	 * 
-	 * response.setExpense(expense);
-	 * 
-	 * response.setStatusCode("000"); response.setStatus(HttpStatus.OK); } else {
-	 * response.setStatusCode("001");
-	 * response.setStatus(HttpStatus.PRECONDITION_FAILED); response.
-	 * setErrorMessage("Invalid Input as userId is not present in user table"); }
-	 * 
-	 * return response; }
-	 * 
-	 * public LoginResponse login(String userName, String password) {
-	 * 
-	 * LoginResponse response = new LoginResponse();
-	 * 
-	 * List<User> users = userRepository.findByUserNameAndPassword(userName,
-	 * password);
-	 * 
-	 * if (!CollectionUtils.isEmpty(users)) {
-	 * 
-	 * response.setUser(users.get(0));
-	 * 
-	 * response.setStatusCode("000"); response.setStatus(HttpStatus.OK); } else {
-	 * response.setStatusCode("001");
-	 * response.setStatus(HttpStatus.PRECONDITION_FAILED);
-	 * response.setErrorMessage("Invalid credentials."); }
-	 * 
-	 * return response; }
-	 * 
-	 * public EditExpenseResponse editExpense(Expense expense) { EditExpenseResponse
-	 * response = new EditExpenseResponse();
-	 * 
-	 * Optional<Expense> expenseObj = expenseRepository.findById(expense.getId());
-	 * 
-	 * if (expenseObj.isPresent()) {
-	 * 
-	 * expense.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss")); expense =
-	 * expenseRepository.save(expense);
-	 * 
-	 * response.setExpense(expense);
-	 * 
-	 * response.setStatusCode("000"); response.setStatus(HttpStatus.OK); } else {
-	 * response.setStatusCode("001");
-	 * response.setStatus(HttpStatus.PRECONDITION_FAILED); response.
-	 * setErrorMessage("Invalid Input as expenseId is not present in expense table"
-	 * ); }
-	 * 
-	 * return response; }
-	 * 
-	 * @Override public GetExpenseResponse getExpenseById(int id) {
-	 * GetExpenseResponse response = new GetExpenseResponse(); Optional<Expense>
-	 * expenseObj = expenseRepository.findById(id); if (expenseObj.isPresent()) {
-	 * response.setExpense(expenseObj.get()); response.setStatusCode("000");
-	 * response.setStatus(HttpStatus.OK); } else { response.setStatusCode("001");
-	 * response.setStatus(HttpStatus.PRECONDITION_FAILED);
-	 * response.setErrorMessage("No Expense Found for the given expenseid"); }
-	 * 
-	 * return response; }
-	 * 
-	 * @Override public List<Expense> getExpenses(Integer userId) { ExpenseResponse
-	 * response=new ExpenseResponse(); List<Expense> expenseObj =
-	 * expenseRepository.findAllById(userId); if (expenseObj.isEmpty()) {
-	 * response.setExpense(expenseObj.get(0)); response.setStatusCode("000");
-	 * response.setStatus(HttpStatus.OK); } else { response.setStatusCode("001");
-	 * response.setStatus(HttpStatus.PRECONDITION_FAILED); response.
-	 * setErrorMessage("Invalid Input as expenseId is not present in expense table"
-	 * ); }
-	 * 
-	 * return response; }
-	 * 
-	 * 
-	 * @Override public GetExpensesResponse getExpenses(int userId) {
-	 * GetExpensesResponse response = new GetExpensesResponse(); List<Expense>
-	 * expenses = expenseRepository.findByUserId(userId); if (!expenses.isEmpty()) {
-	 * response.setExpenses(expenses); response.setStatusCode("000");
-	 * response.setStatus(HttpStatus.OK); } else { response.setStatusCode("001");
-	 * response.setStatus(HttpStatus.PRECONDITION_FAILED); response.
-	 * setErrorMessage("Invalid Input as expenseId is not present in expense table"
-	 * ); }
-	 * 
-	 * return response; }
-	 * 
-	 * @Override public ExpenseReportResponse expenseReport(int userid, String type,
-	 * String fromDate, String toDate) { ExpenseReportResponse response = new
-	 * ExpenseReportResponse(); //Expense exp = new Expense(); List<Expense>
-	 * expenses = expenseRepository.findByUserIdAndTypeAndDateBetween(userid, type,
-	 * fromDate, toDate); if (!expenses.isEmpty()) {
-	 * 
-	 * response.setExpenses(expenses); response.setStatusCode("000");
-	 * response.setStatus(HttpStatus.OK);
-	 * 
-	 * } else { response.setStatusCode("001");
-	 * response.setStatus(HttpStatus.PRECONDITION_FAILED);
-	 * response.setErrorMessage("No expenses found for the given input.."); }
-	 * 
-	 * return response; }
-	 * 
-	 * @Override public ResetPasswordResponse resetPassword(int userid, String
-	 * currentPassword, String newPassword) { ResetPasswordResponse response = new
-	 * ResetPasswordResponse(); Optional<User> userObj =
-	 * userRepository.findById(userid); if (userObj.isPresent()) { User user =
-	 * userObj.get(); if (user.getPassword().equals(currentPassword)) {
-	 * user.setPassword(newPassword); userRepository.save(user);
-	 * response.setStatusCode("000"); response.setStatus(HttpStatus.OK); } else {
-	 * response.setStatusCode("002");
-	 * response.setStatus(HttpStatus.PRECONDITION_FAILED); response.setErrorMessage(
-	 * "Password which is on the account and input for current password are not matching."
-	 * ); }
-	 * 
-	 * } else { response.setStatusCode("001");
-	 * response.setStatus(HttpStatus.PRECONDITION_FAILED);
-	 * response.setErrorMessage("User is not found with the given input."); } return
-	 * response; }
-	 * 
-	 * @Override public DeleteExpenseResponse deleteExpense(int expenseId) {
-	 * DeleteExpenseResponse response = new DeleteExpenseResponse();
-	 * 
-	 * Optional<Expense> expenseObj = expenseRepository.findById(expenseId);
-	 * 
-	 * if (expenseObj.isPresent()) { Expense expense = expenseObj.get();
-	 * expenseRepository.delete(expense); response.setStatusCode("000");
-	 * response.setStatus(HttpStatus.OK); } else { response.setStatusCode("001");
-	 * response.setStatus(HttpStatus.PRECONDITION_FAILED); response.
-	 * setErrorMessage("Invalid Input as expenseId is not present in expense table"
-	 * ); }
-	 * 
-	 * return response;
-	 * 
-	 * }
-	 * 
-	 * @Override public GetUserResponse getUser(int userid) { GetUserResponse
-	 * response = new GetUserResponse(); Optional<User> userObj =
-	 * userRepository.findById(userid); if (userObj.isPresent()) {
-	 * response.setUser(userObj.get()); response.setStatusCode("000");
-	 * response.setStatus(HttpStatus.OK); } else { response.setStatusCode("001");
-	 * response.setStatus(HttpStatus.PRECONDITION_FAILED);
-	 * response.setErrorMessage("No User Found for the given userid"); }
-	 * 
-	 * return response; }
-	 * 
-	 * @Override public UpdateUserResponse updateUser(UserVO userVO) {
-	 * 
-	 * UpdateUserResponse response = new UpdateUserResponse(); Optional<User>
-	 * userObj = userRepository.findById(userVO.getUserId()); if
-	 * (userObj.isPresent()) { User userdb = userObj.get(); userdb =
-	 * FERUtil.loadUpdateUserVOToUser(userVO, userdb); userdb =
-	 * userRepository.save(userdb);
-	 * 
-	 * response.setUser(userdb); response.setStatusCode("000");
-	 * response.setStatus(HttpStatus.OK); } else { response.setStatusCode("001");
-	 * response.setStatus(HttpStatus.PRECONDITION_FAILED);
-	 * response.setErrorMessage("No User Found for the given userid"); }
-	 * 
-	 * return response; }
-	 */
-	@Override
-	public AddInsuranceResponse addInsurance(Insurance insurance) {
-		AddInsuranceResponse response = new AddInsuranceResponse();
-		  
-		  Optional<Insurance> insuranceObj = insuranceRepository.findById(insurance.getInsuranceid());
-		  
-		  if (insuranceObj.isPresent()) {
-		  
-			
-			  insurance.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
-			 		  insurance =insuranceRepository.save(insurance);
-		  
-		  response.setInsurance(insurance);
-		  
-		  response.setStatusCode("000"); response.setStatus(HttpStatus.OK);
-		  } else {
-		  response.setStatusCode("001");
-		  response.setStatus(HttpStatus.PRECONDITION_FAILED);
-		  response.setErrorMessage("Invalid Input as employeeId is not present in user table"); }
-		  
-		  return response;
+	EISService eisService;
+
+	@Autowired
+
+	CountryRepository countryRepository;
+
+	@Autowired
+	StateRepository stateRepository;
+
+	public StateResponse addState(State state) {
+		StateResponse response = new StateResponse();
+		state = stateRepository.save(state);
+		/* if (!state.isEmpty()) { */
+		response.setState(state);
+		response.setStatusCode("000");
+		response.setStatus(HttpStatus.OK);
+		/*
+		 * } else { response.setStatusCode("001");
+		 * response.setStatus(HttpStatus.PRECONDITION_FAILED); response.
+		 * setErrorMessage("Invalid Input as name is not present in state table"); }
+		 */
+		return response;
 	}
+
 	@Override
-	public AddFamilyResponse addFamily(Family family) {
-		AddFamilyResponse response = new AddFamilyResponse();
-		  Optional<Family> familyObj = familyRepository.findById(family.getRelationid());
-		  
-		  if (familyObj.isPresent()) {
-		  
-		  family.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
-		  family =familyRepository.save(family);
-		  
-		  response.setFamily(family);
-		  
-		  response.setStatusCode("000"); response.setStatus(HttpStatus.OK);
-		  } else {
-		  response.setStatusCode("001");
-		  response.setStatus(HttpStatus.PRECONDITION_FAILED);
-		  response.setErrorMessage("Invalid Input as employeeId is not present in user table"); }
-	
-		  return response;
+	public CountryResponse addCountry(Country country) {
+		CountryResponse response = new CountryResponse();
+		country = countryRepository.save(country);
+		/* if (!state.isEmpty()) { */
+		response.setCountry(country);
+		response.setStatusCode("000");
+		response.setStatus(HttpStatus.OK);
+		/*
+		 * } else { response.setStatusCode("001");
+		 * response.setStatus(HttpStatus.PRECONDITION_FAILED); response.
+		 * setErrorMessage("Invalid Input as name is not present in state table"); }
+		 */
+		return response;
 	}
-	
-	
+
 	@Override
-	public GetInsuranceResponse getInsuranceByemployeeid(int employeeid) {
-		GetInsuranceResponse response = new GetInsuranceResponse();
-		Optional<Insurance> insuranceObj = insuranceRepository.findById(employeeid);
-
-		if (insuranceObj.isPresent()) {
-
-			response.setInsurance(insuranceObj.get());
+	public GetStateResponse getStateById(int id) {
+		GetStateResponse response = new GetStateResponse();
+		Optional<State> state = stateRepository.findById(id);
+		if (state.isPresent()) {
+			response.setState(state.get());
 
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
 		} else {
 			response.setStatusCode("001");
 			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("Invalid Input as Employeeid is not present in Insurance table");
+			response.setErrorMessage("Invalid Input as employeeId is not present in user table");
 		}
 
 		return response;
 	}
+
+	@Override
+	public DeleteStateResponse deleteStateById(int id) {
+		DeleteStateResponse response = new DeleteStateResponse();
+		Optional<State> state = stateRepository.findById(id);
+		if (state.isPresent()) {
+			State State = state.get();
+			stateRepository.delete(State);
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("No data Found for the given id");
+		}
+		return response;
+	}
+
+	@Override
+	public EditStateResponse editState(State state) {
+		EditStateResponse response = new EditStateResponse();
+		Optional<State> stateObj = stateRepository.findById(state.getId());
+		if (stateObj.isPresent()) {
+
+			state = stateRepository.save(state);
+			response.setState(state);
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as name is not present in state table");
+
+		}
+
+		return response;
+	}
+
+	@Override
+
+	public GetCountryResponse getCountryById(int id) {
+		GetCountryResponse response = new GetCountryResponse();
+		Optional<Country> country = countryRepository.findById(id);
+		if (country.isPresent()) {
+			response.setCountry(country.get());
+
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+
+			response.setErrorMessage("No data Found for the given id");
+		}
+		return response;
+	}
+
+	@Override
+	public DeleteCountryResponse deleteCountryById(int id) {
+		DeleteCountryResponse response = new DeleteCountryResponse();
+		Optional<Country> country = countryRepository.findById(id);
+		if (country.isPresent()) {
+			Country Country = country.get();
+			countryRepository.delete(Country);
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("No data Found for the given id");
+
+		}
+		return response;
+	}
+
+	@Override
+
+	public EditCountryResponse editCountry(Country country) {
+		EditCountryResponse response = new EditCountryResponse();
+		Optional<Country> countryObj = countryRepository.findById(country.getId());
+		if (countryObj.isPresent()) {
+			
+			country=countryRepository.save(country);
+			response.setCountry(country);
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as name is not present in state table");
+		}
+
+		return response;
+
+	}
+<<<<<<< HEAD
 
 	@Override
 	public GetFamilyResponse getFamilyByemployeeid(int employeeid) {

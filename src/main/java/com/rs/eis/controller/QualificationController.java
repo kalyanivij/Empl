@@ -29,7 +29,7 @@ import com.rs.eis.service.QualificationService;
 import com.rs.eis.validation.ValidationUtil;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/eis")
 public class QualificationController {
 	@Autowired
 	QualificationService qualificationService;

@@ -1,6 +1,5 @@
 package com.rs.eis.service;
 
-import com.rs.eis.model.Qualification;
 import com.rs.eis.request.QualificationVO;
 import com.rs.eis.response.DeleteQualificationResponse;
 import com.rs.eis.response.EditQualificationResponse;

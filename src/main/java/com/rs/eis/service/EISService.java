@@ -1,54 +1,51 @@
 package com.rs.eis.service;
 
+import javax.validation.Valid;
+
 import com.rs.eis.model.Allocation;
-import com.rs.eis.model.Family;
-import com.rs.eis.model.Insurance;
+import com.rs.eis.model.Country;
+import com.rs.eis.model.State;
 import com.rs.eis.request.AllocationVO;
 import com.rs.eis.response.AddAllocationResponse;
-import com.rs.eis.response.AddFamilyResponse;
-import com.rs.eis.response.AddInsuranceResponse;
+import com.rs.eis.response.CountryResponse;
 import com.rs.eis.response.DeleteAllocationResponse;
-import com.rs.eis.response.DeleteFamilyResponse;
-import com.rs.eis.response.DeleteInsuranceResponse;
+import com.rs.eis.response.DeleteCountryResponse;
+import com.rs.eis.response.DeleteStateResponse;
 import com.rs.eis.response.EditAllocationResponse;
-import com.rs.eis.response.EditFamilyResponse;
-import com.rs.eis.response.EditInsuranceResponse;
+import com.rs.eis.response.EditCountryResponse;
+import com.rs.eis.response.EditStateResponse;
 import com.rs.eis.response.GetAllocationResponse;
 import com.rs.eis.response.GetAllocationsResponse;
-import com.rs.eis.response.GetFamilyResponse;
-import com.rs.eis.response.GetInsuranceResponse;
+import com.rs.eis.response.GetCountryResponse;
+import com.rs.eis.response.GetStateResponse;
+import com.rs.eis.response.StateResponse;
 
 public interface EISService {
 
-	
-	
-	DeleteInsuranceResponse deleteinsurance  (int employeeid);
+	CountryResponse addCountry(Country country);
 
-	GetInsuranceResponse getInsuranceByemployeeid(int employeeid);
-	GetInsuranceResponse insuranceReport(int employeeid);
+	StateResponse addState(State state);
 
-	AddInsuranceResponse addInsurance(Insurance insurance);
-	EditInsuranceResponse editInsurance(Insurance insurance);
-	EditFamilyResponse editFamily(Family family);
+	GetStateResponse getStateById(int id);
 
-	
-	GetFamilyResponse getFamilyByemployeeid(int employeeid);
-	GetFamilyResponse familyReport(int employeeid);
+	DeleteStateResponse deleteStateById(int id);
 
-	DeleteFamilyResponse deleteFamily(int employeeid);
-	AddFamilyResponse addFamily(Family family);
-	
-	
+	EditStateResponse editState(State state);
 
 	AddAllocationResponse addAllocation(AllocationVO allocationVO);
-	
+
 	EditAllocationResponse editAllocation(Allocation allocation);
-	
+
 	DeleteAllocationResponse deleteAllocation(int projectid);
-	
+
 	GetAllocationResponse getAllocationById(int id);
-	
+
 	GetAllocationsResponse getAllocations(int projectid);
 
+	GetCountryResponse getCountryById(int id);
+
+	DeleteCountryResponse deleteCountryById(int id);
+
+	EditCountryResponse editCountry(@Valid Country country);
 
 }

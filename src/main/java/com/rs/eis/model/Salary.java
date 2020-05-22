@@ -10,48 +10,35 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
-@Table(name="resume")
+@Table(name="salary")
 @EntityListeners(AuditingEntityListener.class)
-public class Resume {
+
+public class Salary {
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	private String old;
-	private String newResume;
 	
-	//@OneToOne(targetEntity=Employee.class,cascade=CascadeType.ALL)
-	private int employeeId;
-
+	public int id;
+	public String gross;
+	public int employeeid;
+	
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getOld() {
-		return old;
+	public String getGross() {
+		return gross;
 	}
-
-	public void setOld(String old) {
-		this.old = old;
+	public void setGross(String gross) {
+		this.gross = gross;
 	}
-
-	public String getNewResume() {
-		return newResume;
+	public int getEmployeeid() {
+		return employeeid;
 	}
-
-	public void setNewResume(String newResume) {
-		this.newResume = newResume;
+	public void setEmployeeid(int employeeid) {
+		this.employeeid = employeeid;
 	}
-
-	public int getEmployeeId() {
-		return employeeId;
+	
 	}
-
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
-	}
-}
