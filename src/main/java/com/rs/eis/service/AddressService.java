@@ -31,6 +31,8 @@ public interface AddressService {
 
 	EditCountryResponse editCountry(@Valid Country country);
 
+	GetStateResponse getStateByCountryId(int countryid);
+
 	
 
 }

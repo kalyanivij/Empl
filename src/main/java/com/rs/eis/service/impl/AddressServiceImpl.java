@@ -83,6 +83,23 @@ public class AddressServiceImpl implements AddressService {
 		return response;
 	}
 	
+	@Override
+	public GetStateResponse getStateByCountryId(int countryid) {
+		GetStateResponse response = new GetStateResponse();
+		Optional<State> state = stateRepository.findByCountryId(countryid);
+		if (state.isPresent()) {
+			response.setState(state.get());
+
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as employeeId is not present in user table");
+		}
+
+		return response;
+	}
 	
 	@Override
 	public DeleteStateResponse deleteStateById(int id) {

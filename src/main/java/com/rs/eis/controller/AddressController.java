@@ -61,6 +61,15 @@ public class AddressController {
 			return addressService.getStateById(id);
 		}
 	}
+	@GetMapping("/state/{countryid}")
+	public GetStateResponse getStateByCountryId(@PathVariable("id") int countryid) {
+		Set<String> errorMessages = addressValidationUtil.validateStateRequest(countryid);
+		if (!CollectionUtils.isEmpty(errorMessages)) {
+			return new GetStateResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+		} else {
+			return addressService.getStateByCountryId(countryid);
+		}
+	}
 	
 
 	@DeleteMapping("/state/{id}")
