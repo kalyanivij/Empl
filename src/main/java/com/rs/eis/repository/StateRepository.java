@@ -13,8 +13,6 @@ public interface StateRepository extends JpaRepository<State,Integer> {
 	
 	Optional<State> findById(int id);
 
-	Optional<State> findByCountryId(int countryid);
-
 	
 
 }
