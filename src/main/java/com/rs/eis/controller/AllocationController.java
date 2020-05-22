@@ -23,18 +23,18 @@ import com.rs.eis.response.DeleteAllocationResponse;
 import com.rs.eis.response.EditAllocationResponse;
 import com.rs.eis.response.GetAllocationResponse;
 import com.rs.eis.response.GetAllocationsResponse;
-import com.rs.eis.service.EISService;
-import com.rs.fer.validation.ValidationUtil;
+import com.rs.eis.service.AllocationService;
+import com.rs.eis.validation.AllocationValidationUtil;
 
 
 @RestController
 @RequestMapping("/api")
 public class AllocationController {
 	@Autowired
-	EISService ferService;
+	AllocationService allocationService;
 
 	@Autowired
-	ValidationUtil validationUtil;
+	AllocationValidationUtil allocationUtil;
 
 	
 	@Autowired
@@ -44,45 +44,39 @@ public class AllocationController {
 	
 	@PostMapping("/allocation")
 	public AddAllocationResponse addAllocation(@Valid @RequestBody Allocation allocation) {
-		return ferService.addAllocation(allocation);
+		return allocationService.addAllocation(allocation);
 	}
 	@PutMapping("/allocation/{id}")
 	public EditAllocationResponse editAllocation(@PathVariable("id") int Id, @Valid @RequestBody Allocation allocation) {
-		return ferService.editAllocation(allocation);
+		return allocationService.editAllocation(allocation);
 	}
 	@GetMapping("/allocation/{id}")
 	public GetAllocationResponse getAllocationById(@PathVariable("id") int id) {
-		Set<String> errorMessages = validationUtil.validateGetAllocationRequest(id);
+		Set<String> errorMessages = allocationUtil.validateGetAllocationRequest(id);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new GetAllocationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return ferService.getAllocationById(id);
+			return allocationService.getAllocationById(id);
 		}
 	}
 	@GetMapping("/allocations/{projectId}")
 	public GetAllocationsResponse getAllocations(@PathVariable("projectId") int projectId) {
-		Set<String> errorMessages = validationUtil.validateGetAllocationsRequest(projectId);
+		Set<String> errorMessages = allocationUtil.validateGetAllocationsRequest(projectId);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new GetAllocationsResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return ferService.getAllocations(projectId);
+			return allocationService.getAllocations(projectId);
 		}
 	}
 
 	
 	@DeleteMapping("/allocation/{allocationId}")
 	public DeleteAllocationResponse deleteAllocation(@PathVariable(value = "allocationId") int allocationId) {
-		Set<String> errorMessages = validationUtil.validateDeleteAllocationRequest(allocationId);
+		Set<String> errorMessages = allocationUtil.validateDeleteAllocationRequest(allocationId);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new DeleteAllocationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return ferService.deleteAllocation(allocationId);
+			return allocationService.deleteAllocation(allocationId);
 		}
-		
-		
-		
-		
-
-	
 }
 }
