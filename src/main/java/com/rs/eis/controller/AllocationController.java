@@ -24,60 +24,74 @@ import com.rs.eis.response.DeleteAllocationResponse;
 import com.rs.eis.response.EditAllocationResponse;
 import com.rs.eis.response.GetAllocationResponse;
 import com.rs.eis.response.GetAllocationsResponse;
-import com.rs.eis.service.EISService;
-import com.rs.fer.validation.ValidationUtil;
+import com.rs.eis.service.AllocationService;
+import com.rs.eis.validation.AllocationValidationUtil;
 
 @RestController
 @RequestMapping("/eis")
 public class AllocationController {
 	@Autowired
-	EISService ferService;
+	AllocationService allocationService;
 
 	@Autowired
-	ValidationUtil validationUtil;
+	AllocationValidationUtil allocationUtil;
 
 	@Autowired
 	AllocationRepository allocationRepository;
 
 	@PostMapping("/allocation")
+<<<<<<< HEAD
 	public AddAllocationResponse addAllocation(@Valid @RequestBody AllocationVO allocationVO) {
 		return ferService.addAllocation(allocationVO);
+=======
+	public AddAllocationResponse addAllocation(@Valid @RequestBody Allocation allocation) {
+		return allocationService.addAllocation(allocation);
+>>>>>>> branch 'master' of git@github.com:kalyanivij/Empl.git
 	}
 
 	@PutMapping("/allocation/{id}")
+<<<<<<< HEAD
 	public EditAllocationResponse editAllocation(@PathVariable("id") int Id,
 			@Valid @RequestBody Allocation allocation) {
 		return ferService.editAllocation(allocation);
+=======
+	public EditAllocationResponse editAllocation(@PathVariable("id") int Id, @Valid @RequestBody Allocation allocation) {
+		return allocationService.editAllocation(allocation);
+>>>>>>> branch 'master' of git@github.com:kalyanivij/Empl.git
 	}
 
 	@GetMapping("/allocation/{id}")
 	public GetAllocationResponse getAllocationById(@PathVariable("id") int id) {
-		Set<String> errorMessages = validationUtil.validateGetAllocationRequest(id);
+		Set<String> errorMessages = allocationUtil.validateGetAllocationRequest(id);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new GetAllocationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return ferService.getAllocationById(id);
+			return allocationService.getAllocationById(id);
 		}
 	}
 
 	@GetMapping("/allocations/{projectId}")
 	public GetAllocationsResponse getAllocations(@PathVariable("projectId") int projectId) {
-		Set<String> errorMessages = validationUtil.validateGetAllocationsRequest(projectId);
+		Set<String> errorMessages = allocationUtil.validateGetAllocationsRequest(projectId);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new GetAllocationsResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return ferService.getAllocations(projectId);
+			return allocationService.getAllocations(projectId);
 		}
 	}
 
 	@DeleteMapping("/allocation/{allocationId}")
 	public DeleteAllocationResponse deleteAllocation(@PathVariable(value = "allocationId") int allocationId) {
-		Set<String> errorMessages = validationUtil.validateDeleteAllocationRequest(allocationId);
+		Set<String> errorMessages = allocationUtil.validateDeleteAllocationRequest(allocationId);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new DeleteAllocationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return ferService.deleteAllocation(allocationId);
+			return allocationService.deleteAllocation(allocationId);
 		}
+<<<<<<< HEAD
 
 	}
+=======
+}
+>>>>>>> branch 'master' of git@github.com:kalyanivij/Empl.git
 }

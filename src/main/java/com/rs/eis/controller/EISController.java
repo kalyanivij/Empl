@@ -16,25 +16,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rs.eis.model.Country;
-import com.rs.eis.model.State;
-import com.rs.eis.repository.CountryRepository;
-import com.rs.eis.repository.StateRepository;
-import com.rs.eis.response.CountryResponse;
-import com.rs.eis.response.DeleteCountryResponse;
-import com.rs.eis.response.DeleteStateResponse;
-import com.rs.eis.response.EditCountryResponse;
-import com.rs.eis.response.EditStateResponse;
-import com.rs.eis.response.GetCountryResponse;
-import com.rs.eis.response.GetStateResponse;
-import com.rs.eis.response.StateResponse;
+import com.rs.eis.model.Emp_awards;
+import com.rs.eis.repository.Emp_awardsRepository;
+import com.rs.eis.response.AddEmp_awardsResponse;
+import com.rs.eis.response.DeleteEmp_awardsResponse;
+import com.rs.eis.response.EditEmp_awardsResponse;
+import com.rs.eis.response.GetEmp_awardsResponse;
 import com.rs.eis.service.EISService;
 import com.rs.eis.validation.ValidationUtil;
 
 @RestController
-@RequestMapping("/eis")
+@RequestMapping("/api")
 public class EISController {
-
 	@Autowired
 	EISService eisService;
 
@@ -42,74 +35,49 @@ public class EISController {
 	ValidationUtil validationUtil;
 
 	@Autowired
-	StateRepository stateRepository;
-	
-	@Autowired
-	CountryRepository countryRepository;
+	Emp_awardsRepository emp_awardsRepository;
 
-	@PostMapping("/state")
-	public StateResponse addState(@Valid @RequestBody State state) {
-		return eisService.addState(state);
+	@PostMapping("/emp_awards")
+
+	public AddEmp_awardsResponse addEmp_awards(@Valid @RequestBody Emp_awards emp_awards) {
+		return eisService.addEmp_awards(emp_awards);
 	}
 
-	@GetMapping("/state/{id}")
-	public GetStateResponse getStateById(@PathVariable("id") int id) {
-		Set<String> errorMessages = validationUtil.validateStateRequest(id);
+	@GetMapping("/emp_awards/{emp_awardsid}")
+	public GetEmp_awardsResponse getEmp_awards(@PathVariable("emp_awardsid") int emp_awardsid) {
+		Set<String> errorMessages = validationUtil.validateGetEmp_awardsRequest(emp_awardsid);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
-			return new GetStateResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+			return new GetEmp_awardsResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return eisService.getStateById(id);
+			return eisService.getEmp_awardsByemployeeid(emp_awardsid);
 		}
 	}
 
-	@DeleteMapping("/state/{id}")
-	public DeleteStateResponse deleteStateById(@PathVariable("id") int id) {
-		Set<String> errorMessages = validationUtil.validateStateRequest(id);
+	@PutMapping("/emp_awards/{id}")
+
+	public EditEmp_awardsResponse editEmp_awards(@PathVariable("id") int id,
+			@Valid @RequestBody Emp_awards emp_awards) {
+		return eisService.editEmp_awards(emp_awards);
+	}
+
+	@GetMapping("/emp_awardss/{employeeid}")
+	public GetEmp_awardsResponse getEmp_awards(@PathVariable("employeeid") Integer employeeid) {
+		Set<String> errorMessages = validationUtil.validateGetEmp_awardsRequest(employeeid);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
-			return new DeleteStateResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+			return new GetEmp_awardsResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return eisService.deleteStateById(id);
+			return eisService.getEmp_awardsByemployeeid(employeeid);
 		}
 	}
 
-	@PutMapping("/state/{id}")
-	public EditStateResponse editState(@PathVariable("id") int id, @Valid @RequestBody State state) {
-
-		return eisService.editState(state);
-
-	}
-
-	@PostMapping("/country")
-	public CountryResponse addCountry(@Valid @RequestBody Country country) {
-
-		return eisService.addCountry(country);
-	}
-
-	@GetMapping("/country/{id}")
-	public GetCountryResponse getCountryById(@PathVariable("id") int id) {
-		Set<String> errorMessages = validationUtil.validateStateRequest(id);
+	@DeleteMapping("/emp_awards/{id}")
+	public DeleteEmp_awardsResponse deleteEmp_awardsByid(@PathVariable("id") int id) {
+		Set<String> errorMessages = validationUtil.validateDeleteEpm_awardsRequest(id);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
-			return new GetCountryResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+			return new DeleteEmp_awardsResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
-			return eisService.getCountryById(id);
+			return eisService.deleteEmp_awards(id);
 		}
-	}
-
-	@DeleteMapping("/country/{id}")
-	public DeleteCountryResponse deleteCountryById(@PathVariable("id") int id) {
-		Set<String> errorMessages = validationUtil.validateStateRequest(id);
-		if (!CollectionUtils.isEmpty(errorMessages)) {
-			return new DeleteCountryResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
-		} else {
-			return eisService.deleteCountryById(id);
-		}
-	}
-
-	@PutMapping("/country/{id}")
-	public EditCountryResponse editCountry(@PathVariable("id") int id, @Valid @RequestBody Country country) {
-
-		return eisService.editCountry(country);
-
 	}
 
 }

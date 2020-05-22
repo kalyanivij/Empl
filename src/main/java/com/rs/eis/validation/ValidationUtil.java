@@ -4,16 +4,11 @@ import java.util.Set;
 
 public interface ValidationUtil {
 
-	Set<String> validateStateRequest(int id);
+	Set<String> validateDeleteEpm_awardsRequest(int id);
 
-	Set<String> validateGetStateRequest1(int id);
-
-	Set<String> validateGetStateRequest(int id);
-
-	Set<String> validateDeleteStateRequest(int id);
+	Set<String> validateGetEmp_awardsRequest(int id);
 	
-
-	
+	Set<String> validateGetAllEmp_awardsRequest(int id);
 
 
 }

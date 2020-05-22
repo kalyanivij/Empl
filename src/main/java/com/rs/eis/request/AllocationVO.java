@@ -1,5 +1,6 @@
 package com.rs.eis.request;
 
+<<<<<<< HEAD
 import javax.validation.constraints.NotEmpty;
 
 public class AllocationVO {
@@ -17,6 +18,12 @@ public class AllocationVO {
 	public void setId(int id) {
 		this.id = id;
 	}
+=======
+public class AllocationVO {
+
+	private String name;
+	private int projectid;
+>>>>>>> branch 'master' of git@github.com:kalyanivij/Empl.git
 
 	public String getName() {
 		return name;
