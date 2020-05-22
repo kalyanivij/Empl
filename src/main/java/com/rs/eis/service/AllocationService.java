@@ -1,6 +1,7 @@
 package com.rs.eis.service;
 
 import com.rs.eis.model.Allocation;
+import com.rs.eis.request.AllocationVO;
 import com.rs.eis.response.AddAllocationResponse;
 import com.rs.eis.response.DeleteAllocationResponse;
 import com.rs.eis.response.EditAllocationResponse;
@@ -9,8 +10,8 @@ import com.rs.eis.response.GetAllocationsResponse;
 
 public interface AllocationService {
 
-	AddAllocationResponse addAllocation(Allocation allocation);
-	//AddAllocationResponse addAllocation(AllocationVO allocationVO);
+	//AddAllocationResponse addAllocation(Allocation allocation);
+	AddAllocationResponse addAllocation(AllocationVO allocationVO);
 
 	EditAllocationResponse editAllocation(Allocation allocation);
 

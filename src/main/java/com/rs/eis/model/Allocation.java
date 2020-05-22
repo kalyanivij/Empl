@@ -1,20 +1,16 @@
 package com.rs.eis.model;
 
-<<<<<<< HEAD
-=======
 import java.util.Date;
 
->>>>>>> branch 'master' of git@github.com:kalyanivij/Empl.git
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of git@github.com:kalyanivij/Empl.git
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -44,7 +40,6 @@ public class Allocation {
 		
 	}
 
-
 	public int getId() {
 		return id;
 	}
@@ -68,20 +63,23 @@ public class Allocation {
 	public void setProjectid(int projectid) {
 		this.projectid = projectid;
 	}
-	
-	public Date getUpdated() {
-		return updated;
-	}
-	public void setUpdated(Date updated) {
-		this.updated = updated;
-	}
+
 	public Date getCreated() {
 		return created;
 	}
+
 	public void setCreated(Date created) {
 		this.created = created;
 	}
 
+	public Date getUpdated() {
+		return updated;
+	}
 
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
 	
+	
+
 }
