@@ -20,6 +20,7 @@ import com.rs.eis.model.Allocation;
 import com.rs.eis.repository.AllocationRepository;
 import com.rs.eis.request.AllocationVO;
 import com.rs.eis.response.AddAllocationResponse;
+import com.rs.eis.response.AddTimesheetResponse;
 import com.rs.eis.response.DeleteAllocationResponse;
 import com.rs.eis.response.EditAllocationResponse;
 import com.rs.eis.response.GetAllocationResponse;
@@ -40,24 +41,19 @@ public class AllocationController {
 	AllocationRepository allocationRepository;
 
 	@PostMapping("/allocation")
-<<<<<<< HEAD
 	public AddAllocationResponse addAllocation(@Valid @RequestBody AllocationVO allocationVO) {
-		return ferService.addAllocation(allocationVO);
-=======
-	public AddAllocationResponse addAllocation(@Valid @RequestBody Allocation allocation) {
-		return allocationService.addAllocation(allocation);
->>>>>>> branch 'master' of git@github.com:kalyanivij/Empl.git
+		Set<String> errorMessages = allocationUtil.validateAddAllocationRequest(allocationVO);
+		if (!CollectionUtils.isEmpty(errorMessages)) {
+			return new AddAllocationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+		} else {
+			return allocationService.addAllocation(allocationVO);
+		}
 	}
 
 	@PutMapping("/allocation/{id}")
-<<<<<<< HEAD
 	public EditAllocationResponse editAllocation(@PathVariable("id") int Id,
 			@Valid @RequestBody Allocation allocation) {
-		return ferService.editAllocation(allocation);
-=======
-	public EditAllocationResponse editAllocation(@PathVariable("id") int Id, @Valid @RequestBody Allocation allocation) {
 		return allocationService.editAllocation(allocation);
->>>>>>> branch 'master' of git@github.com:kalyanivij/Empl.git
 	}
 
 	@GetMapping("/allocation/{id}")
@@ -88,10 +84,6 @@ public class AllocationController {
 		} else {
 			return allocationService.deleteAllocation(allocationId);
 		}
-<<<<<<< HEAD
 
 	}
-=======
-}
->>>>>>> branch 'master' of git@github.com:kalyanivij/Empl.git
 }
