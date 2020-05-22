@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.rs.eis.model.Perfomance_review;
 import com.rs.eis.repository.Perfomance_reviewRepository;
 import com.rs.eis.response.AddPerfomance_reviewResponse;
@@ -68,6 +67,5 @@ public class EISController {
 	public EditPerfomance_reviewResponse editPerfomance_review(@PathVariable("id") int id,
 			@Valid @RequestBody Perfomance_review perfomance_review) {
 		return eisService.editPerfomance_review(perfomance_review);
-	}
-
+}
 }

@@ -3,6 +3,7 @@ package com.rs.eis.validation;
 import java.util.Set;
 
 public interface ValidationUtil {
+
 		
 	Set<String> validatePerfomance_reviewReportRequest(int employeeid);
 
@@ -11,8 +12,4 @@ public interface ValidationUtil {
 	
 	
 	Set<String> validateGetPerfomance_reviewRequest(int reviewid);
-	
-
-
-		
 }
