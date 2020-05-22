@@ -16,6 +16,7 @@ import com.rs.eis.response.EditAllocationResponse;
 import com.rs.eis.response.GetAllocationResponse;
 import com.rs.eis.response.GetAllocationsResponse;
 import com.rs.eis.service.AllocationService;
+import com.rs.eis.util.DateUtil;
 
 public class AllocationServiceImpl implements AllocationService{
 	
@@ -32,6 +33,7 @@ public class AllocationServiceImpl implements AllocationService{
 		Optional<Project> projectObj = projectRepository.findById(allocation.getProjectid());
 
 		if (projectObj.isPresent()) {
+			allocation.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
 
 			allocation = allocationRepository.save(allocation);
 
@@ -56,7 +58,7 @@ public class AllocationServiceImpl implements AllocationService{
 
 		if (allocationObj.isPresent()) {
 
-			//expense.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
+			allocation.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
 			allocation = allocationRepository.save(allocation);
 
 			response.setAllocation(allocation);

@@ -10,6 +10,7 @@ import com.rs.eis.response.GetAllocationsResponse;
 public interface AllocationService {
 
 	AddAllocationResponse addAllocation(Allocation allocation);
+	//AddAllocationResponse addAllocation(AllocationVO allocationVO);
 
 	EditAllocationResponse editAllocation(Allocation allocation);
 
