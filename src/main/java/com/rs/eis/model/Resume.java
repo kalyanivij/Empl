@@ -1,5 +1,7 @@
 package com.rs.eis.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -19,8 +21,8 @@ public class Resume {
 	private int id;
 	private String old;
 	private String newResume;
-	
-	//@OneToOne(targetEntity=Employee.class,cascade=CascadeType.ALL)
+	private Date created;
+	private Date updated;
 	private int employeeId;
 
 	public int getId() {
@@ -53,5 +55,21 @@ public class Resume {
 
 	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public Date getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(Date updated) {
+		this.updated = updated;
 	}
 }
