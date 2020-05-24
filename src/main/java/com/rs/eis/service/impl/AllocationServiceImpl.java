@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import com.rs.eis.model.Allocation;
-import com.rs.eis.model.Project;
-import com.rs.eis.model.Timesheet;
 import com.rs.eis.repository.AllocationRepository;
 import com.rs.eis.repository.ProjectRepository;
 import com.rs.eis.request.AllocationVO;
@@ -20,7 +18,6 @@ import com.rs.eis.response.GetAllocationsResponse;
 import com.rs.eis.service.AllocationService;
 import com.rs.eis.util.AllocationUtil;
 import com.rs.eis.util.DateUtil;
-import com.rs.eis.util.TimeSheetUtil;
 
 public class AllocationServiceImpl implements AllocationService {
 
@@ -33,11 +30,9 @@ public class AllocationServiceImpl implements AllocationService {
 	public AddAllocationResponse addAllocation(AllocationVO allocationVO) {
 		AddAllocationResponse response = new AddAllocationResponse();
 		Optional<Allocation> projectObj = allocationRepository.findById(allocationVO.getProjectid());
-		
+
 		if (projectObj.isPresent()) {
 			Allocation allocation = AllocationUtil.loadAllocationVOToAllocationn(allocationVO);
-
-			allocation.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
 
 			allocation = allocationRepository.save(allocation);
 
@@ -62,11 +57,10 @@ public class AllocationServiceImpl implements AllocationService {
 
 		if (allocationObj.isPresent()) {
 
-			allocation.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
-			allocation = allocationRepository.save(allocation);
-
-			response.setAllocation(allocation);
-
+			Allocation allocationdb = allocationObj.get();
+			allocationdb = AllocationUtil.loadEditAllocationVOToAllocation(allocation, allocationdb);
+			allocationdb = allocationRepository.save(allocationdb);
+			response.setAllocation(allocationdb);
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
 		} else {

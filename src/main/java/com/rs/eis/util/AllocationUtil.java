@@ -15,4 +15,13 @@ public class AllocationUtil {
 
 		return allocation;
 	}
+
+	public static Allocation loadEditAllocationVOToAllocation(Allocation allocation, Allocation allocationdb) {
+		allocationdb.setName(allocation.getName());
+		allocationdb.setProjectid(allocation.getProjectid());
+
+		allocation.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
+		return allocation;
+
+	}
 }

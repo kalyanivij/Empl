@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
+import com.rs.eis.model.Allocation;
 import com.rs.eis.request.AllocationVO;
 import com.rs.eis.validation.AllocationValidationUtil;
 
@@ -19,7 +20,7 @@ public class AllocationValidationUtilImpl implements AllocationValidationUtil {
 
 		return errorMessages;
 	}
-	
+
 	@Override
 	public Set<String> validateAddAllocationRequest(AllocationVO allocationVO) {
 		Set<String> errorMessages = new HashSet<String>();
@@ -27,7 +28,6 @@ public class AllocationValidationUtilImpl implements AllocationValidationUtil {
 		addError(errorMessages, allocationVO.getName(), "Please enter Name");
 		addError(errorMessages, allocationVO.getProjectid(), "Please enter ProjectId");
 
-		
 		return errorMessages;
 
 	}
@@ -57,9 +57,14 @@ public class AllocationValidationUtilImpl implements AllocationValidationUtil {
 
 	}
 
-	
+	@Override
+	public Set<String> validateEditAllocationRequest(Allocation allocation) {
+		Set<String> errorMessages = new HashSet<String>();
 
+		addError(errorMessages, allocation.getName(), "Please enter Name");
+		addError(errorMessages, allocation.getProjectid(), "Please enter ProjectId");
 
+		return errorMessages;
 	}
 
-
+}

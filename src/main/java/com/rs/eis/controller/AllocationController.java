@@ -50,10 +50,14 @@ public class AllocationController {
 		}
 	}
 
-	@PutMapping("/allocation/{id}")
-	public EditAllocationResponse editAllocation(@PathVariable("id") int Id,
-			@Valid @RequestBody Allocation allocation) {
-		return allocationService.editAllocation(allocation);
+	@PutMapping("/allocation")
+	public EditAllocationResponse update(@RequestBody Allocation allocation) {
+		Set<String> errorMessages = allocationUtil.validateEditAllocationRequest(allocation);
+		if (!CollectionUtils.isEmpty(errorMessages)) {
+			return new EditAllocationResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+		} else {
+			return allocationService.editAllocation(allocation);
+		}
 	}
 
 	@GetMapping("/allocation/{id}")
