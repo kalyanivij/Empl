@@ -6,7 +6,6 @@ import java.util.Set;
 import org.springframework.http.HttpStatus;
 
 import com.rs.eis.model.Allocation;
-import com.rs.eis.model.Expense;
 
 public class GetAllocationsResponse extends AbstractResponse {
 
