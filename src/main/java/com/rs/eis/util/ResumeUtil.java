@@ -13,5 +13,14 @@ public class ResumeUtil {
 		resume.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
 		return resume;
 	}
+	public static Resume loadEditResumeVOToResume(Resume resume, Resume resumedb) {
+		resumedb.setNewResume(resume.getNewResume());
+		resumedb.setEmployeeId(resume.getEmployeeId());
+
+		resume.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
+		return resume;
+
+	}
+
 
 }

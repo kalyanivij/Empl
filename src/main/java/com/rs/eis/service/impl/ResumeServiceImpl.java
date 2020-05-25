@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
+import com.rs.eis.model.Allocation;
 import com.rs.eis.model.Resume;
 import com.rs.eis.repository.EmployeeRepository;
 import com.rs.eis.repository.ResumeRepository;
@@ -14,6 +15,7 @@ import com.rs.eis.response.DeleteResumeResponse;
 import com.rs.eis.response.EditResumeResponse;
 import com.rs.eis.response.GetResumeResponse;
 import com.rs.eis.service.ResumeService;
+import com.rs.eis.util.AllocationUtil;
 import com.rs.eis.util.ResumeUtil;
 
 public class ResumeServiceImpl implements ResumeService {
@@ -75,11 +77,10 @@ public class ResumeServiceImpl implements ResumeService {
 
 		if (resumeObj.isPresent()) {
 
-			// expense.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy
-			// hh:mm:ss"));
-			resume = resumeRepository.save(resume);
-
-			response.setResume(resume);
+			Resume resumedb = resumeObj.get();
+			resumedb = ResumeUtil.loadEditResumeVOToResume(resume, resumedb);
+			resumedb = resumeRepository.save(resumedb);
+			response.setResume(resumedb);
 
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);

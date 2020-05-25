@@ -27,20 +27,20 @@ import com.rs.eis.service.ResumeService;
 import com.rs.eis.validation.ResumeValidationUtil;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/eis")
 public class ResumeController {
 	@Autowired
 	ResumeService resumeService;
 
 	@Autowired
-	ResumeValidationUtil validationUtil;
+	ResumeValidationUtil resumeValidationUtil;
 
 	@Autowired
 	ResumeRepository resumeRepository;
 
 	@PostMapping("/addresume")
 	public AddResumeResponse addResume(@Valid @RequestBody ResumeVO resumeVO) {
-		Set<String> errorMessages = validationUtil.validateAddResumeRequest(resumeVO);
+		Set<String> errorMessages = resumeValidationUtil.validateAddResumeRequest(resumeVO);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new AddResumeResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
@@ -48,14 +48,19 @@ public class ResumeController {
 		}
 	}
 
-	@PutMapping("/resume/{id}")
-	public EditResumeResponse editResume(@PathVariable("id") int Id, @Valid @RequestBody Resume resume) {
-		return resumeService.editResume(resume);
+	@PutMapping("/resume")
+	public EditResumeResponse update(@RequestBody Resume resume) {
+		Set<String> errorMessages = resumeValidationUtil.validateEditResumeRequest(resume);
+		if (!CollectionUtils.isEmpty(errorMessages)) {
+			return new EditResumeResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
+		} else {
+			return resumeService.editResume(resume);
+		}
 	}
 
 	@DeleteMapping("/resume/{resumeId}")
 	public DeleteResumeResponse deleteAllocation(@PathVariable(value = "resumeId") int resumeId) {
-		Set<String> errorMessages = validationUtil.validateDeleteResumeRequest(resumeId);
+		Set<String> errorMessages = resumeValidationUtil.validateDeleteResumeRequest(resumeId);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new DeleteResumeResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
@@ -66,7 +71,7 @@ public class ResumeController {
 
 	@GetMapping("/resume/{employeeid}")
 	public GetResumeResponse getResume(@PathVariable("employeeid") int employeeid) {
-		Set<String> errorMessages = validationUtil.validateGetResumeRequest(employeeid);
+		Set<String> errorMessages = resumeValidationUtil.validateGetResumeRequest(employeeid);
 		if (!CollectionUtils.isEmpty(errorMessages)) {
 			return new GetResumeResponse(HttpStatus.PRECONDITION_FAILED, "999", errorMessages);
 		} else {
