@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rs.eis.model.Country;
 import com.rs.eis.model.State;
+import com.rs.eis.repository.AddressRepository;
 import com.rs.eis.repository.CountryRepository;
 import com.rs.eis.repository.StateRepository;
 import com.rs.eis.response.CountryResponse;
@@ -42,8 +43,11 @@ public class AddressController {
 	AddressValidationUtil addressValidationUtil;
 
 	@Autowired
+	AddressRepository addressRepository;
+
+	@Autowired
 	StateRepository stateRepository;
-	
+
 	@Autowired
 	CountryRepository countryRepository;
 
@@ -61,7 +65,6 @@ public class AddressController {
 			return addressService.getStateById(id);
 		}
 	}
-	
 
 	@DeleteMapping("/state/{id}")
 	public DeleteStateResponse deleteStateById(@PathVariable("id") int id) {

@@ -1,6 +1,5 @@
-package com.rs.eis.service;
 
-import javax.validation.Valid;
+package com.rs.eis.service;
 
 import com.rs.eis.model.Country;
 import com.rs.eis.model.State;
@@ -29,7 +28,7 @@ public interface AddressService {
 
 	DeleteCountryResponse deleteCountryById(int id);
 
-	EditCountryResponse editCountry(@Valid Country country);
+	EditCountryResponse editCountry(Country country);
 
 	
 

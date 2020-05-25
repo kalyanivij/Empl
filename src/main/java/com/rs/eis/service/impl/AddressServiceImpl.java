@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.rs.eis.model.Country;
 import com.rs.eis.model.State;
+import com.rs.eis.repository.AddressRepository;
 import com.rs.eis.repository.CountryRepository;
 import com.rs.eis.repository.StateRepository;
 import com.rs.eis.response.CountryResponse;
@@ -24,11 +25,12 @@ import com.rs.eis.service.AddressService;
 public class AddressServiceImpl implements AddressService {
 
 	@Autowired
-
 	AddressService addressService;
 
 	@Autowired
+	AddressRepository addressRepository;
 
+	@Autowired
 	CountryRepository countryRepository;
 
 	@Autowired
@@ -82,8 +84,7 @@ public class AddressServiceImpl implements AddressService {
 
 		return response;
 	}
-	
-	
+
 	@Override
 	public DeleteStateResponse deleteStateById(int id) {
 		DeleteStateResponse response = new DeleteStateResponse();
@@ -166,8 +167,8 @@ public class AddressServiceImpl implements AddressService {
 		EditCountryResponse response = new EditCountryResponse();
 		Optional<Country> countryObj = countryRepository.findById(country.getId());
 		if (countryObj.isPresent()) {
-			
-			country=countryRepository.save(country);
+
+			country = countryRepository.save(country);
 			response.setCountry(country);
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
