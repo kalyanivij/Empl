@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Table(name = "Prefix")
 
 public class Prefix {
+	
 	@Id
 	@Column(updatable = false,nullable=false)
 	@GeneratedValue
