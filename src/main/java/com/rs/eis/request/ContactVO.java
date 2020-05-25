@@ -5,6 +5,8 @@ public class ContactVO {
 	private String countryCode;
 	private String value;
 	private String type;
+	private int employeeId;
+	private int employerId;
 
 	public String getCountryCode() {
 		return countryCode;
@@ -28,6 +30,22 @@ public class ContactVO {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public int getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public int getEmployerId() {
+		return employerId;
+	}
+
+	public void setEmployerId(int employerId) {
+		this.employerId = employerId;
 	}
 
 }
