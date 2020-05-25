@@ -1,106 +1,132 @@
 package com.rs.eis.service.impl;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import com.rs.eis.model.Experience;
-import com.rs.eis.model.Technology;
-import com.rs.eis.repository.ExperienceRepository;
-import com.rs.eis.repository.TechnologyRepository;
-import com.rs.eis.response.AddExperienceResponse;
-import com.rs.eis.response.AddTechnologyResponse;
-import com.rs.eis.response.DeleteTechnologyResponse;
-import com.rs.eis.response.EditExperienceResponse;
-import com.rs.eis.response.EditTechnologyResponse;
-import com.rs.eis.response.GetExperienceResponse;
-import com.rs.eis.response.GetTechnologyResponse;
+import com.rs.eis.model.EmpAssets;
+import com.rs.eis.model.Expense;
+import com.rs.eis.model.User;
+import com.rs.eis.repository.EmpAssetsRepository;
+import com.rs.eis.repository.ExpenseRepository;
+import com.rs.eis.repository.UserRepository;
+import com.rs.eis.request.RegistrationVO;
+import com.rs.eis.request.UserVO;
+import com.rs.eis.response.AddAssetsResponse;
+import com.rs.eis.response.AddExpenseResponse;
+import com.rs.eis.response.DeleteEmpAssetsResponse;
+import com.rs.eis.response.DeleteExpenseResponse;
+import com.rs.eis.response.EditExpenseResponse;
+import com.rs.eis.response.ExpenseReportResponse;
+import com.rs.eis.response.GetAssetsReponse;
+import com.rs.eis.response.GetExpenseResponse;
+import com.rs.eis.response.GetExpensesResponse;
+import com.rs.eis.response.GetUserResponse;
+import com.rs.eis.response.LoginResponse;
+import com.rs.eis.response.RegistrationResponse;
+import com.rs.eis.response.ResetPasswordResponse;
+import com.rs.eis.response.UpdateUserResponse;
 import com.rs.eis.service.FERService;
 import com.rs.eis.util.DateUtil;
+import com.rs.eis.util.FERUtil;
 
-@Service
+@Service           
 public class FERServiceImpl implements FERService {
-
+                 
 	@Autowired
-	ExperienceRepository experienceRepository;
+	UserRepository userRepository;                   
+	@Autowired                
+	ExpenseRepository expenseRepository;
 	@Autowired
-	TechnologyRepository technologyRepository;
+	EmpAssetsRepository empAssetsRepository;
 
-	
-	@Override
-	public GetExperienceResponse getexperience(int employeeid) {
+	public RegistrationResponse registration(RegistrationVO registrationVO) {
 
-		GetExperienceResponse response = new GetExperienceResponse();
-		Optional<Experience> expObj = experienceRepository.findById(employeeid);
+		RegistrationResponse response = new RegistrationResponse();
 
-		if (expObj.isPresent()) {
-			response.setExperience(expObj.get());
+		List<User> users = userRepository.findByEmail(registrationVO.getEmail());
+
+		if (CollectionUtils.isEmpty(users)) {
+
+			User user = FERUtil.loadRegistrationVOToUser(registrationVO);
+
+			user = userRepository.save(user);
+
+			response.setUser(user);
+
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
 		} else {
 			response.setStatusCode("001");
 			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("Not valid...");
+			response.setErrorMessage("User is already registered");
 		}
 
 		return response;
-
 	}
 
-	@Override
-	public GetTechnologyResponse gettechnology(int id) {
-		GetTechnologyResponse response = new GetTechnologyResponse();
-		Optional<Technology> techObj = technologyRepository.findById(id);
-		if (techObj.isPresent()) {
-			response.setTechnology(techObj.get());
+	public AddExpenseResponse addExpense(Expense expense) {
+
+		AddExpenseResponse response = new AddExpenseResponse();
+
+		Optional<User> userObj = userRepository.findById(expense.getUserId());
+
+		if (userObj.isPresent()) {
+
+			expense.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
+			expense = expenseRepository.save(expense);
+
+			response.setExpense(expense);
+
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
 		} else {
 			response.setStatusCode("001");
 			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("No technology available on that id...");
+			response.setErrorMessage("Invalid Input as userId is not present in user table");
 		}
 
 		return response;
-
 	}
 
-	
-	  @Override
-	  
-	  public AddTechnologyResponse addtechnology(Technology technology) {
-	  AddTechnologyResponse response = new AddTechnologyResponse();
-	  
-	  Optional<Technology> techObj = technologyRepository.findById(technology.getId());
-	  
+	public LoginResponse login(String userName, String password) {
 
-		if (techObj.isPresent()) {
+		LoginResponse response = new LoginResponse();
 
-			technology.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
-			technology = technologyRepository.save(technology);
+		List<User> users = userRepository.findByUserNameAndPassword(userName, password);
 
-			response.setTechnology(technology);
+		if (!CollectionUtils.isEmpty(users)) {
+
+			response.setUser(users.get(0));
+
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
 		} else {
 			response.setStatusCode("001");
 			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("Invalid Input as transportationId is not present in transportation table");
+			response.setErrorMessage("Invalid credentials.");
 		}
 
 		return response;
-	  }
+	}
 
-	@Override public DeleteTechnologyResponse deletetechnology(int id) {
-		DeleteTechnologyResponse response = new DeleteTechnologyResponse();
+	public EditExpenseResponse editExpense(Expense expense) {
+		EditExpenseResponse response = new EditExpenseResponse();
 
-		Optional<Technology> tecObj = technologyRepository.findById(id);
+		Optional<Expense> expenseObj = expenseRepository.findById(expense.getId());
 
-		if (tecObj.isPresent()) {
-			Technology technology = tecObj.get();
-			technologyRepository.delete(technology);
+		if (expenseObj.isPresent()) {
+
+			expense.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
+			expense = expenseRepository.save(expense);
+
+			response.setExpense(expense);
+
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
 		} else {
@@ -110,77 +136,218 @@ public class FERServiceImpl implements FERService {
 		}
 
 		return response;
-}
+	}
 
 	@Override
-	public EditTechnologyResponse edittechnology(Technology technology) {
-		EditTechnologyResponse response = new EditTechnologyResponse();
-
-		Optional<Technology> tcObj = technologyRepository.findById(technology.getId());
-
-		if (tcObj.isPresent()) {
-
-			technology.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
-			technology = technologyRepository.save(technology);
-
-			response.setTechnology(technology);
-
+	public GetExpenseResponse getExpenseById(int id) {
+		GetExpenseResponse response = new GetExpenseResponse();
+		Optional<Expense> expenseObj = expenseRepository.findById(id);
+		if (expenseObj.isPresent()) {
+			response.setExpense(expenseObj.get());
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
 		} else {
 			response.setStatusCode("001");
 			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("Invalid Input as Id is not present in technology table...");
+			response.setErrorMessage("No Expense Found for the given expenseid");
+		}
+
+		return response;
+	}
+	/*
+	 * @Override public List<Expense> getExpenses(Integer userId) { ExpenseResponse
+	 * response=new ExpenseResponse(); List<Expense> expenseObj =
+	 * expenseRepository.findAllById(userId); if (expenseObj.isEmpty()) {
+	 * response.setExpense(expenseObj.get(0)); response.setStatusCode("000");
+	 * response.setStatus(HttpStatus.OK); } else { response.setStatusCode("001");
+	 * response.setStatus(HttpStatus.PRECONDITION_FAILED); response.
+	 * setErrorMessage("Invalid Input as expenseId is not present in expense table"
+	 * ); }
+	 * 
+	 * return response; }
+	 */
+
+	@Override
+	public GetExpensesResponse getExpenses(int userId) {
+		GetExpensesResponse response = new GetExpensesResponse();
+		List<Expense> expenses = expenseRepository.findByUserId(userId);
+		if (!expenses.isEmpty()) {
+			response.setExpenses(expenses);
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as expenseId is not present in expense table");
 		}
 
 		return response;
 	}
 
 	@Override
-	public AddExperienceResponse addexperience(Experience experience) {
-		 AddExperienceResponse response = new AddExperienceResponse();
-		  
-		  Optional<Experience> exObj = experienceRepository.findById(experience.getId());
-		  
+	public ExpenseReportResponse expenseReport(int userid, String type, String fromDate, String toDate) {
+		ExpenseReportResponse response = new ExpenseReportResponse();
+		//Expense exp = new Expense();
+		List<Expense> expenses = expenseRepository.findByUserIdAndTypeAndDateBetween(userid, type, fromDate, toDate);
+		if (!expenses.isEmpty()) {
 
-			if (exObj.isPresent()) {
+			response.setExpenses(expenses);
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
 
-				experience.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
-				experience = experienceRepository.save(experience);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("No expenses found for the given input..");
+		}
 
-				response.setExperience(experience);
+		return response;
+	}
+
+	@Override
+	public ResetPasswordResponse resetPassword(int userid, String currentPassword, String newPassword) {
+		ResetPasswordResponse response = new ResetPasswordResponse();
+		Optional<User> userObj = userRepository.findById(userid);
+		if (userObj.isPresent()) {
+			User user = userObj.get();
+			if (user.getPassword().equals(currentPassword)) {
+				user.setPassword(newPassword);
+				userRepository.save(user);
 				response.setStatusCode("000");
 				response.setStatus(HttpStatus.OK);
 			} else {
-				response.setStatusCode("001");
+				response.setStatusCode("002");
 				response.setStatus(HttpStatus.PRECONDITION_FAILED);
-				response.setErrorMessage("Invalid input...");
+				response.setErrorMessage(
+						"Password which is on the account and input for current password are not matching.");
 			}
 
-			return response;
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("User is not found with the given input.");
+		}
+		return response;
 	}
 
 	@Override
-	public EditExperienceResponse editexperience(Experience experience) {
-		EditExperienceResponse response = new EditExperienceResponse();
+	public DeleteExpenseResponse deleteExpense(int expenseId) {
+		DeleteExpenseResponse response = new DeleteExpenseResponse();
 
-		Optional<Experience> expeObj = experienceRepository.findById(experience.getId());
+		Optional<Expense> expenseObj = expenseRepository.findById(expenseId);
 
-		if (expeObj.isPresent()) {
+		if (expenseObj.isPresent()) {
+			Expense expense = expenseObj.get();
+			expenseRepository.delete(expense);
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as expenseId is not present in expense table");
+		}
 
-			experience.setUpdated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
-			experience = experienceRepository.save(experience);
+		return response;
 
-			response.setExperience(experience);
+	}
+
+	@Override
+	public GetUserResponse getUser(int userid) {
+		GetUserResponse response = new GetUserResponse();
+		Optional<User> userObj = userRepository.findById(userid);
+		if (userObj.isPresent()) {
+			response.setUser(userObj.get());
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("No User Found for the given userid");
+		}
+
+		return response;
+	}
+
+	@Override
+	public UpdateUserResponse updateUser(UserVO userVO) {
+
+		UpdateUserResponse response = new UpdateUserResponse();
+		Optional<User> userObj = userRepository.findById(userVO.getUserId());
+		if (userObj.isPresent()) {
+			User userdb = userObj.get();
+			userdb = FERUtil.loadUpdateUserVOToUser(userVO, userdb);
+			userdb = userRepository.save(userdb);
+
+			response.setUser(userdb);
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("No User Found for the given userid");
+		}
+
+		return response;
+	}
+
+	
+	@Override
+	public AddAssetsResponse addEmpAssets(EmpAssets empassets) {
+		AddAssetsResponse response = new AddAssetsResponse();
+		List<EmpAssets> empAssets = EmpAssetsRepository.findByUserIdAndTypeAndDateBetween(empassets );
+		if (empAssets.isEmpty()) {
+
+//			empAssets.setCreated(DateUtil.getCurrentDate("dd-M-yyyy hh:mm:ss"));
+//			empAssets = EmpAssetsRepository.save(empAssets);
+
+			response.setEmpAssets(empAssets);
 
 			response.setStatusCode("000");
 			response.setStatus(HttpStatus.OK);
 		} else {
 			response.setStatusCode("001");
 			response.setStatus(HttpStatus.PRECONDITION_FAILED);
-			response.setErrorMessage("Invalid Input as Id is not present in experience table...");
+			response.setErrorMessage("Invalid Input as userId is not present in user table");
+		}                       
+
+		return response;
+	}
+
+	@Override
+	public GetAssetsReponse getEmpAsstes(int id) {
+		GetAssetsReponse response = new GetAssetsReponse();
+		Optional<EmpAssets> empAssetsObj = empAssetsRepository.findById(id);
+		if (empAssetsObj.isPresent()) {
+			response.setAssets(empAssetsObj.get());
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("No Expense Found for the given expenseid");
 		}
 
 		return response;
+	}
+
+	@Override
+	public DeleteEmpAssetsResponse deleteEmpAssetsResponse(int id) {
+		DeleteEmpAssetsResponse response = new DeleteEmpAssetsResponse();
+
+		Optional<EmpAssets> assetsobj = empAssetsRepository.findById(id);
+
+		if ( assetsobj.isPresent()) {
+			EmpAssets empAssets =  assetsobj.get();
+			empAssetsRepository.delete(empAssets);
+			response.setStatusCode("000");
+			response.setStatus(HttpStatus.OK);
+		} else {
+			response.setStatusCode("001");
+			response.setStatus(HttpStatus.PRECONDITION_FAILED);
+			response.setErrorMessage("Invalid Input as expenseId is not present in expense table");
+		}
+
+		return response;
+		
 	}
 }

@@ -16,50 +16,43 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name = "address")
+@Table(name="address")
 @EntityListeners(AuditingEntityListener.class)
 public class Address {
 	@Id
-	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String lineOne;
 	private String lineTwo;
 	private String city;
-	private String stateId;
-	private String countryId;
-	private String zip;
-	private String landmark;
-	private String type;
-	private String employeeId;
-	private String employerId;
+	private String state;
+	private String country;
+	private String postal;
 	private Date created;
 	private Date updated;
+	//private int userId;
 
 	public Address() {
-
+		
 	}
 
-	public Address(int id, String lineOne, String lineTwo, String city, String stateId, String countryId, String zip,
-			String landmark, String type, String employeeId, String employerId) {
-
+	public Address(int id, String lineOne, String lineTwo, String city, String state, String country, String postal,
+			int userId) {
+		
 		this.id = id;
 		this.lineOne = lineOne;
 		this.lineTwo = lineTwo;
 		this.city = city;
-		this.stateId = stateId;
-		this.countryId = countryId;
-		this.zip = zip;
-		this.landmark = landmark;
-		this.type = type;
-		this.employeeId = employeeId;
-		this.employerId = employerId;
-
+		this.state = state;
+		this.country = country;
+		this.postal = postal;
+		//this.userId = userId;
 	}
-
-	@OneToOne(targetEntity = Employee.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "employeeId", referencedColumnName = "id")
-	private Employee employee;
+	@OneToOne(targetEntity=User.class,cascade=CascadeType.ALL)
+	@JoinColumn(name="userid",referencedColumnName="id")
+	private User user;
+	
 
 	public int getId() {
 		return id;
@@ -93,60 +86,36 @@ public class Address {
 		this.city = city;
 	}
 
-	public String getStateId() {
-		return stateId;
+	public String getState() {
+		return state;
 	}
 
-	public void setStateId(String stateId) {
-		this.stateId = stateId;
+	public void setState(String state) {
+		this.state = state;
 	}
 
-	public String getCountryId() {
-		return countryId;
+	public String getCountry() {
+		return country;
 	}
 
-	public void setCountryId(String countryId) {
-		this.countryId = countryId;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
-	public String getZip() {
-		return zip;
+	public String getPostal() {
+		return postal;
 	}
 
-	public void setZip(String zip) {
-		this.zip = zip;
+	public void setPostal(String postal) {
+		this.postal = postal;
 	}
 
-	public String getLandmark() {
-		return landmark;
+	public User getUser() {
+		return user;
 	}
 
-	public void setLandmark(String landmark) {
-		this.landmark = landmark;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getEmployeeId() {
-		return employeeId;
-	}
-
-	public void setEmployeeId(String employeeId) {
-		this.employeeId = employeeId;
-	}
-
-	public String getEmployerId() {
-		return employerId;
-	}
-
-	public void setEmployerId(String employerId) {
-		this.employerId = employerId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Date getCreated() {
@@ -164,5 +133,13 @@ public class Address {
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
+
+	/*public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}*/
 
 }
